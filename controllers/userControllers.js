@@ -1,4 +1,6 @@
 const userModel=require("../models/userSchema");
+
+
 const addUser=async(req,res,next)=>{
     try {
         const {username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType}=req.body;

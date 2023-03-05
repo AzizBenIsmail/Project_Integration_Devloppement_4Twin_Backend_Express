@@ -1,0 +1,35 @@
+const yup = require("yup"); 
+const validate = async(req, res, next) => {
+   try {
+    console.log(req.body);
+    const schema = yup.object().shape({
+        username: yup.string().required()
+                .typeError('username required & unique'),
+        first_Name: yup.string().required()
+                .min(4,'Username must contain at least 4 characters').max(10,'The username must contain a maximum of 10 characters'),
+        last_Name: yup.string().required()
+                .min(4,'Username must contain at least 4 characters').max(10,'The username must contain a maximum of 10 characters'),
+        email: yup.string().required()
+                .email(),
+        password: yup.string().required()
+                .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,'password : a character string of at least 8 characters containing at least one letter and one number'),      
+        created_at: yup.date().notRequired(),
+        updated_at: yup.date().notRequired().default(null),   
+        dateOfBirth: yup.date().required()
+                .max(new Date(Date.now() - (18 * 365 * 24 * 60 * 60 * 1000)), 'You must be at least 18 years old'),
+        phoneNumber: yup.number()
+        .typeError('The phone number must be a number').test('len', 'The phone number must contain 8 digits', val => val.toString().length === 8),
+        gender: yup.string()
+                .oneOf(['Male', 'Female', 'Other']),
+        userType: yup.string()
+                .oneOf(['admin', 'regular','fablab']),
+        address: yup.string()
+                .min(5,'address must contain at least 5 characters').max(15,'address must contain at least 15 characters')
+    });
+    await schema.validate(req.body);
+    next();
+   } catch (error) {
+    res.json({message:error.message});
+   }
+}
+module.exports = validate;

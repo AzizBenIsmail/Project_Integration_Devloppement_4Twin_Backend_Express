@@ -8,6 +8,7 @@ var http = require('http')
 require("dotenv").config(); //configuration dotenv
 const mongoose = require('mongoose') //configuration mongoose
 
+//Configuration base de donne mongoose
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.URL_MONGO , {
   useNewUrlParser: true, useUnifiedTopology: true
