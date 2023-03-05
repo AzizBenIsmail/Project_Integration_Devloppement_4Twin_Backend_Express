@@ -15,6 +15,7 @@ const userSchema = new Schema({
   gender: String , //oneof (['Male', 'Female', 'Other'])
   userType: String , //oneof (['admin', 'regular', 'fablab'])
   address: String , //min 5 max 15
+  image_user: String,
 });
 
 const User = mongoose.model('User', userSchema);

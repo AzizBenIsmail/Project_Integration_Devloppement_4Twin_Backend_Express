@@ -3,9 +3,11 @@ const userModel=require("../models/userSchema");
 
 const addUser=async(req,res,next)=>{
     try {
+        const { filename } = req.file;
+        console.log(filename)
         const {username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType}=req.body;
         created_at = new Date();
-        const user=new userModel({username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType,created_at});
+        const user=new userModel({username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType,created_at,image_user :filename});
         const addeduser = await user.save();   
         res.status(200).json(addeduser);
     } catch (error) {
