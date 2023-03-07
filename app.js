@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var http = require('http')
+const cors = require('cors');
+
 
 require("dotenv").config(); //configuration dotenv
 const mongoose = require('mongoose') //configuration mongoose
@@ -24,6 +26,15 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+
+
+const corsOptions ={
+  origin:'*', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions)) // Use this after the variable declaration
 
 app.use(logger('dev'));
 app.use(express.json());
