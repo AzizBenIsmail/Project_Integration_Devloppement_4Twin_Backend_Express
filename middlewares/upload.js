@@ -7,5 +7,6 @@ var storage = multer.diskStorage({
     cb(null, Date.now() + '.png')
   }
 })
+
 var upload = multer({ storage: storage });
 module.exports = upload;

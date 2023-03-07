@@ -7,8 +7,10 @@ const addUser=async(req,res,next)=>{
         console.log(filename)
         const {username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType}=req.body;
         created_at = new Date();
+        console.log(username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType);
         const user=new userModel({username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType,created_at,image_user :filename});
-        const addeduser = await user.save();   
+        const addeduser = await user.save();
+        console.log(addeduser);
         res.status(200).json(addeduser);
     } catch (error) {
         res.status(500).json({message:error.message});
