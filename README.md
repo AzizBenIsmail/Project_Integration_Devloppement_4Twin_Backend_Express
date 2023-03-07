@@ -15,4 +15,7 @@ Multer est un middleware Node.js qui permet de gérer les fichiers envoyés dans
 # yup express
 Yup est une bibliothèque JavaScript de validation de schémas qui permet de valider les données de manière simple et efficace. Elle peut être utilisée dans n'importe quelle application JavaScript, mais elle est souvent utilisée en combinaison avec Express pour valider les données envoyées dans les requêtes HTTP.
 
+# i body-parser
+ye5o les donnes lkol  yparsi body
+
 # npm i socket.io
