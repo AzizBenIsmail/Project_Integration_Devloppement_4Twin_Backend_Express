@@ -14,12 +14,12 @@ const validate = async (req, res, next) => {
                 .min(4, 'Username must contain at least 4 characters').max(10, 'The first_Name must contain a maximum of 10 characters'),
             last_Name: yup.string().notRequired()
                 .min(4, 'Username must contain at least 4 characters').max(10, 'The last_Name must contain a maximum of 10 characters'),
-            email: yup.string().Required()
+            email: yup.string().required()
                 .email().test('email_unique', 'email is already taken', async function (value) {
                     const isUnique = await checkEmailUniqueness(value);
                     return isUnique;
                 }),
-            password: yup.string().notRequired()
+            password: yup.string().required()
                 .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, 'password : a character string of at least 8 characters containing at least one letter and one number'),
             created_at: yup.date().notRequired(),
             //updated_at: yup.date().notRequired(), methode 1 
