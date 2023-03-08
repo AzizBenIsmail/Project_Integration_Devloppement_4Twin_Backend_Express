@@ -10,8 +10,8 @@ const AuthController = require('../controllers/auth/auth-controller');
 /* GET users listing. */
 router.get('/',getUsers);
 router.post('/',upload.single("image_user"),validate,addUser);
-router.put('/:id',updateUser);
-router.delete('/:username',deleteUser);
+router.put('/:id',upload.single("image_user"),updateUser);
+router.delete('/:id',deleteUser);
 router.post('/login',AuthController.login);
 router.post('/register',AuthController.register);
 
