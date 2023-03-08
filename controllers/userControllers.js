@@ -4,12 +4,12 @@ const userModel=require("../models/userSchema");
 const addUser=async(req,res,next)=>{
     console.log("addUser");
     try {
-         const { filename } = req.file;
-         console.log('filename',req.file);
-        const {username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType}=req.body;
+        // const { filename } = req.file;
+         //console.log('filename',req.file);
+        const {username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType,image_user}=req.body;
         created_at = new Date();
         console.log(req.body);
-        const user=new userModel({username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType,created_at,image_user :filename});
+        const user=new userModel({username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType,created_at,image_user/*image_user :filename*/});
         //console.log('user',user);
         const addeduser = await user.save();
         //console.log('apres',addeduser);
