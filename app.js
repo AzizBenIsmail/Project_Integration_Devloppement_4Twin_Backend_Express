@@ -4,11 +4,38 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var http = require('http')
+const User = require("./models/userSchema.js");
 const cors = require('cors');
 
 
+const session = require('express-session');
+const passport = require('passport');
 require("dotenv").config(); //configuration dotenv
 const mongoose = require('mongoose') //configuration mongoose
+
+var app = express();
+
+app.use(session({
+  secret: "little_secret",
+  resave: false,
+  saveUninitialized: false
+}))
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id);
+  done(null, user);
+});
+
+
+
 
 //Configuration base de donne mongoose
 mongoose.set('strictQuery', false);
@@ -24,7 +51,7 @@ mongoose.connect(process.env.URL_MONGO , {
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var app = express();
+
 
 
 
