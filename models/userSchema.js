@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
+const session = require('express-session');
+const passport = require('passport');
 const userSchema = new Schema({
   username: String, //unique
   first_Name: String, //min4 max 10
