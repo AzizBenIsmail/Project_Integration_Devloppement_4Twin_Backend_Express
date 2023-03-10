@@ -129,5 +129,19 @@ class AuthController {
       res.redirect("/users/register");
     }
   }
+
+
+
+
+  async logout(req, res) {
+
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect("/users/test");
+    });
+    
+
+  }
+
 }
 module.exports = new AuthController();

@@ -15,7 +15,7 @@ router.put('/:id',upload.single("image_user"),updateUser);
 router.delete('/:id',deleteUser);
 router.post('/login',AuthController.login);
 router.post('/register',AuthController.register);
-
+router.post('/logout',AuthController.logout);
 
 
 
