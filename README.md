@@ -19,3 +19,10 @@ Yup est une bibliothèque JavaScript de validation de schémas qui permet de val
 ye5o les donnes lkol  yparsi body
 
 # npm i socket.io
+
+# npm install generate-password --save
+password generator
+
+# npm i nodemailer
+
+# npm i bcrypt
