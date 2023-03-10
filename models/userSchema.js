@@ -25,6 +25,7 @@ const userSchema = new Schema({
 userSchema.pre("save", function (next) {
   const user = this;
   user.enabled = true;
+  user.userType= "regular";
 user.created_at = new Date();
 user.updated_at = new Date();
   if (!user.isModified("password")) {

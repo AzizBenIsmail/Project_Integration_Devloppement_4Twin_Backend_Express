@@ -1,5 +1,6 @@
 var express = require('express');
 const validate = require("../middlewares/validate");
+const Register = require("../middlewares/Register");
 const upload = require("../middlewares/upload");
 var router = express.Router();
 const { getUsers, addUser, deleteUser, updateUser } = require('../controllers/userControllers');
@@ -10,7 +11,7 @@ const passportLocalMongoose= require('passport-local-mongoose');
 
 /* GET users listing. */
 router.get('/',getUsers);
-router.post('/',upload.single("image_user"),validate,addUser);
+router.post('/',upload.single("image_user"),Register,addUser);
 router.put('/:id',upload.single("image_user"),updateUser);
 router.delete('/:id',deleteUser);
 router.post('/login',AuthController.login);
