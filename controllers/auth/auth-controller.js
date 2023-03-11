@@ -43,7 +43,7 @@ class AuthController {
       }
       if (!user) {
         console.log("Incorrect username or password");
-        res.send(" failed to authent");
+        res.send("failed to authent");
       }
       console.log("User successfully authenticated");
       req.logIn(user, function (err) {
