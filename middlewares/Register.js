@@ -4,10 +4,10 @@ const userModel = require("../models/userSchema");
 
 const validate = async (req, res, next) => {
     try {
-        console.log("test",req.body);
+        //console.log("test",req.body);
         const schema = yup.object().shape({
             username: yup.string().notRequired().test('username_unique', 'username is already taken', async function (value) {
-                const isUnique = await checkusernameUniqueness(value);             //console.log("aze",user);
+                const isUnique = await checkusernameUniqueness(value);            
                 return isUnique;
             }),
             email: yup.string().notRequired()

@@ -2,7 +2,7 @@ const userModel=require("../models/userSchema");
 
 
 const addUser=async(req,res,next)=>{
-    console.log("addUser");
+   // console.log("addUser");
     try {
         const { filename } = req.file;
          console.log('filename',req.file);

@@ -4,7 +4,7 @@ var storage = multer.diskStorage({
     cb(null, 'public/images')
   },
   filename: function (req, file, cb) {
-     console.log('file',file);
+ //    console.log('file',file);
 //     const {username}=file.originalname;
 // console.log('file uploade',file.);
 //     cb(null, username + '.png')
