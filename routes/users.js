@@ -3,7 +3,7 @@ const validate = require("../middlewares/validate");
 const Register = require("../middlewares/Register");
 const upload = require("../middlewares/upload");
 var router = express.Router();
-const { getUsers, addUser, deleteUser, updateUser } = require('../controllers/userControllers');
+const { getUsers,getUser, addUser, deleteUser, updateUser } = require('../controllers/userControllers');
 const { getFablabs, acceptFablabRequest, declineFablabRequest ,addFablabRequest} = require('../controllers/fablabController');
 
 const AuthController = require('../controllers/auth/auth-controller');
@@ -13,6 +13,7 @@ const passportLocalMongoose= require('passport-local-mongoose');
 
 /* GET users listing. */
 router.get('/',getUsers);
+router.get('/:id',getUser);
 router.post('/',upload.single("image_user"),Register,addUser);
 router.put('/:id',upload.single("image_user"),updateUser);
 router.delete('/:id',deleteUser);

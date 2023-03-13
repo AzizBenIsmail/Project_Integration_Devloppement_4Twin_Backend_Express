@@ -31,6 +31,19 @@ const getUsers=async(req,res,next)=>{
     }
     
 };
+const getUser=async(req,res,next)=>{
+    try {
+        const {id} = req.params;
+        const user = await userModel.findById(id);
+        if(!user||user.length===0){
+            throw new Error('users not found !')
+        }
+        res.status(200).json({user});
+    } catch (error) {
+        res.status(500).json({message:error.message});
+    }
+    
+};
 const updateUser=async(req,res,next)=>{
     try {
         const { filename } = req.file;
@@ -73,6 +86,7 @@ const deleteUser=async(req,res,next)=>{
 module.exports={
     addUser,
     getUsers,
+    getUser,
     deleteUser,
     updateUser
 }
