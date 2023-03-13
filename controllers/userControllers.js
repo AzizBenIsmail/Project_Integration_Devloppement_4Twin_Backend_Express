@@ -59,7 +59,7 @@ const updateUser=async(req,res,next)=>{
         updated_at = new Date();
         updateedUser=await userModel.findByIdAndUpdate(
             id,{
-                $set:{/*password,*/first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType,updated_at/*,image_user:filename*/ }
+                $set:{password,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType,updated_at/*,image_user:filename*/ }
             },{new:true}
         );
         res.status(200).json(updateedUser);
