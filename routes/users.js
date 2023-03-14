@@ -10,13 +10,9 @@ const {
   deleteUser,
   updateUser,
   forgotpwd,
+  resetpwd 
 } = require("../controllers/userControllers");
-const {
-  getFablabs,
-  acceptFablabRequest,
-  declineFablabRequest,
-  addFablabRequest,
-} = require("../controllers/fablabController");
+
 const AuthGoogle = require("../controllers/auth/google");
 const AuthController = require("../controllers/auth/auth-controller");
 const passport = require("passport");
@@ -31,11 +27,7 @@ router.delete("/:id", deleteUser);
 router.post("/login", AuthController.login);
 router.post("/register", AuthController.register);
 router.get("/logout", AuthController.logout);
-//fablabs functions
-router.get("/fablab", getFablabs);
-router.post("/fablab", addFablabRequest);
-router.post("/fablab/:id", acceptFablabRequest);
-router.delete("/fablab/:id", declineFablabRequest);
+
 
 //forgot password
 router.post("/forgotpwd", forgotpwd);

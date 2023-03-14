@@ -123,14 +123,14 @@ const declineFablabRequest=async(req,res,next)=>{
             console.log("Email sent successfully");
             await fablabModel.findByIdAndUpdate(
                 id,{
-                    $set:{is_treated:true}
+                    $set:{is_treated:true,is_accepted:false}
                 },{new:true}
              );
         } catch (error) {
             console.log("Failed to send email", error);
             throw new Error("Failed to send email to fablab");
         }
-        res.status(200).json("deleted");
+        res.status(200).json("declined");
     } catch (error) {
         res.status(500).json({message:error.message});
     }
@@ -160,9 +160,23 @@ const getFablabs=async(req,res,next)=>{
     
 };
 
+const getFablab=async(req,res,next)=>{
+    try {
+        const {id} = req.params;
+        const fablab = await fablabModel.findById(id);
+        if(!fablab||fablab.length===0){
+            throw new Error('fablab not found !')
+        }
+        res.status(200).json({fablab});
+    } catch (error) {
+        res.status(500).json({message:error.message});
+    }
+    
+};
 module.exports={
     addFablabRequest,
     acceptFablabRequest,
     declineFablabRequest,
-    getFablabs
+    getFablabs,
+    getFablab
 }
