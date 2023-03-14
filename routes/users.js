@@ -5,7 +5,7 @@ const upload = require("../middlewares/upload");
 var router = express.Router();
 const { getUsers,getUser, addUser, deleteUser, updateUser } = require('../controllers/userControllers');
 const { getFablabs, acceptFablabRequest, declineFablabRequest ,addFablabRequest} = require('../controllers/fablabController');
-
+const AuthGoogle = require('../controllers/auth/google');
 const AuthController = require('../controllers/auth/auth-controller');
 const passport = require('passport');
 const passportLocalMongoose= require('passport-local-mongoose');
@@ -19,8 +19,8 @@ router.put('/:id',updateUser);
 router.delete('/:id',deleteUser);
 router.post('/login',AuthController.login);
 router.post('/register',AuthController.register);
-router.post('/logout',AuthController.logout);
-
+router.get('/logout',AuthController.logout);
+router.get('/google',AuthGoogle.loginGoogle);
 //fablabs functions 
 router.get('/fablab',getFablabs);
 router.post('/fablab',addFablabRequest);

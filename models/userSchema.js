@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 const jwt = require('jsonwebtoken');
-
+const findOrCreate=require('mongoose-findorcreate')
 const session = require('express-session');
 const passport = require('passport');
 const userSchema = new Schema({
@@ -22,6 +22,7 @@ const userSchema = new Schema({
   userType: String, //oneof (['admin', 'regular', 'fablab'])
   address: String, //min 5 max 15
   image_user: String,
+  googleId:String,
   verified: {
     type: Boolean,
     required: true,
@@ -41,8 +42,9 @@ userSchema.methods.generateVerificationToken = function () {
 
 userSchema.pre("save", function (next) {
   const user = this;
+  userSchema.plugin(findOrCreate)
+
   user.enabled = true;
-  user.userType= "regular";
 user.created_at = new Date();
 user.updated_at = new Date();
   if (!user.isModified("password")) {

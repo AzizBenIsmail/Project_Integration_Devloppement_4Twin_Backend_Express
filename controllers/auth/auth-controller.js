@@ -15,7 +15,9 @@ const transporter = nodemailer.createTransport({
      pass: process.env.EMAIL_PASSWORD,
   },
 });
-
+const GoogleStrategy = require("passport-google-oauth2").Strategy;
+const findOrCreate = require("mongoose-findorcreate");
+const { addUser } = require('../../controllers/userControllers');
 class AuthController {
   async login(req, res) {
     const { email, password } = req.body;
@@ -51,7 +53,7 @@ class AuthController {
       }
       if (!user) {
         console.log("Incorrect username or password");
-        res.send("failed to authent");
+        res.send(" failed to authent");
       }
       console.log("User successfully authenticated");
       req.logIn(user, function (err) {
@@ -95,8 +97,9 @@ class AuthController {
   async register(req, res) {
     const { email, password } = req.body;
     const user = new User();
-    user.email = email;
+   user.email = email;
     user.password = password;
+    
 
     //userControllers.addUser(user);
 
@@ -125,7 +128,6 @@ class AuthController {
     
 
     try {
-     
       await user.save();
       const { email } = req.body
       // Check we have an email
@@ -141,26 +143,20 @@ class AuthController {
       //       });
       //    }
         // Step 2 - Generate a verification token with the user's ID
-        console.log("3");
-
         const verificationToken = user.generateVerificationToken();
         // Step 3 - Email the user a unique verification link
-        console.log("1");
         const url = `http://localhost:5000/api/verify/${verificationToken}`
-        console.log("2");
         transporter.sendMail({
            to: email,
            subject: 'Verify Account',
            html: `Click <a href = '${url}'>here</a> to confirm your email.`
         })
-       
-       
       passport.authenticate("local")(req, res, function () {
         res.redirect("/users/test");
       });
-      } catch(err){
-        return res.status(500).send(err);
-     }
+    } catch(err){
+      return res.status(500).send(err);
+   }
     } catch (err) {
       console.error(err);
       res.status(500).send("Error saving user to database");
@@ -168,18 +164,22 @@ class AuthController {
       res.redirect("/users/register");
     }
   }
-  
+
+
 
 
   async logout(req, res) {
-
-    req.logout(function(err) {
-      if (err) { return next(err); }
+    req.logout(function (err) {
+      if (err) {
+        return next(err);
+      }
       res.redirect("/users/test");
     });
-    
-
   }
+
+
+
+  
   async verify (req, res){
     const { token } = req.params
     // Check we have an id
@@ -216,5 +216,8 @@ class AuthController {
         return res.status(500).send(err);
      }
   }
-}
+
+
+  }
+
 module.exports = new AuthController();
