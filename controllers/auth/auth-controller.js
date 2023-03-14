@@ -7,6 +7,9 @@ const { appKey, tokenExpiresIn } = require("../../config/app.js");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const GoogleStrategy = require("passport-google-oauth2").Strategy;
+const findOrCreate = require("mongoose-findorcreate");
+const { addUser } = require('../../controllers/userControllers');
 
 class AuthController {
   async login(req, res) {
@@ -43,7 +46,7 @@ class AuthController {
       }
       if (!user) {
         console.log("Incorrect username or password");
-        res.send("failed to authent");
+        res.send(" failed to authent");
       }
       console.log("User successfully authenticated");
       req.logIn(user, function (err) {
@@ -87,8 +90,9 @@ class AuthController {
   async register(req, res) {
     const { email, password } = req.body;
     const user = new User();
-    user.email = email;
+   user.email = email;
     user.password = password;
+    
 
     //userControllers.addUser(user);
 
@@ -116,12 +120,11 @@ class AuthController {
     //    } );
 
     try {
-     
       await user.save();
+    //addUser(req, res)
       passport.authenticate("local")(req, res, function () {
         res.redirect("/users/test");
       });
-  
     } catch (err) {
       console.error(err);
       res.status(500).send("Error saving user to database");
@@ -130,18 +133,17 @@ class AuthController {
     }
   }
 
-
-
-
   async logout(req, res) {
-
-    req.logout(function(err) {
-      if (err) { return next(err); }
+    req.logout(function (err) {
+      if (err) {
+        return next(err);
+      }
       res.redirect("/users/test");
     });
-    
-
   }
 
+
+
 }
+
 module.exports = new AuthController();

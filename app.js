@@ -6,7 +6,7 @@ var logger = require("morgan");
 var http = require("http");
 const User = require("./models/userSchema.js");
 const cors = require("cors");
-
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const session = require("express-session");
 const passport = require("passport");
 require("dotenv").config(); //configuration dotenv
@@ -71,6 +71,22 @@ app.use("/users", usersRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
+
+// Handle Google OAuth 2.0 authentication request
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile"] })
+);
+
+// Handle Google OAuth 2.0 callback
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  function (req, res) {
+    // Redirect user to home page after successful authentication
+    res.redirect("/users");
+  }
+);
 
 // error handler
 app.use(function (err, req, res, next) {
