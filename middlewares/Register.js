@@ -1,7 +1,6 @@
 const yup = require("yup");
 const userModel = require("../models/userSchema");
 
-
 const validate = async (req, res, next) => {
     try {
         //console.log("test",req.body);
@@ -42,5 +41,7 @@ const validate = async (req, res, next) => {
     } catch (error) {
         res.json({ message: error.message });
     }
+    
 }
+
 module.exports = validate;

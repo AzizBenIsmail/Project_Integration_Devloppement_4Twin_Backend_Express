@@ -1,12 +1,20 @@
 const User = require("../../models/userSchema.js");
 const InvalidCreationException = require("../../exceptions/invalid-credential-exception");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 const userControllers = require("../userControllers.js");
-const jwt = require("jsonwebtoken");
 const { appKey, tokenExpiresIn } = require("../../config/app.js");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+     user: process.env.EMAIL_USERNAME,
+     pass: process.env.EMAIL_PASSWORD,
+  },
+});
 
 class AuthController {
   async login(req, res) {
@@ -114,14 +122,45 @@ class AuthController {
     //       // console.log(user);
 
     //    } );
+    
 
     try {
      
       await user.save();
+      const { email } = req.body
+      // Check we have an email
+      if (!email) {
+         return res.status(422).send({ message: "Missing email." });
+      }
+      try{
+         // Check if the email is in use
+      //    const existingUser = await User.findOne({ email }).exec();
+      //    if (existingUser) {
+      //       return res.status(409).send({ 
+      //             message: "Email is already in use."
+      //       });
+      //    }
+        // Step 2 - Generate a verification token with the user's ID
+        console.log("3");
+
+        const verificationToken = user.generateVerificationToken();
+        // Step 3 - Email the user a unique verification link
+        console.log("1");
+        const url = `http://localhost:5000/api/verify/${verificationToken}`
+        console.log("2");
+        transporter.sendMail({
+           to: email,
+           subject: 'Verify Account',
+           html: `Click <a href = '${url}'>here</a> to confirm your email.`
+        })
+       
+       
       passport.authenticate("local")(req, res, function () {
         res.redirect("/users/test");
       });
-  
+      } catch(err){
+        return res.status(500).send(err);
+     }
     } catch (err) {
       console.error(err);
       res.status(500).send("Error saving user to database");
@@ -129,8 +168,7 @@ class AuthController {
       res.redirect("/users/register");
     }
   }
-
-
+  
 
 
   async logout(req, res) {
@@ -142,6 +180,41 @@ class AuthController {
     
 
   }
-
+  async verify (req, res){
+    const { token } = req.params
+    // Check we have an id
+    if (!token) {
+        return res.status(422).send({ 
+             message: "Missing Token" 
+        });
+    }
+    // Step 1 -  Verify the token from the URL
+    let payload = null
+    try {
+        payload = jwt.verify(
+           token,
+           process.env.USER_VERIFICATION_TOKEN_SECRET
+        );
+    } catch (err) {
+        return res.status(500).send(err);
+    }
+    try{
+        // Step 2 - Find user with matching ID
+        const user = await User.findOne({ _id: payload.ID }).exec();
+        if (!user) {
+           return res.status(404).send({ 
+              message: "User does not  exists" 
+           });
+        }
+        // Step 3 - Update user verification status to true
+        user.verified = true;
+        await user.save();
+        return res.status(200).send({
+              message: "Account Verified"
+        });
+     } catch (err) {
+        return res.status(500).send(err);
+     }
+  }
 }
 module.exports = new AuthController();
