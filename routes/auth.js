@@ -3,7 +3,6 @@ const validate = require("../middlewares/validate");
 const Register = require("../middlewares/Register");
 const upload = require("../middlewares/upload");
 var router = express.Router();
-const { getUsers,getUser, addUser, deleteUser, updateUser } = require('../controllers/userControllers');
 const { getFablabs, acceptFablabRequest, declineFablabRequest ,addFablabRequest} = require('../controllers/fablabController');
 const AuthGoogle = require('../controllers/auth/google');
 const AuthController = require('../controllers/auth/auth-controller');

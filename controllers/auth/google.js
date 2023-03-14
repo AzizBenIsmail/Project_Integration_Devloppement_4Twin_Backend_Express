@@ -11,8 +11,7 @@ const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 const { addUser } = require('../../controllers/userControllers');
 //https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fgoogle%2Fcallback&scope=profile%20email&client_id=1011336119202-68ccv8g3nnrvrbhaibacj684alcpfmss.apps.googleusercontent.com&service=lso&o2v=2&flowName=GeneralOAuthFlow
-
-
+//https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fgoogle%2Fcallback&scope=profile%20email&client_id=1011336119202-68ccv8g3nnrvrbhaibacj684alcpfmss.apps.googleusercontent.com&service=lso&o2v=2&flowName=GeneralOAuthFlow
 class AuthGoogle {
     async loginGoogle(req, res) {
         passport.use(
@@ -37,7 +36,8 @@ class AuthGoogle {
                   first_Name: profile.given_name,
                   last_Name: profile.family_name,
                   email: profile.emails[0].value,
-                  image_user:profile.photos[0].value
+                  image_user:profile.photos[0].value,
+                  verified:true
                 });
                 await newUser.save();
                 done(null, newUser);
