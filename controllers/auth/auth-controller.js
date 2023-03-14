@@ -162,10 +162,15 @@ class AuthController {
   
 
   async register(req, res) {
-    const { email, password } = req.body;
-    const user = new User();
-    user.email = email;
-    user.password = password;
+    const { filename } = req.file;
+    console.log('filename',req.file);
+    const {username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType}=req.body;
+    //const user = new User();
+    const user=new User({username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType,image_user :filename});
+
+  //  user.email = email;
+  //   user.password = password;
+    
 
     //userControllers.addUser(user);
 
@@ -191,6 +196,8 @@ class AuthController {
     //       // console.log(user);
 
     //    } );
+    console.log(req.body);
+
 
     try {
       await user.save();

@@ -25,7 +25,7 @@ router.post("/", upload.single("image_user"), Register, addUser);
 router.put("/:id", updateUser);
 router.delete("/:id", deleteUser);
 router.post("/login", AuthController.login);
-router.post("/register", AuthController.register);
+router.post('/register',upload.single("image_user"),Register,AuthController.register);
 router.get("/logout", AuthController.logout);
 
 

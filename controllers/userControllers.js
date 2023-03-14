@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const sgMail = require("@sendgrid/mail");
 
 const addUser = async (req, res, next) => {
-     if (req.isAuthenticated()) {
+    //  if (req.isAuthenticated()) {
   // console.log("addUser");
   try {
     const { filename } = req.file;
@@ -44,12 +44,12 @@ const addUser = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-    } else {
-    res.status(401).json({ message: 'Unauthorized' });
-  }
+//     } else {
+//     res.status(401).json({ message: 'Unauthorized' });
+//   }
 };
 const getUsers = async (req, res, next) => {
-    if (req.isAuthenticated()) {
+    //  if (req.isAuthenticated()) {
 
   try {
     const users = await userModel.find();
@@ -60,12 +60,12 @@ const getUsers = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-    } else {
-    res.status(401).json({ message: 'Unauthorized' });
-  }
+//     } else {
+//     res.status(401).json({ message: 'Unauthorized' });
+//   }
 };
 const getUser = async (req, res, next) => {
-     if (req.isAuthenticated()) {
+    //  if (req.isAuthenticated()) {
   try {
     const { id } = req.params;
     const user = await userModel.findById(id);
@@ -76,9 +76,9 @@ const getUser = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-    } else {
-    res.status(401).json({ message: 'Unauthorized' });
-  }
+//     } else {
+//     res.status(401).json({ message: 'Unauthorized' });
+//   }
 };
 const updateUser = async (req, res, next) => {
      if (req.isAuthenticated()) {
