@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const sgMail = require("@sendgrid/mail");
 
 const addUser = async (req, res, next) => {
-    //  if (req.isAuthenticated()) {
+  //  if (req.isAuthenticated()) {
   // console.log("addUser");
   try {
     const { filename } = req.file;
@@ -44,12 +44,12 @@ const addUser = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-//     } else {
-//     res.status(401).json({ message: 'Unauthorized' });
-//   }
+  //     } else {
+  //     res.status(401).json({ message: 'Unauthorized' });
+  //   }
 };
 const getUsers = async (req, res, next) => {
-    //  if (req.isAuthenticated()) {
+  //  if (req.isAuthenticated()) {
 
   try {
     const users = await userModel.find();
@@ -60,12 +60,12 @@ const getUsers = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-//     } else {
-//     res.status(401).json({ message: 'Unauthorized' });
-//   }
+  //     } else {
+  //     res.status(401).json({ message: 'Unauthorized' });
+  //   }
 };
 const getUser = async (req, res, next) => {
-    //  if (req.isAuthenticated()) {
+  //  if (req.isAuthenticated()) {
   try {
     const { id } = req.params;
     const user = await userModel.findById(id);
@@ -76,12 +76,12 @@ const getUser = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-//     } else {
-//     res.status(401).json({ message: 'Unauthorized' });
-//   }
+  //     } else {
+  //     res.status(401).json({ message: 'Unauthorized' });
+  //   }
 };
 const updateUser = async (req, res, next) => {
-     if (req.isAuthenticated()) {
+  //   if (req.isAuthenticated()) {
   try {
     // const { filename } = req.file;
     // console.log('filename',req.file.filename);
@@ -124,12 +124,12 @@ const updateUser = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-    } else {
-    res.status(401).json({ message: 'Unauthorized' });
-  }
+  //   } else {
+  //     res.status(401).json({ message: "Unauthorized" });
+  //   }
 };
 const deleteUser = async (req, res, next) => {
-     if (req.isAuthenticated()) {
+  //   if (req.isAuthenticated()) {
   try {
     const { id } = req.params;
     // const checkIfContactExists=await userModel.findById(id);
@@ -143,13 +143,12 @@ const deleteUser = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-    } else {
-    res.status(401).json({ message: 'Unauthorized' });
-  }
+  //   } else {
+  //     res.status(401).json({ message: "Unauthorized" });
+  //   }
 };
 
 const forgotpwd = async (req, res) => {
-     
   const { email } = req.body;
   const URL = "http://localhost:3000/resetpwd";
 
@@ -169,11 +168,9 @@ const forgotpwd = async (req, res) => {
     sgMail
       .send(msg)
       .then(() => {
-         
         console.log("Email sent");
       })
       .catch((error) => {
-         
         console.error(error);
       });
   } catch (error) {
@@ -182,17 +179,31 @@ const forgotpwd = async (req, res) => {
 };
 
 const resetpwd = async (req, res) => {
-     
-  const { email, password } = req.body;
-
   try {
-    const salt = await bcryptjs.genSalt(10);
-    user.password = await bcryptjs.hash(password, salt);
-    await user.save();
-
-    res.status(200).json({ message: "password changed" });
+    // const { filename } = req.file;
+    // console.log('filename',req.file.filename);
+    // console.log('debut',req.body);
+    const { email, password } = req.body;
+    console.log(req.body);
+    const { id } = req.params;
+    // const checkIfusertExists = await userModel.findById(id);
+    // if (!checkIfusertExists) {
+    //   throw new Error("user not found !");
+    // }
+    updated_at = new Date();
+    updateedUser = await userModel.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          email,
+          password,
+        },
+      },
+      { new: true }
+    );
+    res.status(200).json(updateedUser);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
