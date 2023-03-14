@@ -218,10 +218,13 @@ class AuthController {
         const verificationToken = user.generateVerificationToken();
         // Step 3 - Email the user a unique verification link
         const url = `http://localhost:5000/api/verify/${verificationToken}`;
+        const Finduser = await userModel.findOne(email); // nfas5o bil username
+        console.log(Finduser,Finduser._id);
+        const connnect = `http://http://localhost:3000/profile/${Finduser._id}`;
         transporter.sendMail({
           to: email,
           subject: "Verify Account",
-          html: `Click <a href = '${url}'>here</a> to confirm your email.`,
+          html: `Click <a href = '${url}'>here</a> to confirm your email.'${connnect}'`,
         });
         passport.authenticate("local")(req, res, function () {
           res.redirect("/users/test");
