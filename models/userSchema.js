@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
+const jwt = require('jsonwebtoken');
 const findOrCreate=require('mongoose-findorcreate')
 const session = require('express-session');
 const passport = require('passport');
 const userSchema = new Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, default: mongoose.Types.ObjectId },
   username: String, //unique
   first_Name: String, //min4 max 10
   last_Name: String, //min4 max 10
@@ -20,8 +22,23 @@ const userSchema = new Schema({
   userType: String, //oneof (['admin', 'regular', 'fablab'])
   address: String, //min 5 max 15
   image_user: String,
-  googleId: String,
+  googleId:String,
+  verified: {
+    type: Boolean,
+    required: true,
+    default: false
+}
 });
+
+userSchema.methods.generateVerificationToken = function () {
+  const user = this;
+  const verificationToken = jwt.sign(
+      { ID: user._id },
+      process.env.USER_VERIFICATION_TOKEN_SECRET,
+      { expiresIn: "7d" }
+  );
+  return verificationToken;
+};
 
 userSchema.pre("save", function (next) {
   const user = this;

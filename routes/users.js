@@ -13,7 +13,7 @@ const passportLocalMongoose= require('passport-local-mongoose');
 
 /* GET users listing. */
 router.get('/',getUsers);
-//router.get('/:id',getUser);
+router.get('/getUser/:id',getUser);
 router.post('/',upload.single("image_user"),Register,addUser);
 router.put('/:id',updateUser);
 router.delete('/:id',deleteUser);

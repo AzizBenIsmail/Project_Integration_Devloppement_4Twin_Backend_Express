@@ -7,6 +7,7 @@ var http = require("http");
 const User = require("./models/userSchema.js");
 const cors = require("cors");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const AuthController = require('./controllers/auth/auth-controller');
 const session = require("express-session");
 const passport = require("passport");
 require("dotenv").config(); //configuration dotenv
@@ -68,6 +69,9 @@ app.use(cookieParser());
 app.use(express.static("public"));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.get("/api/verify/:token", AuthController.verify);
+
+
 
 
 // catch 404 and forward to error handler
