@@ -49,7 +49,7 @@ const addUser = async (req, res, next) => {
   }
 };
 const getUsers = async (req, res, next) => {
-     if (req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
 
   try {
     const users = await userModel.find();

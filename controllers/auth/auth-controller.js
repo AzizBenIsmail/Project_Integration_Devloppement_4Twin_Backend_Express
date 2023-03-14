@@ -1,71 +1,138 @@
 const User = require("../../models/userSchema.js");
 const InvalidCreationException = require("../../exceptions/invalid-credential-exception");
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 const userControllers = require("../userControllers.js");
 const { appKey, tokenExpiresIn } = require("../../config/app.js");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
-     user: process.env.EMAIL_USERNAME,
-     pass: process.env.EMAIL_PASSWORD,
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD,
   },
 });
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
-const { addUser } = require('../../controllers/userControllers');
+const { addUser } = require("../../controllers/userControllers");
 class AuthController {
-  async login(req, res) {
-    const { email, password } = req.body;
 
+
+  // async login(req, res) {
+  //   const { email, password } = req.body;
+  
+  //   passport.use(
+  //     new LocalStrategy(
+  //       {
+  //         usernameField: "email",
+  //       },
+  //       async function verify(email, password, cb) {
+  //         const user = await User.findOne({ email });
+  
+  //         if (!user) {
+  //           return cb(null, false, {
+  //             message: "Incorrect username or password.",
+  //           });
+  //         }
+  
+  //         if (!(await bcrypt.compare(password, user.password))) {
+  //           return cb(null, false, {
+  //             message: "Incorrect username or password.",
+  //           });
+  //         }
+  
+  //         return cb(null, user);
+  //       }
+  //     )
+  //   );
+  
+  //   passport.authenticate("local", async function (err, user, info) {
+  //     if (err) {
+  //       return console.error(err);
+  //     }
+  //     if (!user) {
+  //       console.log("Incorrect username or password");
+  //       return res.status(401).json({ message: "Incorrect username or password" });
+  //     }
+  //     console.log("User successfully authenticated");
+  //     const session = {
+  //       _id: user._id,
+  //       name: user.name,
+  //       email: user.email,
+  //     };
+  
+  //     const token = await jwt.sign(session, process.env.JWT_SECRET, {
+  //       expiresIn: "1h",
+  //     });
+  //     res.cookie("token", token, { httpOnly: true });
+  
+  //     // Check if user is authenticated before sending response
+  //     req.isAuthenticated() ? 
+  //       res.status(200).json({ message: "User successfully authenticated", user: session }) :
+  //       res.redirect("/users/test");
+  //   })(req, res);
+  // }
+
+ 
+  // Define the login route
+  async  login(req, res) {
     passport.use(
       new LocalStrategy(
         {
           usernameField: "email",
+          passwordField: "password",
         },
-        async function verify(email, password, cb) {
-          const user = await User.findOne({ email });
-
-          if (!user) {
-            return cb(null, false, {
-              message: "Incorrect username or password.",
-            });
+        async function verify(email, password, done) {
+          try {
+            // Find the user in the database by their email
+            const user = await User.findOne({ email });
+            if (!user) {
+              // If no user is found, return an error message
+              return done(null, false, { message: "Incorrect email or password." });
+            }
+            // Compare the provided password with the hashed password stored in the database
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (isMatch) {
+              // If the passwords match, return the user object
+              return done(null, user);
+            } else {
+              // If the passwords don't match, return an error message
+              return done(null, false, { message: "Incorrect email or password." });
+            }
+          } catch (err) {
+            // If there is an error, return the error message
+            return done(err);
           }
-
-          if (!(await bcrypt.compare(password, user.password))) {
-            return cb(null, false, {
-              message: "Incorrect username or password.",
-            });
-          }
-
-          return cb(null, user);
         }
       )
     );
-
+    
+    // Call the authenticate function with the local strategy
     passport.authenticate("local", function (err, user, info) {
       if (err) {
-        return console.error(err);
+        // If there is an error, return the error message
+        return res.status(500).json({ message: err.message });
       }
       if (!user) {
-        console.log("Incorrect username or password");
-        res.send(" failed to authent");
+        // If no user is found, return an error message
+        return res.status(401).json({ message: "Incorrect email or password." });
       }
-      console.log("User successfully authenticated");
-      req.logIn(user, function (err) {
+      // If the user is found, log them in using req.login
+      req.login(user, function (err) {
         if (err) {
-          return console.error(err);
+          // If there is an error, return the error message
+          return res.status(500).json({ message: err.message });
         }
-        console.log("User successfully logged in");
-        res.redirect("/users/test");
-        //res.send(user);
+        // If there is no error, return the user object
+        return res.status(200).json({ message: "User successfully authenticated", user });
       });
     })(req, res);
-
+  }
     //     const { email, password } = req.body;
 
     //     // find the user with mongo
@@ -92,14 +159,13 @@ class AuthController {
 
     //       console.log(u);
     //      //res.send(u);
-  }
+  
 
   async register(req, res) {
     const { email, password } = req.body;
     const user = new User();
-   user.email = email;
+    user.email = email;
     user.password = password;
-    
 
     //userControllers.addUser(user);
 
@@ -125,38 +191,37 @@ class AuthController {
     //       // console.log(user);
 
     //    } );
-    
 
     try {
       await user.save();
-      const { email } = req.body
+      const { email } = req.body;
       // Check we have an email
       if (!email) {
-         return res.status(422).send({ message: "Missing email." });
+        return res.status(422).send({ message: "Missing email." });
       }
-      try{
-         // Check if the email is in use
-      //    const existingUser = await User.findOne({ email }).exec();
-      //    if (existingUser) {
-      //       return res.status(409).send({ 
-      //             message: "Email is already in use."
-      //       });
-      //    }
+      try {
+        // Check if the email is in use
+        //    const existingUser = await User.findOne({ email }).exec();
+        //    if (existingUser) {
+        //       return res.status(409).send({
+        //             message: "Email is already in use."
+        //       });
+        //    }
         // Step 2 - Generate a verification token with the user's ID
         const verificationToken = user.generateVerificationToken();
         // Step 3 - Email the user a unique verification link
-        const url = `http://localhost:5000/api/verify/${verificationToken}`
+        const url = `http://localhost:5000/api/verify/${verificationToken}`;
         transporter.sendMail({
-           to: email,
-           subject: 'Verify Account',
-           html: `Click <a href = '${url}'>here</a> to confirm your email.`
-        })
-      passport.authenticate("local")(req, res, function () {
-        res.redirect("/users/test");
-      });
-    } catch(err){
-      return res.status(500).send(err);
-   }
+          to: email,
+          subject: "Verify Account",
+          html: `Click <a href = '${url}'>here</a> to confirm your email.`,
+        });
+        passport.authenticate("local")(req, res, function () {
+          res.redirect("/users/test");
+        });
+      } catch (err) {
+        return res.status(500).send(err);
+      }
     } catch (err) {
       console.error(err);
       res.status(500).send("Error saving user to database");
@@ -164,9 +229,6 @@ class AuthController {
       res.redirect("/users/register");
     }
   }
-
-
-
 
   async logout(req, res) {
     req.logout(function (err) {
@@ -196,11 +258,11 @@ class AuthController {
             }
             const newUser = new User({
               googleId: profile.id,
-              username:profile.displayName,
+              username: profile.displayName,
               first_Name: profile.given_name,
               last_Name: profile.family_name,
               email: profile.emails[0].value,
-              image_user:profile.photos[0].value
+              image_user: profile.photos[0].value,
             });
             await newUser.save();
             done(null, newUser);
@@ -210,51 +272,45 @@ class AuthController {
         }
       )
     );
-    
-        passport.authenticate("google", { scope: ["profile","email"] })(req, res);
-      }
-    
-      async callbackGoogle(req, res) {}
 
-  
-  async verify (req, res){
-    const { token } = req.params
+    passport.authenticate("google", { scope: ["profile", "email"] })(req, res);
+  }
+
+  async callbackGoogle(req, res) {}
+
+  async verify(req, res) {
+    const { token } = req.params;
     // Check we have an id
     if (!token) {
-        return res.status(422).send({ 
-             message: "Missing Token" 
-        });
+      return res.status(422).send({
+        message: "Missing Token",
+      });
     }
     // Step 1 -  Verify the token from the URL
-    let payload = null
+    let payload = null;
     try {
-        payload = jwt.verify(
-           token,
-           process.env.USER_VERIFICATION_TOKEN_SECRET
-        );
+      payload = jwt.verify(token, process.env.USER_VERIFICATION_TOKEN_SECRET);
     } catch (err) {
-        return res.status(500).send(err);
+      return res.status(500).send(err);
     }
-    try{
-        // Step 2 - Find user with matching ID
-        const user = await User.findOne({ _id: payload.ID }).exec();
-        if (!user) {
-           return res.status(404).send({ 
-              message: "User does not  exists" 
-           });
-        }
-        // Step 3 - Update user verification status to true
-        user.verified = true;
-        await user.save();
-        return res.status(200).send({
-              message: "Account Verified"
+    try {
+      // Step 2 - Find user with matching ID
+      const user = await User.findOne({ _id: payload.ID }).exec();
+      if (!user) {
+        return res.status(404).send({
+          message: "User does not  exists",
         });
-     } catch (err) {
-        return res.status(500).send(err);
-     }
+      }
+      // Step 3 - Update user verification status to true
+      user.verified = true;
+      await user.save();
+      return res.status(200).send({
+        message: "Account Verified",
+      });
+    } catch (err) {
+      return res.status(500).send(err);
+    }
   }
-
-
-  }
+}
 
 module.exports = new AuthController();
