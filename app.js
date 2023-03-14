@@ -50,6 +50,8 @@ mongoose
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var authRouter = require("./routes/auth");
+
 
 const corsOptions = {
   origin: "*",
@@ -58,7 +60,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions)); // Use this after the variable declaration
-
+app.use("/auth",authRouter)
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -67,26 +69,13 @@ app.use(express.static("public"));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// Handle Google OAuth 2.0 authentication request
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile"] })
-);
 
-// Handle Google OAuth 2.0 callback
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
-  function (req, res) {
-    // Redirect user to home page after successful authentication
-    res.redirect("/users");
-  }
-);
 
 // error handler
 app.use(function (err, req, res, next) {

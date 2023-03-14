@@ -142,7 +142,44 @@ class AuthController {
     });
   }
 
-
+  async loginGoogle(req, res) {
+    passport.use(
+      new GoogleStrategy(
+        {
+          clientID: process.env.client_id,
+          clientSecret: process.env.client_secret,
+          callbackURL: "http://localhost:5000/auth/google/callback",
+          userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
+          passReqToCallback: true,
+        },
+        async function (req, accessToken, refreshToken, profile, done) {
+          try {
+            console.log(profile);
+            const existingUser = await User.findOne({ googleId: profile.id });
+            if (existingUser) {
+              return done(null, existingUser);
+            }
+            const newUser = new User({
+              googleId: profile.id,
+              username:profile.displayName,
+              first_Name: profile.given_name,
+              last_Name: profile.family_name,
+              email: profile.emails[0].value,
+              image_user:profile.photos[0].value
+            });
+            await newUser.save();
+            done(null, newUser);
+          } catch (err) {
+            done(err, false);
+          }
+        }
+      )
+    );
+    
+        passport.authenticate("google", { scope: ["profile","email"] })(req, res);
+      }
+    
+      async callbackGoogle(req, res) {}
 
 }
 

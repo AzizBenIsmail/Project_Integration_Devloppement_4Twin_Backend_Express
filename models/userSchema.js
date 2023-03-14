@@ -20,7 +20,7 @@ const userSchema = new Schema({
   userType: String, //oneof (['admin', 'regular', 'fablab'])
   address: String, //min 5 max 15
   image_user: String,
-  googleId:String,
+  googleId: String,
 });
 
 userSchema.pre("save", function (next) {

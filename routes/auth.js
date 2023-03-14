@@ -12,37 +12,23 @@ const passportLocalMongoose= require('passport-local-mongoose');
 
 
 /* GET users listing. */
-router.get('/',getUsers);
-//router.get('/:id',getUser);
-router.post('/',upload.single("image_user"),Register,addUser);
-router.put('/:id',updateUser);
-router.delete('/:id',deleteUser);
-router.post('/login',AuthController.login);
-router.post('/register',AuthController.register);
-router.get('/logout',AuthController.logout);
-//fablabs functions 
-router.get('/fablab',getFablabs);
-router.post('/fablab',addFablabRequest);
-router.post('/fablab/:id',acceptFablabRequest);
-router.delete('/fablab/:id',declineFablabRequest);
+router.get('/connection',AuthGoogle.loginGoogle);
 
 
-
-
-//test section ( will  be deleted later )
-router.get('/test',(req,res)=>{
-
-    if(req.isAuthenticated()){
-    console.log("testttttttttttttttt valided :)");
-    res.send("done")
+router.get(
+    "/google",
+    passport.authenticate("google", { scope: ["profile"] })
+  );
+  
+  // Handle Google OAuth 2.0 callback
+  router.get(
+    "/google/callback",
+    passport.authenticate("google", { failureRedirect: "/login" }),
+    function (req, res) {
+      // Redirect user to home page after successful authentication
+      res.redirect("/users");
     }
-else
-    console.log("not workinnnnggggg  :(");
-    res.send("not done !!")
-
-
-});
-
+  );
 
 // if page not found then status = 404 and message ... page not found
 router.all('*', (req, res) => {
