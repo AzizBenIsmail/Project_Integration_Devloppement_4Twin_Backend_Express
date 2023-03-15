@@ -20,10 +20,6 @@ const transporter = nodemailer.createTransport({
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 const { addUser } = require("../../controllers/userControllers");
-const bodyParser = require('body-parser');
-const request = require('request');
-require('dotenv').config();
-const secretKey = "6Ld91vkkAAAAACDQJVODT2Om8D_Qg-Dw8cq7d9kG";
 class AuthController {
 
 
@@ -164,31 +160,7 @@ class AuthController {
     //       console.log(u);
     //      //res.send(u);
   
-    async verifyRecaptcha(req,res,next){
-    
-      if(!req.body.captcha){
-        return res.json({"msg":"Captcha is not checked"});
-       
-    }
-  
-    const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}`;
-  
-    request(verifyUrl,(err,response,body)=>{
-        if(err){
-            console.log(err); 
-        }
-        body = JSON.parse(body);
-        
-        if(!body.success || body.success <0.3){
-            return res.json({"msg":"captcha verification failed", "score":body.score});
-        }
-            // return json message or continue with your function. Example: loading new page, ect
-        return res.json({"msg":"captcha verification passed", "score": body.score});
-        next();
-    });
-    
-  }
-  
+
   async register(req, res) {
     const { filename } = req.file;
     console.log('filename',req.file);
