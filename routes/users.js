@@ -22,7 +22,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 router.get("/", getUsers);
 router.get("/getUser/:id", getUser);
 router.post("/", upload.single("image_user"), Register, addUser);
-//router.put("/:id", updateUser);
+router.put("/:id", updateUser);
 router.delete("/:id", deleteUser);
 router.post("/login", AuthController.login);
 router.post("/register",upload.single("image_user"),Register,AuthController.register);
