@@ -12,7 +12,8 @@ const session = require("express-session");
 const passport = require("passport");
 require("dotenv").config(); //configuration dotenv
 const mongoose = require("mongoose"); //configuration mongoose
-
+const bodyParser = require('body-parser');
+const request = require('request');
 var app = express();
 
 app.use(
@@ -22,6 +23,32 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+app.get('/view',(req,res) =>{
+  res.render('index');  
+  console.log('at home page');
+});
+app.post('/register', AuthController.verifyRecaptcha, async (req, res) => {
+  // only execute register function if verifyRecaptcha middleware passes
+  try {
+    await register(req, res);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error registering user");
+  }
+  
+});
+app.post('/recaptcha', AuthController.verifyRecaptcha);
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  next(createError(404));
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
