@@ -18,16 +18,17 @@ const transporter = nodemailer.createTransport({
 
 const addFablabRequest=async(req,res,next)=>{
     try {
+        const { filename } = req.file;
+       // console.log('filename',req.file);
        const { fablabName,
                fablabEmail,
                dateOfCreation,
                phoneNumber,
                address,
-               fablbLogo,
                description}=req.body;
                is_treated = false;
                is_accepted = false;
-        const fablab=new fablabModel({fablabName,fablabEmail,dateOfCreation,phoneNumber,address,fablbLogo,description,is_treated});
+        const fablab=new fablabModel({fablabName,fablabEmail,dateOfCreation,phoneNumber,address,fablbLogo:filename,description,is_treated});
         const addedFablab = await fablab.save();   
         res.status(200).json(addedFablab);
 

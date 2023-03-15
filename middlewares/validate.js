@@ -1,5 +1,6 @@
 const yup = require("yup");
 const userModel = require("../models/userSchema");
+const fablabModel = require("../models/fablabResquestSchema");
 
 
 const validate = async (req, res, next) => {
@@ -55,4 +56,39 @@ const validate = async (req, res, next) => {
         res.json({ message: error.message });
     }
 }
-module.exports = validate;
+
+const fablabvalidate = async (req, res, next) =>{
+    try {
+        console.log("test",req.body);
+        const schema = yup.object().shape({
+            fablabName:yup.string().required().test('fablabName_unique', 'fablab Name is already taken', async function (value) {
+                console.log("hi")
+                const isUnique = await checkFablabNameUnique(value);             
+                return isUnique;
+            }),
+           fablabEmail: yup.string().required()
+                .email().test('email_unique', 'fablab email is already taken', async function (value) {
+                    const isUnique = await checkFablabEmailUnique(value);
+                    return isUnique;
+                })
+            
+        });
+        async function checkFablabNameUnique(fablabName) {
+            const user = await userModel.findOne({ username: fablabName });
+            const fablab = await fablabModel.findOne({ fablabName: fablabName });
+            return (!user && !fablab);
+        }
+       async function checkFablabEmailUnique(fablabEmail) {
+            const user = await userModel.findOne({ email: fablabEmail });
+            const fablab = await fablabModel.findOne({ fablabEmail: fablabEmail });
+            return  (!user && !fablab);
+        }
+        await schema.validate(req.body);
+        next();
+        
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+
+}
+module.exports = {validate,fablabvalidate};

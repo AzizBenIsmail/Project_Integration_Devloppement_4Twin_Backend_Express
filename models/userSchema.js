@@ -20,7 +20,7 @@ const userSchema = new Schema({
   updated_at: Date, //method: 2
   enabled: Boolean, //
   dateOfBirth: Date, //You must be at least 18 years old
-  phoneNumber: Number, //length 8
+  phoneNumber: String, //length 8
   gender: String, //oneof (['Male', 'Female', 'Other'])
   userType: String, //oneof (['admin', 'regular', 'fablab'])
   address: String, //min 5 max 15
