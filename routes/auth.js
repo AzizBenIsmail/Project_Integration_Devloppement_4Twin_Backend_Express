@@ -25,7 +25,7 @@ router.get(
     passport.authenticate("google", { failureRedirect: "/login" }),
     function (req, res) {
       // Redirect user to home page after successful authentication
-      res.redirect("/users");
+      res.redirect("http://localhost:3000/landing-page");
     }
   );
 

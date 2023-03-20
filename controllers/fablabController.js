@@ -60,7 +60,7 @@ const acceptFablabRequest=async(req,res,next)=>{
         email: fablab.fablabEmail,
         dateOfBirth: fablab.dateOfCreation,
         address: fablab.address,
-        phoneNumber: fablab.phoneNumber,
+        phoneNumber1: fablab.phoneNumber,
         userType: "fablab"
       });
 
