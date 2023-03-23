@@ -7,37 +7,28 @@ const addproject = async (req, res, next) => {
       const { filename } = req.file;
       const {title,description,domaine,goal,numberOfPeople,montant_Final,location} = req.body;
       created_at = new Date();
-      const user = await userModel.findById(idUser); // nfas5o bil username
+      const user = await userModel.findById(idUser); 
       const project = new projectModel({
         title,description,domaine,goal,numberOfPeople,montant_Final,location,image_project: filename,creator: user,created_at
       });
       
-
-      //console.log('project',project);
-      const addedproject = await project.save()
-      .then((savedProject) => {
+      const addedproject = await project.save().then((savedProject) => {
         // find the user by ID
-        userModel.findById(idUser)
-          .then((user) => {
+        userModel.findById(idUser).then((user) => {
             // add the project ID to the user's project array
-            user.project.push(savedProject._id);
+            user.projects.push(savedProject._id);
             // save the user to the database
-            user.save()
-              .then(() => {
+            user.save().then(() => {
                 console.log('Project added to user successfully');
-              })
-              .catch((err) => {
+              }).catch((err) => {
                 console.error(err);
               });
-          })
-          .catch((err) => {
+          }).catch((err) => {
             console.error(err);
           });
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.error(err);
       });
-      //console.log('apres',addeduser);
       res.status(200).json(project);
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -87,10 +78,11 @@ const addproject = async (req, res, next) => {
       const project = await projectModel.findById(id); 
   
       if (!project) {
-        throw new Error("project not found !");
+        return res.status(404).json({ message: "Project not found!" });
       }
-      await projectModel.findByIdAndDelete(project.id);
-      res.status(200).json("deleted");
+  
+      await project.remove();
+      res.status(200).json({ message: "Project deleted successfully" });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

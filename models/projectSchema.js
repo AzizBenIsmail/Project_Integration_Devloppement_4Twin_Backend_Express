@@ -28,7 +28,7 @@ const projectSchema = new Schema({
     ref: 'User',
     required: true 
   },  
-  invest: [{      //it is a one to many relationship a project can have many Invest
+  invests: [{      //it is a one to many relationship a project can have many Invest
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Invest',
     required: false 
@@ -39,9 +39,9 @@ const projectSchema = new Schema({
 projectSchema.pre('remove', async function(next) {
   try {
     const project = this;
-    const user = await userModel.findOne({ project: project._id });
+    const user = await userModel.findOne({ projects: project._id });
     if (user) {
-      user.project = user.project.filter(id => id.toString() !== project._id.toString());
+      user.projects = user.projects.filter(id => id.toString() !== project._id.toString());
       await user.save();
     }
     next();
