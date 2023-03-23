@@ -132,13 +132,21 @@ const deleteUser = async (req, res, next) => {
   //   if (req.isAuthenticated()) {
   try {
     const { id } = req.params;
-    // const checkIfContactExists=await userModel.findById(id);
-    const user = await userModel.findById(id); // nfas5o bil username
+    const user = await userModel.findById(id).populate('projects'); 
 
     if (!user) {
-      throw new Error("user not found !");
+      return res.status(404).json({ message: "user not found!" });
     }
-    await userModel.findByIdAndDelete(user.id);
+    
+    // check if user is the creator of any projects and delete them
+    for (const project of user.projects) {
+      if (project.creator.toString() === user._id.toString()) {
+        await project.remove();
+      }
+    }
+
+    await userModel.findByIdAndDelete(user._id);
+
     res.status(200).json("deleted");
   } catch (error) {
     res.status(500).json({ message: error.message });
