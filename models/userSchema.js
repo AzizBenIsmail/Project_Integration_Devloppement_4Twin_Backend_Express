@@ -32,6 +32,8 @@ const userSchema = new Schema({
     required: true,
     default: false,
   },
+  project: [{type: mongoose.Schema.Types.ObjectId, ref: 'Project',required: false,}], // one to many relationship a user can have multiple projects
+  Invest: [{type: mongoose.Schema.Types.ObjectId, ref: 'Invest',required: false,}], // one to many relationship a user can have multiple Invest
 });
 
 userSchema.methods.generateVerificationToken = function () {
