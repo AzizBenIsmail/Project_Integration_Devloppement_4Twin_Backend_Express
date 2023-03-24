@@ -8,7 +8,7 @@ const investSchema = new Schema({
   message: String, 
   created_at: Date, //2017-01-01 type dentre dans postman
   montant: number, 
-  creator: {                //it is a many to one relationship a Invest can have one Investor (User)
+  investor: {                //it is a many to one relationship a Invest can have one Investor (User)
     type: mongoose.Schema.Types.ObjectId,   
     ref: 'User',
     required: true 
