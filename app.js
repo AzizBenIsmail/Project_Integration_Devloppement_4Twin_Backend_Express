@@ -54,6 +54,7 @@ var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth");
 var fablabsRouter = require("./routes/fablabs");
 var projectRouter = require("./routes/project");
+var investRouter = require("./routes/invest");
 
 
 
@@ -74,6 +75,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/fablabs",fablabsRouter);
 app.use("/project",projectRouter);
+app.use("/invest",investRouter);
 app.get("/api/verify/:token", AuthController.verify);
 
 
