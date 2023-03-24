@@ -50,7 +50,7 @@ const addproject = async (req, res, next) => {
   const updateproject = async (req, res, next) => {
     try {
     const {description,domaine,goal,numberOfPeople,montant_Final,location} = req.body;
-    console.log(req.body);
+    console.log("req",req.body);
     const { id } = req.params;
     const checkIfprojectExists = await projectModel.findById(id);
     if (!checkIfprojectExists) {
@@ -61,10 +61,9 @@ const addproject = async (req, res, next) => {
     id,
     {
         $set: {
-            description,domaine,goal,numberOfPeople,montant_Final,location
+            description,domaine,goal,numberOfPeople,montant_Final,location,updated_at
         },
-    },
-     { new: true }
+    }
     );
     res.status(200).json(updateedUser);
     } catch (error) {
