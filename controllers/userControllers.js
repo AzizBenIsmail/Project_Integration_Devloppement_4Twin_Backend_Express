@@ -3,54 +3,9 @@ const userModel = require("../models/userSchema");
 const dotenv = require("dotenv");
 const sgMail = require("@sendgrid/mail");
 
-const addUser = async (req, res, next) => {
-  //  if (req.isAuthenticated()) {
-  // console.log("addUser");
-  try {
-    const { filename } = req.file;
-    console.log("filename", req.file);
-    const {
-      username,
-      password,
-      email,
-      first_Name,
-      last_Name,
-      dateOfBirth,
-      address,
-      phoneNumber,
-      gender,
-      userType,
-    } = req.body;
-    // const {username,password,email,dateOfBirth,gender,image_user}=req.body;
-    console.log(req.body);
-    const user = new userModel({
-      username,
-      password,
-      email,
-      first_Name,
-      last_Name,
-      dateOfBirth,
-      address,
-      phoneNumber,
-      gender,
-      userType,
-      image_user: filename,
-    });
-    //const user=new userModel({username,password,email,dateOfBirth,gender,image_user :filename});
-    //console.log('user',user);
-    const addeduser = await user.save();
-    //console.log('apres',addeduser);
-    res.status(200).json(addeduser);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-  //     } else {
-  //     res.status(401).json({ message: 'Unauthorized' });
-  //   }
-};
+
 const getUsers = async (req, res, next) => {
   //  if (req.isAuthenticated()) {
-
   try {
     const users = await userModel.find();
     if (!users || users.length === 0) {
@@ -80,22 +35,28 @@ const getUser = async (req, res, next) => {
   //     res.status(401).json({ message: 'Unauthorized' });
   //   }
 };
+const addUser = async (req, res, next) => {
+  //  if (req.isAuthenticated()) {
+  try {
+    const { filename } = req.file;
+    console.log("filename", req.file);
+    const { username, password, email, first_Name, last_Name, dateOfBirth, address, phoneNumber, gender, userType } = req.body;
+    console.log(req.body);
+    const user = new userModel({ username, password, email, first_Name, last_Name, dateOfBirth, address, phoneNumber, gender, userType, image_user: filename });
+    const addeduser = await user.save();
+    res.status(200).json(addeduser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+  //     } else {
+  //     res.status(401).json({ message: 'Unauthorized' });
+  //   }
+};
 const updateUser = async (req, res, next) => {
   //   if (req.isAuthenticated()) {
   try {
     // const { filename } = req.file;
-    // console.log('filename',req.file.filename);
-    // console.log('debut',req.body);
-    const {
-      password,
-      first_Name,
-      last_Name,
-      dateOfBirth,
-      address,
-      phoneNumber,
-      gender,
-      userType,
-    } = req.body;
+    const { password, first_Name, last_Name, dateOfBirth, address, phoneNumber, gender, userType } = req.body;
     console.log(req.body);
     const { id } = req.params;
     const checkIfusertExists = await userModel.findById(id);
@@ -106,17 +67,7 @@ const updateUser = async (req, res, next) => {
     updateedUser = await userModel.findByIdAndUpdate(
       id,
       {
-        $set: {
-          password,
-          first_Name,
-          last_Name,
-          dateOfBirth,
-          address,
-          phoneNumber,
-          gender,
-          userType,
-          updated_at /*,image_user:filename*/,
-        },
+        $set: { password, first_Name, last_Name, dateOfBirth, address, phoneNumber, gender, userType, updated_at /*,image_user:filename*/, },
       },
       { new: true }
     );
@@ -128,16 +79,17 @@ const updateUser = async (req, res, next) => {
   //     res.status(401).json({ message: "Unauthorized" });
   //   }
 };
+
 const deleteUser = async (req, res, next) => {
   //   if (req.isAuthenticated()) {
   try {
     const { id } = req.params;
-    const user = await userModel.findById(id).populate('projects'); 
+    const user = await userModel.findById(id).populate('projects');
 
     if (!user) {
       return res.status(404).json({ message: "user not found!" });
     }
-    
+
     // check if user is the creator of any projects and delete them
     for (const project of user.projects) {
       if (project.creator.toString() === user._id.toString()) {
