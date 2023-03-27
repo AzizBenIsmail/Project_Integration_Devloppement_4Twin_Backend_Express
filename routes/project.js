@@ -4,12 +4,14 @@ var router = express.Router();
 const {
   addproject,
   getprojects,
+  getproject,
   updateproject,
   deleteproject,
 } = require("../controllers/projectController");
 
 /* GET Projects listing. */
 router.get("/", getprojects);
+router.get("/:id", getproject);
 router.post("/:idUser", upload.single("image_project"), addproject);
 router.put("/:id", updateproject);
 router.delete("/:id", deleteproject);
