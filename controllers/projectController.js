@@ -6,10 +6,12 @@ const addproject = async (req, res, next) => {
       const { idUser } = req.params;
       const { filename } = req.file;
       const {title,description,domaine,goal,numberOfPeople,montant_Final,location} = req.body;
+      numberOfPeople_actuel=0;
+      montant_actuel=0;
       created_at = new Date();
       const user = await userModel.findById(idUser); 
       const project = new projectModel({
-        title,description,domaine,goal,numberOfPeople,montant_Final,location,image_project: filename,creator: user,created_at
+        title,description,domaine,goal,numberOfPeople,numberOfPeople_actuel,montant_actuel,montant_Final,location,image_project: filename,creator: user,created_at
       });
       
       const addedproject = await project.save().then((savedProject) => {

@@ -14,6 +14,7 @@ const projectSchema = new Schema({
   created_at: Date, //2017-01-01 type dentre dans postman
   updated_at: Date, 
   numberOfPeople: Number, 
+  numberOfPeople_actuel : Number, 
   montant_actuel : Number, 
   montant_Final : Number, 
   location: String, 

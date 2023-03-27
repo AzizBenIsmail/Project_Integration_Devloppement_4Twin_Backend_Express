@@ -8,8 +8,7 @@ const {
   deleteproject,
 } = require("../controllers/projectController");
 
-
-/* GET users listing. */
+/* GET Projects listing. */
 router.get("/", getprojects);
 router.post("/:idUser", upload.single("image_project"), addproject);
 router.put("/:id", updateproject);
