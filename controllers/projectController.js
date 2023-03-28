@@ -90,6 +90,23 @@ const getproject = async (req, res, next) => {
   }
 };
 
+const getProjectsByCreator = async (req, res, next) => {
+  try {
+    const { creatorId } = req.params;
+    const projects = await projectModel.find({ creator: creatorId }).populate('creator');
+    console.log(projects);
+    if (!projects || projects.length === 0) {
+      throw new Error("No projects found for this creator.");
+    }
+    res.status(200).json({ projects });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
+
 const updateproject = async (req, res, next) => {
   try {
     const {
@@ -142,6 +159,7 @@ const deleteproject = async (req, res, next) => {
 module.exports = {
   addproject,
   getprojects,
+  getProjectsByCreator,
   getproject,
   deleteproject,
   updateproject,

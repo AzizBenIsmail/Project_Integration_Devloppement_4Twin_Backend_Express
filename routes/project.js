@@ -5,6 +5,7 @@ const {
   addproject,
   getprojects,
   getproject,
+  getProjectsByCreator,
   updateproject,
   deleteproject,
 } = require("../controllers/projectController");
@@ -12,6 +13,7 @@ const {
 /* GET Projects listing. */
 router.get("/", getprojects);
 router.get("/:id", getproject);
+router.get("/User/:creatorId", getProjectsByCreator);
 router.post("/:idUser", upload.single("image_project"), addproject);
 router.put("/:id", updateproject);
 router.delete("/:id", deleteproject);
