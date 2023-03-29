@@ -13,9 +13,10 @@ const addproject = async (req, res, next) => {
       numberOfPeople,
       montant_Final,
       location,
+      Duration,
     } = req.body;
     numberOfPeople_actuel = 0;
-    montant_actuel = 0;
+    montant_actuel = 1;
     created_at = new Date();
     console.log(req.body);
     const user = await userModel.findById(idUser);
@@ -30,6 +31,7 @@ const addproject = async (req, res, next) => {
       montant_actuel,
       montant_Final,
       location,
+      Duration,
       image_project: filename,
       creator: user,
       created_at,
@@ -112,15 +114,19 @@ const getProjectsByCreator = async (req, res, next) => {
 const updateproject = async (req, res, next) => {
   try {
     const {
+      title,
       description,
       domaine,
       goal,
+      Duration,
       numberOfPeople,
       montant_Final,
       location,
     } = req.body;
     console.log("req", req.body);
     const { id } = req.params;
+    console.log("id", id);
+
     const checkIfprojectExists = await projectModel.findById(id);
     if (!checkIfprojectExists) {
       throw new Error("project not found !");
@@ -128,13 +134,15 @@ const updateproject = async (req, res, next) => {
     updated_at = new Date();
     updateedUser = await projectModel.findByIdAndUpdate(id, {
       $set: {
-        description,
-        domaine,
-        goal,
-        numberOfPeople,
-        montant_Final,
-        location,
-        updated_at,
+      title,
+      description,
+      domaine,
+      goal,
+      Duration,
+      numberOfPeople,
+      montant_Final,
+      location,
+      updated_at,
       },
     });
     res.status(200).json(updateedUser);
