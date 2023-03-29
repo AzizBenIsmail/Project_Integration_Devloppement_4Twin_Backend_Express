@@ -13,6 +13,7 @@ const projectSchema = new Schema({
   goal: String, //oneof (['admin', 'regular', 'fablab'])
   created_at: Date, //2017-01-01 type dentre dans postman
   updated_at: Date, 
+  Duration: Date, 
   numberOfPeople: Number, 
   numberOfPeople_actuel : Number, 
   montant_actuel : Number, 

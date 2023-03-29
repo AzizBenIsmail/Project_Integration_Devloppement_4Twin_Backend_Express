@@ -17,7 +17,9 @@ const addproject = async (req, res, next) => {
     numberOfPeople_actuel = 0;
     montant_actuel = 0;
     created_at = new Date();
+    console.log(req.body);
     const user = await userModel.findById(idUser);
+    console.log(user);
     const project = new projectModel({
       title,
       description,
