@@ -53,6 +53,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth");
 var fablabsRouter = require("./routes/fablabs");
+var eventsRouter = require("./routes/events")
 var projectRouter = require("./routes/project");
 var investRouter = require("./routes/invest");
 
@@ -74,6 +75,7 @@ app.use(express.static("public"));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/fablabs",fablabsRouter);
+app.use("/events",eventsRouter);
 app.use("/project",projectRouter);
 app.use("/invest",investRouter);
 app.get("/api/verify/:token", AuthController.verify);
