@@ -61,7 +61,8 @@ const acceptFablabRequest=async(req,res,next)=>{
         dateOfBirth: fablab.dateOfCreation,
         address: fablab.address,
         phoneNumber1: fablab.phoneNumber,
-        userType: "fablab"
+        userType: "fablab",
+        image_user : fablab.fablbLogo
       });
 
       // Send email
@@ -137,7 +138,7 @@ const declineFablabRequest=async(req,res,next)=>{
     }
 };
 
-const getFablabs=async(req,res,next)=>{
+const getFablabRequests=async(req,res,next)=>{
     try {
         const {is_accepted ,is_treated} = req.query ;
         console.log(is_accepted);
@@ -161,7 +162,7 @@ const getFablabs=async(req,res,next)=>{
     
 };
 
-const getFablab=async(req,res,next)=>{
+const getFablabRequest=async(req,res,next)=>{
     try {
         const {id} = req.params;
         const fablab = await fablabModel.findById(id);
@@ -174,10 +175,42 @@ const getFablab=async(req,res,next)=>{
     }
     
 };
+
+const getFablabs=async(req,res,next)=>{
+    try {
+        const fablabs = await userModel.find({userType:'fablab'});
+          
+        if(!fablabs||fablabs.length===0){
+            throw new Error("fablab not found !");
+        }
+
+        res.status(200).json({fablabs});
+    } catch (error) {
+        res.status(500).json({message:error.message});
+    }
+    
+};
+
+const getFablab=async(req,res,next)=>{
+    try {
+        const {id} = req.params;
+        const fablab = await userModel.findOne({ _id:id ,userType:'fablab'}); 
+        if(!fablab||fablab.length===0){
+            throw new Error("fablab not found !");
+        }
+
+        res.status(200).json({fablab});
+    } catch (error) {
+        res.status(500).json({message:error.message});
+    }
+    
+};
 module.exports={
     addFablabRequest,
     acceptFablabRequest,
     declineFablabRequest,
+    getFablabRequests,
+    getFablabRequest,
     getFablabs,
     getFablab
 }
