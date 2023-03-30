@@ -21,66 +21,61 @@ const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 const { addUser } = require("../../controllers/userControllers");
 class AuthController {
+  async login(req, res) {
+    const { email, password } = req.body;
+    console.log(req.body)
 
+    passport.use(
+      new LocalStrategy(
+        {
+          usernameField: "email",
+        },
+        async function verify(email, password, cb) {
+          const user = await User.findOne({ email });
 
-  // async login(req, res) {
-  //   const { email, password } = req.body;
-  
-  //   passport.use(
-  //     new LocalStrategy(
-  //       {
-  //         usernameField: "email",
-  //       },
-  //       async function verify(email, password, cb) {
-  //         const user = await User.findOne({ email });
-  
-  //         if (!user) {
-  //           return cb(null, false, {
-  //             message: "Incorrect username or password.",
-  //           });
-  //         }
-  
-  //         if (!(await bcrypt.compare(password, user.password))) {
-  //           return cb(null, false, {
-  //             message: "Incorrect username or password.",
-  //           });
-  //         }
-  
-  //         return cb(null, user);
-  //       }
-  //     )
-  //   );
-  
-  //   passport.authenticate("local", async function (err, user, info) {
-  //     if (err) {
-  //       return console.error(err);
-  //     }
-  //     if (!user) {
-  //       console.log("Incorrect username or password");
-  //       return res.status(401).json({ message: "Incorrect username or password" });
-  //     }
-  //     console.log("User successfully authenticated");
-  //     const session = {
-  //       _id: user._id,
-  //       name: user.name,
-  //       email: user.email,
-  //     };
-  
-  //     const token = await jwt.sign(session, process.env.JWT_SECRET, {
-  //       expiresIn: "1h",
-  //     });
-  //     res.cookie("token", token, { httpOnly: true });
-  
-  //     // Check if user is authenticated before sending response
-  //     req.isAuthenticated() ? 
-  //       res.status(200).json({ message: "User successfully authenticated", user: session }) :
-  //       res.redirect("/users/test");
-  //   })(req, res);
-  // }
+          if (!user) {
+            return cb(null, false, {
+              message: "Incorrect username or password.",
+            });
+          }
 
- 
+          if (!(await bcrypt.compare(password, user.password))) {
+            return cb(null, false, {
+              message: "Incorrect username or password.",
+            });
+          }
+
+          return cb(null, user);
+        }
+      )
+    );
+
+    passport.authenticate("local", async function (err, user, info) {
+      if (err) {
+        return console.error(err);
+      }
+      if (!user) {
+        console.log("Incorrect username or password");
+        return res.status(401).json({ message: "Incorrect username or password" });
+      }
+      console.log("User successfully authenticated");
+      const session = {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        userType:user.userType
+      };
+
+      const token = await jwt.sign(session, process.env.JWT_SECRET, {
+        expiresIn: "2h",
+      });
+      res.cookie("token", token, { httpOnly: true });
+        res.status(200).json({ message: "User successfully authenticated", user: session ,token});
+    })(req, res);
+  }
+
   // Define the login route
-  async  login(req, res) {
+  async login1(req, res) {
     passport.use(
       new LocalStrategy(
         {
@@ -93,7 +88,9 @@ class AuthController {
             const user = await User.findOne({ email });
             if (!user) {
               // If no user is found, return an error message
-              return done(null, false, { message: "Incorrect email or password." });
+              return done(null, false, {
+                message: "Incorrect email or password.",
+              });
             }
             // Compare the provided password with the hashed password stored in the database
             const isMatch = await bcrypt.compare(password, user.password);
@@ -102,7 +99,9 @@ class AuthController {
               return done(null, user);
             } else {
               // If the passwords don't match, return an error message
-              return done(null, false, { message: "Incorrect email or password." });
+              return done(null, false, {
+                message: "Incorrect email or password.",
+              });
             }
           } catch (err) {
             // If there is an error, return the error message
@@ -111,7 +110,7 @@ class AuthController {
         }
       )
     );
-    
+
     // Call the authenticate function with the local strategy
     passport.authenticate("local", function (err, user, info) {
       if (err) {
@@ -120,7 +119,9 @@ class AuthController {
       }
       if (!user) {
         // If no user is found, return an error message
-        return res.status(401).json({ message: "Incorrect email or password." });
+        return res
+          .status(401)
+          .json({ message: "Incorrect email or password." });
       }
       // If the user is found, log them in using req.login
       req.login(user, function (err) {
@@ -129,48 +130,71 @@ class AuthController {
           return res.status(500).json({ message: err.message });
         }
         // If there is no error, return the user object
-        return res.status(200).json({ message: "User successfully authenticated", user });
+        console.log( req.user.toJSON())
+        res.cookie("user", req.user.toJSON(),{ maxAge: 900000, httpOnly: true });
+        return res.json({ message: "User successfully authenticated", user });
       });
     })(req, res);
   }
-    //     const { email, password } = req.body;
+  //     const { email, password } = req.body;
 
-    //     // find the user with mongo
-    // const u = await User.findOne({
-    //   email,
-    // });
+  //     // find the user with mongo
+  // const u = await User.findOne({
+  //   email,
+  // });
 
-    //     //check if user's email is right
-    //     if (!u)
-    //     return res.status(403).send("Invalid login credentials");
+  //     //check if user's email is right
+  //     if (!u)
+  //     return res.status(403).send("Invalid login credentials");
 
-    //     //check if user's password is correct
+  //     //check if user's password is correct
 
-    //    // if (password !== u.password)
+  //    // if (password !== u.password)
 
-    //    if(!await bcrypt.compare(password, u.password))
-    //       return res.status(403).send("Invalid login credentials");
+  //    if(!await bcrypt.compare(password, u.password))
+  //       return res.status(403).send("Invalid login credentials");
 
-    // //part2
-    //       const payload = {id : u.id, email : u.email, username: u.username, first_name: u.first_Name, last_name: u.last_Name};
-    //       const accessToken = jwt.sign(payload,appKey,{expiresIn: tokenExpiresIn})
-    //       res.send({u,...{accessToken}});
-    // //////////////////////////////
+  // //part2
+  //       const payload = {id : u.id, email : u.email, username: u.username, first_name: u.first_Name, last_name: u.last_Name};
+  //       const accessToken = jwt.sign(payload,appKey,{expiresIn: tokenExpiresIn})
+  //       res.send({u,...{accessToken}});
+  // //////////////////////////////
 
-    //       console.log(u);
-    //      //res.send(u);
-  
+  //       console.log(u);
+  //      //res.send(u);
 
   async register(req, res) {
     const { filename } = req.file;
-    console.log('filename',req.file);
-    const {username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType}=req.body;
+    console.log("filename", req.file);
+    const {
+      username,
+      password,
+      email,
+      first_Name,
+      last_Name,
+      dateOfBirth,
+      address,
+      phoneNumber,
+      gender,
+      userType,
+    } = req.body;
     //const user = new User();
-    const user=new User({username,password,email,first_Name,last_Name,dateOfBirth,address,phoneNumber,gender,userType,image_user :filename});
+    const user = new User({
+      username,
+      password,
+      email,
+      first_Name,
+      last_Name,
+      dateOfBirth,
+      address,
+      phoneNumber,
+      gender,
+      userType,
+      image_user: filename,
+    });
 
-  //  user.email = email;
-  //   user.password = password;
-    
+    //  user.email = email;
+    //   user.password = password;
 
     //userControllers.addUser(user);
 
@@ -198,8 +222,8 @@ class AuthController {
     //    } );
     console.log(req.body);
 
-
     try {
+      user.userType="user"
       await user.save();
       const { email } = req.body;
       // Check we have an email

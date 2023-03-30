@@ -14,25 +14,28 @@ require("dotenv").config(); //configuration dotenv
 const mongoose = require("mongoose"); //configuration mongoose
 
 var app = express();
+app.use(cookieParser('little_secret', { sameSite: 'none' }));
+app.use(session({
+  secret: 'little_secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,}// 1 day}
+}))
 
-app.use(
-  session({
-    secret: "little_secret",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser((user, done) => {
+passport.serializeUser(function (user, done) {
   done(null, user._id);
 });
 
-passport.deserializeUser(async (id, done) => {
-  const user = await User.findById(id);
-  done(null, user);
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
 });
 
 //Configuration base de donne mongoose

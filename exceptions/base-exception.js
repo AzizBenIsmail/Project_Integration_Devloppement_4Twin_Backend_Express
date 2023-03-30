@@ -1,11 +1,12 @@
-class BaseException extends Error{
+class BaseException extends Error {
 
-    constructor(message, status=500){
-        super(message);
-        this.name = this.constructor.name;
-        this.status = status;
-        Error.captureStackTrace(this, this.constructor);
+    constructor(message, status = 500) {
+        super(message)
+        this.status = status
+        this.name = this.constructor.name
+        Error.captureStackTrace(this, this.constructor)
     }
+
 }
 
-module.exports = BaseException;
+module.exports = BaseException
