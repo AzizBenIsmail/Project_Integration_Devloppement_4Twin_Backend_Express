@@ -20,7 +20,7 @@ const addEvent = async(req,res,next) => {
 const updateEvent = async(req,res,next) => {
     try {
         const { id } = req.params;
-        const { filename = "" } = req.file || {};
+        const { filename } = req.file || {};
         const{title,
             description,   
             start_date, 
@@ -103,6 +103,27 @@ const getEvent = async(req,res,next) => {
     }
 }
 
+const getEventsByCreator = async(req,res,next) => {
+    try {
+        const { creatorId } = req.params;
+        console.log(creatorId);
+        const events = await eventModel.find({ creator: creatorId });
+        res.status(200).json({events});
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
+}
+
+const getAllParticipantsEvent = async (req, res, next) => {
+    try {
+      const { eventId } = req.params;
+      const event = await eventModel.findById(eventId).populate("participants");
+      const participants = event.participants;
+      res.status(200).json(participants);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 
 
 module.exports={
@@ -110,5 +131,7 @@ module.exports={
     updateEvent,
     deleteEvent,
     getEvent,
-    getEvents
+    getEvents,
+    getEventsByCreator,
+    getAllParticipantsEvent
 }
