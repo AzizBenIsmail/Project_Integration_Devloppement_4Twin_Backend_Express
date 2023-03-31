@@ -5,11 +5,12 @@ const investModel = require("../models/investSchema");
 const addInvest = async (req, res, next) => {
   try {
     const { idUser, idProject } = req.params;
-    const { message, montant } = req.body;
+    const { titre,message, montant } = req.body;
     created_at = new Date();
     const user = await userModel.findById(idUser);
     const project = await projectModel.findById(idProject);
     const invest = new investModel({
+      titre,
       message,
       montant,
       investor: user,
@@ -73,7 +74,7 @@ const addInvest = async (req, res, next) => {
 
 const getInvest = async (req, res, next) => {
   try {
-    const invests = await investModel.find();
+    const invests = await investModel.find().populate('project');
     if (!invests || invests.length === 0) {
       throw new Error("invests not found !");
     }
@@ -99,8 +100,21 @@ const deleteInvest = async (req, res, next) => {
   }
 };
 
+const getInvestUser = async (req, res, next) => {
+  try {
+    const { idUser } = req.params;    
+    const invests = await investModel.find({investor: idUser}).populate('project');
+    if (!invests || invests.length === 0) {
+      throw new Error("invests not found !");
+    }
+    res.status(200).json({ invests });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 module.exports = {
   addInvest,
   deleteInvest,
   getInvest,
+  getInvestUser
 };
