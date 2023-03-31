@@ -103,9 +103,19 @@ const getEvent = async(req,res,next) => {
     }
 }
 
+//http://localhost:5000/events/creator?id=6411868102a7bf3c154942d2&recent=true
 const getEventsByCreator = async(req,res,next) => {
     try {
-        const { creatorId } = req.params;
+        const creatorId  = req.query.id;
+        const recent = req.query.recent;
+        
+        if (recent) {
+            const events = await eventModel
+                 .find({ creator: creatorId })
+                 .sort({ createdAt: -1 }) // Sort in descending order by createdAt
+                 .limit(2);
+                 return res.status(200).json({events});
+          }
         console.log(creatorId);
         const events = await eventModel.find({ creator: creatorId });
         res.status(200).json({events});
