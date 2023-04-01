@@ -35,6 +35,8 @@ investSchema.pre('remove', async function(next) {
     }
     const project = await projectModel.findOne({ invests: invest._id });
     if (project) {
+      project.montant_actuel=project.montant_actuel - invest.montant;
+      project.numberOfPeople_actuel=project.numberOfPeople_actuel-1;
       project.invests = project.invests.filter(id => id.toString() !== invest._id.toString());
       await project.save();
     }
