@@ -45,6 +45,8 @@ investSchema.pre('remove', async function(next) {
     next(error);
   }
 });
+
+
 const Invest = mongoose.model("Invest", investSchema);
 
 module.exports = Invest;
