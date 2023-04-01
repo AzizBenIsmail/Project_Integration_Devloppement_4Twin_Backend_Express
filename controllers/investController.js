@@ -43,14 +43,11 @@ const addInvest = async (req, res, next) => {
         projectModel
           .findById(idProject)
           .then((project) => {
-            project.montant_actuel = project.montant_actuel + parseInt(montant);
-            console.log( montant);
-            console.log( project.montant_actuel);
+            project.montant_actuel = project.montant_actuel + parseFloat(montant);
             project.numberOfPeople_actuel = project.numberOfPeople_actuel + 1;
             // add the project ID to the user's project array
             project.invests.push(savedInvest._id);
             // add the project ID to the user's project array
-            project.montant_actuel += montant;
             // save the user to the database
             project
               .save()
