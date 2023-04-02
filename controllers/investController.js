@@ -4,7 +4,8 @@ const investModel = require("../models/investSchema");
 
 const addInvest = async (req, res, next) => {
   try {
-    const { idUser, idProject } = req.params;
+    const { idProject } = req.params;
+    const idUser = req.user._id;
     const { titre, message, montant } = req.body;
     created_at = new Date();
     const user = await userModel.findById(idUser);
@@ -87,7 +88,18 @@ const deleteInvest = async (req, res, next) => {
   try {
     const { id } = req.params;
     const invest = await investModel.findById(id);
-
+    const user = await userModel.findOne({ invests: invest._id });
+    if (user) {
+      user.invests = user.invests.filter(id => id.toString() !== invest._id.toString());
+      await user.save();
+    }
+    const project = await projectModel.findOne({ invests: invest._id });
+    if (project) {
+      project.montant_actuel=project.montant_actuel - invest.montant;
+      project.numberOfPeople_actuel=project.numberOfPeople_actuel-1;
+      project.invests = project.invests.filter(id => id.toString() !== invest._id.toString());
+      await project.save();
+    }
     if (!invest) {
       return res.status(404).json({ message: "invest not found!" });
     }
@@ -101,7 +113,7 @@ const deleteInvest = async (req, res, next) => {
 
 const getInvestUser = async (req, res, next) => {
   try {
-    const { idUser } = req.params;
+    const idUser = req.user._id;
     const invests = await investModel
       .find({ investor: idUser })
       .populate("project");

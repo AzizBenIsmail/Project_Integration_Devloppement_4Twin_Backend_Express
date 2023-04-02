@@ -3,7 +3,8 @@ const userModel = require("../models/userSchema");
 
 const addproject = async (req, res, next) => {
   try {
-    const { idUser } = req.params;
+    //const { idUser } = req.params;
+    const idUser = req.user._id;
     const { filename } = req.file;
     const {
       title,
@@ -96,8 +97,7 @@ const getproject = async (req, res, next) => {
 
 const getProjectsByCreator = async (req, res, next) => {
   try {
-    const { creatorId } = req.params;
-    const projects = await projectModel.find({ creator: creatorId }).populate('creator');
+    const projects = await projectModel.find({ creator: req.user._id }).populate('creator');
     console.log(projects);
     if (!projects || projects.length === 0) {
       throw new Error("No projects found for this creator.");
