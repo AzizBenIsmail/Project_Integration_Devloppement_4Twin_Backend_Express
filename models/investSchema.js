@@ -9,6 +9,7 @@ const investSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     default: mongoose.Types.ObjectId,
   },
+  titre: String, 
   message: String, 
   created_at: Date, //2017-01-01 type dentre dans postman
   montant: Number, 
@@ -34,6 +35,8 @@ investSchema.pre('remove', async function(next) {
     }
     const project = await projectModel.findOne({ invests: invest._id });
     if (project) {
+      project.montant_actuel=project.montant_actuel - invest.montant;
+      project.numberOfPeople_actuel=project.numberOfPeople_actuel-1;
       project.invests = project.invests.filter(id => id.toString() !== invest._id.toString());
       await project.save();
     }
@@ -42,6 +45,8 @@ investSchema.pre('remove', async function(next) {
     next(error);
   }
 });
+
+
 const Invest = mongoose.model("Invest", investSchema);
 
 module.exports = Invest;

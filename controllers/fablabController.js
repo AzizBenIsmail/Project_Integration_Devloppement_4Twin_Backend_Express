@@ -138,7 +138,7 @@ const declineFablabRequest=async(req,res,next)=>{
     }
 };
 
-const getFablabRequests=async(req,res,next)=>{
+/*const getFablabRequests=async(req,res,next)=>{
     try {
         const {is_accepted ,is_treated} = req.query ;
         console.log(is_accepted);
@@ -160,7 +160,30 @@ const getFablabRequests=async(req,res,next)=>{
         res.status(500).json({message:error.message});
     }
     
-};
+};*/
+
+const getFablabRequests = async (req, res, next) => {
+    try {
+        const { page, limit } = req.query;
+        const pageNum = parseInt(page) || 1;
+        const limitNum = parseInt(limit) || 1;
+        
+        const totalFablabs = await fablabModel.countDocuments();
+        const totalPages = Math.ceil(totalFablabs / limitNum);
+    
+        const skip = (pageNum - 1) * limitNum;
+        const fablabs = await fablabModel.find().skip(skip).limit(limitNum);
+    
+        if (!fablabs || fablabs.length === 0) {
+          throw new Error("Fablabs not found!");
+        }
+    
+        res.status(200).json({ fablabs, totalPages });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+  
 
 const getFablabRequest=async(req,res,next)=>{
     try {
@@ -178,13 +201,23 @@ const getFablabRequest=async(req,res,next)=>{
 
 const getFablabs=async(req,res,next)=>{
     try {
-        const fablabs = await userModel.find({userType:'fablab'});
+        //const fablabs = await userModel.find({userType:'fablab'});
           
-        if(!fablabs||fablabs.length===0){
-            throw new Error("fablab not found !");
+        const { page, limit } = req.query;
+        const pageNum = parseInt(page) || 1;
+        const limitNum = parseInt(limit) || 1;
+        
+        const totalFablabs = await userModel.countDocuments({userType:'fablab'});
+        const totalPages = Math.ceil(totalFablabs / limitNum);
+    
+        const skip = (pageNum - 1) * limitNum;
+        const fablabs = await userModel.find({userType:'fablab'}).skip(skip).limit(limitNum);
+    
+        if (!fablabs || fablabs.length === 0) {
+          throw new Error("Fablabs not found!");
         }
-
-        res.status(200).json({fablabs});
+    
+        res.status(200).json({ fablabs, totalPages });
     } catch (error) {
         res.status(500).json({message:error.message});
     }

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const userModel = require("../models/userSchema");
+const investSchema = require("../models/investSchema");
 
 const projectSchema = new Schema({
   _id: {
@@ -41,6 +42,7 @@ const projectSchema = new Schema({
 projectSchema.pre('remove', async function(next) {
   try {
     const project = this;
+    await investSchema.deleteMany({ project: project._id });
     const user = await userModel.findOne({ projects: project._id });
     if (user) {
       user.projects = user.projects.filter(id => id.toString() !== project._id.toString());

@@ -2,12 +2,13 @@ var express = require("express");
 const upload = require("../middlewares/upload");
 var router = express.Router();
 const {
-addInvest,deleteInvest,getInvest
+addInvest,deleteInvest,getInvest,getInvestUser
 } = require("../controllers/investController");
 
 
 /* GET users listing. */
 router.get("/", getInvest);
+router.get("/:idUser", getInvestUser);
 router.post("/:idUser/:idProject",addInvest);
 router.delete("/:id", deleteInvest);
 
