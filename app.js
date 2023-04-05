@@ -13,7 +13,20 @@ const passport = require("passport");
 require("dotenv").config(); //configuration dotenv
 const mongoose = require("mongoose"); //configuration mongoose
 
+const socketIO = require('socket.io')(http, {
+  cors: {
+      origin: "http://localhost:3000"
+  }
+});
+
+
 var app = express();
+
+
+
+
+
+
 app.use(cookieParser('little_secret', { sameSite: 'none' }));
 app.use(session({
   secret: 'little_secret',
@@ -104,6 +117,16 @@ app.use(function (err, req, res, next) {
 });
 
 const server = http.createServer(app);
+
+socketIO.on('connection', (socket) => {
+  console.log(`⚡: ${socket.id} user just connected!`);
+  socket.on('disconnect', () => {
+    console.log('🔥: A user disconnected');
+  });
+});
+
+
+
 server.listen(5000, () => {
   console.log("app is runnig on port 5000");
 });

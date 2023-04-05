@@ -23,7 +23,7 @@ const { addUser } = require("../../controllers/userControllers");
 class AuthController {
   async login(req, res) {
     const { email, password } = req.body;
-    console.log(req.body)
+    console.log(req.body);
 
     passport.use(
       new LocalStrategy(
@@ -56,21 +56,29 @@ class AuthController {
       }
       if (!user) {
         console.log("Incorrect username or password");
-        return res.status(401).json({ message: "Incorrect username or password" });
+        return res
+          .status(401)
+          .json({ message: "Incorrect username or password" });
       }
       console.log("User successfully authenticated");
       const session = {
         _id: user._id,
         name: user.name,
         email: user.email,
-        userType:user.userType
+        userType: user.userType,
       };
 
       const token = await jwt.sign(session, process.env.JWT_SECRET, {
         expiresIn: "20h",
       });
       res.cookie("token", token, { httpOnly: true });
-        res.status(200).json({ message: "User successfully authenticated", user: session ,token});
+      res
+        .status(200)
+        .json({
+          message: "User successfully authenticated",
+          user: session,
+          token,
+        });
     })(req, res);
   }
 
@@ -223,7 +231,7 @@ class AuthController {
     console.log(req.body);
 
     try {
-      user.userType="user"
+      user.userType = "user";
       await user.save();
       const { email } = req.body;
       // Check we have an email
@@ -239,9 +247,6 @@ class AuthController {
         //       });
         //    }
         // Step 2 - Generate a verification token with the user's ID
-
-
-        
         // const verificationToken = user.generateVerificationToken();
         // // Step 3 - Email the user a unique verification link
         // const url = `http://localhost:5000/api/verify/${verificationToken}`;

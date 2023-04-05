@@ -9,7 +9,7 @@ var router = express.Router();
 const {
   getUsers,
   getUser,
-  addUser,
+  addUser,getUserAuth,
   deleteUser,
   updateUser,
   forgotpwd,
@@ -26,6 +26,7 @@ const UnauthenticatedException=require('../exceptions/unauthenticated-exception'
 /* GET users listing. */
 router.get("/", getUsers);
 router.get("/getUser/:id",auth,getUser);
+router.get("/getUser",auth,getUserAuth);
 router.post("/", upload.single("image_user"), Register, addUser);
 router.put("/:id", updateUser);
 router.delete("/:id", deleteUser);

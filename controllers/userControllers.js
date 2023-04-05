@@ -20,9 +20,27 @@ const getUsers = async (req, res, next) => {
   //   }
 };
 const getUser = async (req, res, next) => {
+
   //  if (req.isAuthenticated()) {
   try {
     const { id } = req.params;
+    const user = await userModel.findById(id);
+    if (!user || user.length === 0) {
+      throw new Error("users not found !");
+    }
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+  //     } else {
+  //     res.status(401).json({ message: 'Unauthorized' });
+  //   }
+};
+const getUserAuth = async (req, res, next) => {
+
+  //  if (req.isAuthenticated()) {
+  try {
+    const  id = req.user._id;
     const user = await userModel.findById(id);
     if (!user || user.length === 0) {
       throw new Error("users not found !");
@@ -172,7 +190,7 @@ module.exports = {
   getUsers,
   getUser,
   deleteUser,
-  updateUser,
+  updateUser,getUserAuth,
   forgotpwd,
   resetpwd,
 };
