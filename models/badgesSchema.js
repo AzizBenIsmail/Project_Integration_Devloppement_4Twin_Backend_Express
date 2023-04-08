@@ -4,17 +4,7 @@ const User = require("../models/userSchema");
 
 const badgesSchema = new Schema(
   {
-    _id: {
-      type: mongoose.Schema.Types.ObjectId,
-      default: mongoose.Types.ObjectId,
-    },
-
-    userID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-
+    usernameB: String,
     badgeName: String,
     badgeDescription: String,
     date: {

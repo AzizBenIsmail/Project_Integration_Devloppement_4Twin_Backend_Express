@@ -92,21 +92,6 @@ const addUser = async (req, res, next) => {
   //     } else {
   //     res.status(401).json({ message: 'Unauthorized' });
   //   }
-
-  //ajout evaluation
-  try {
-    const evaluation = new evaluationModel({
-      evaluationID: "123",
-      xp: 20,
-      lvl: 1,
-    });
-    const addevaluation = await evaluation.save();
-    res.status(200).json(addevaluation);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-
-  //---
 };
 const updateUser = async (req, res, next) => {
   //   if (req.isAuthenticated()) {

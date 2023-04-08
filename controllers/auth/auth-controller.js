@@ -11,6 +11,8 @@ const LocalStrategy = require("passport-local").Strategy;
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const evaluationModel = require("../../models/evaluationSchema");
+const BadgesModel = require("../../models/badgesSchema.js");
+
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
@@ -73,13 +75,11 @@ class AuthController {
         expiresIn: "20h",
       });
       res.cookie("token", token, { httpOnly: true });
-      res
-        .status(200)
-        .json({
-          message: "User successfully authenticated",
-          user: session,
-          token,
-        });
+      res.status(200).json({
+        message: "User successfully authenticated",
+        user: session,
+        token,
+      });
     })(req, res);
   }
 
@@ -232,16 +232,24 @@ class AuthController {
     console.log(req.body);
 
     try {
+      //evaluation
       user.userType = "user";
       await user.save();
       try {
         const evaluation = new evaluationModel({
-          evaluationID: "123",
+          usernameE: username,
           xp: 20,
           lvl: 1,
         });
         const addevaluation = await evaluation.save();
         res.status(200).json(addevaluation);
+        //badge
+
+        // const badges = new BadgesModel({
+        //   usernameB: username,
+        // });
+        // const addbadge = await badges.save();
+        // res.status(200).json(addbadge);
       } catch (error) {
         res.status(500).json({ message: error.message });
       }
