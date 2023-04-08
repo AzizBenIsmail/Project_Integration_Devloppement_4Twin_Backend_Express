@@ -22,7 +22,6 @@ const AuthController = require("../controllers/auth/auth-controller");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const UnauthenticatedException=require('../exceptions/unauthenticated-exception')
-
 /* GET users listing. */
 router.get("/", getUsers);
 router.get("/getUser/:id",auth,getUser);
@@ -49,9 +48,11 @@ router.post("/test", auth, (req, res) => {
   res.send("done");
 });
 
-router.get("/test", auth, (req, res) => {
+router.get("/test",async (req, res) => {
+
   console.log(req.user);
   res.send("done");
+
 });
 // if page not found then status = 404 and message ... page not found
 router.all("*", (req, res) => {

@@ -10,6 +10,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
+const evaluationModel = require("../../models/evaluationSchema");
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
@@ -233,6 +234,17 @@ class AuthController {
     try {
       user.userType = "user";
       await user.save();
+      try {
+        const evaluation = new evaluationModel({
+          evaluationID: "123",
+          xp: 20,
+          lvl: 1,
+        });
+        const addevaluation = await evaluation.save();
+        res.status(200).json(addevaluation);
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
       const { email } = req.body;
       // Check we have an email
       if (!email) {
