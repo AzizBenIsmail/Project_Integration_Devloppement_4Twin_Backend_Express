@@ -13,12 +13,7 @@ const passport = require("passport");
 require("dotenv").config(); //configuration dotenv
 const mongoose = require("mongoose"); //configuration mongoose
 
-const socketIO = require('socket.io')(http, {
-  cors: {
-      origin: "http://localhost:3000"
-  }
-});
-
+const {Server}= require("socket.io")
 
 var app = express();
 
@@ -118,15 +113,80 @@ app.use(function (err, req, res, next) {
 
 const server = http.createServer(app);
 
-socketIO.on('connection', (socket) => {
+const io = new Server(server,{
+  cors: {
+    origin: "*",
+    methods:["GET","POST"],
+}
+
+
+})
+
+
+//socket thing
+let onlineUsers={
+
+};
+io.on('connection', (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
   socket.on('disconnect', () => {
-    console.log('🔥: A user disconnected');
+    disconnectEventHandler(socket.id);
+  });
+  socket.on('user-login', (data) => {
+    loginEventHandler(socket, data);
   });
 });
 
+//socket events
+const disconnectEventHandler=(id)=>{
+  console.log(`🔥: A user disconnected ${id}`); 
+  removeOnlineUser(id)
+  broadcastDisconnectedUserDetails(id)
+
+}
+const removeOnlineUser=(id)=>{
+  if(onlineUsers[id]){
+    delete onlineUsers[id]
+  }
+  console.log(onlineUsers);
+}
+
+const broadcastDisconnectedUserDetails=(disconnectedUserSocketId)=>{
+
+  io.to('logged-users').emit('user-disconnected',disconnectedUserSocketId)
+
+}
 
 
+const loginEventHandler=(socket, data)=>{
+  socket.join("logged-users");
+  onlineUsers[socket.id]={
+    username:data.username,
+    coords:data.coords,
+  };
+  console.log(onlineUsers);
+  io.to("logged-users").emit("online-users", convertOnlineUsersToArray())
+};
+
+
+const convertOnlineUsersToArray=()=>{
+  const onlineUsersArray=[]
+  Object.entries(onlineUsers).forEach(([key,value])=>{
+    onlineUsersArray.push({
+      socketId: key,
+      username:value.username,
+      coords:value.coords,
+    })
+  })
+  return onlineUsersArray;
+  }
+
+
+
+
+
+
+///////
 server.listen(5000, () => {
   console.log("app is runnig on port 5000");
 });
