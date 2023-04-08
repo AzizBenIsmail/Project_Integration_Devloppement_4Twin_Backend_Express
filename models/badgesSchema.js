@@ -12,6 +12,10 @@ const badgesSchema = new Schema(
       default: Date.now,
     },
     badgeImg: String,
+    evaluation: {
+      type: Schema.Types.ObjectId,
+      ref: "Evaluation",
+    },
   },
   { timestamps: true }
 );

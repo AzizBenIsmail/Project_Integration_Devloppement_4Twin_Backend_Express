@@ -18,7 +18,6 @@ const evaluationSchema = new Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Badges",
-        required: false,
       },
     ],
   },

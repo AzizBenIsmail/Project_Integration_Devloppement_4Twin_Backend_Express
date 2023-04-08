@@ -241,15 +241,16 @@ class AuthController {
           xp: 20,
           lvl: 1,
         });
-        const addevaluation = await evaluation.save();
-        res.status(200).json(addevaluation);
-        //badge
-
-        // const badges = new BadgesModel({
-        //   usernameB: username,
-        // });
-        // const addbadge = await badges.save();
-        // res.status(200).json(addbadge);
+        const addedEvaluation = await evaluation.save();
+        res.status(200).json(addedEvaluation);
+        //badges
+        const badge = new BadgesModel({
+          usernameB: username,
+          badgeName: "Account Creation",
+          badgeDescription: "badge de creation",
+          evaluation: addedEvaluation._id, // reference to the evaluation
+        });
+        const addedBadge = await badge.save();
       } catch (error) {
         res.status(500).json({ message: error.message });
       }
