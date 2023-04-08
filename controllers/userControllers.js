@@ -3,6 +3,7 @@ const userModel = require("../models/userSchema");
 const dotenv = require("dotenv");
 const sgMail = require("@sendgrid/mail");
 
+const evaluationModel = require("../models/evaluationSchema");
 
 const getUsers = async (req, res, next) => {
   //  if (req.isAuthenticated()) {
@@ -20,7 +21,6 @@ const getUsers = async (req, res, next) => {
   //   }
 };
 const getUser = async (req, res, next) => {
-
   //  if (req.isAuthenticated()) {
   try {
     const { id } = req.params;
@@ -37,10 +37,9 @@ const getUser = async (req, res, next) => {
   //   }
 };
 const getUserAuth = async (req, res, next) => {
-
   //  if (req.isAuthenticated()) {
   try {
-    const  id = req.user._id;
+    const id = req.user._id;
     const user = await userModel.findById(id);
     if (!user || user.length === 0) {
       throw new Error("users not found !");
@@ -58,9 +57,33 @@ const addUser = async (req, res, next) => {
   try {
     const { filename } = req.file;
     console.log("filename", req.file);
-    const { username, password, email, first_Name, last_Name, dateOfBirth, address, phoneNumber, gender, userType } = req.body;
+    const {
+      username,
+      password,
+      email,
+      first_Name,
+      last_Name,
+      dateOfBirth,
+      address,
+      phoneNumber,
+      gender,
+      userType,
+    } = req.body;
     console.log(req.body);
-    const user = new userModel({ username, password, email, first_Name, last_Name, dateOfBirth, address, phoneNumber, gender, userType, image_user: filename });
+    const user = new userModel({
+      username,
+      password,
+      email,
+      first_Name,
+      last_Name,
+      dateOfBirth,
+      address,
+      phoneNumber,
+      gender,
+      userType,
+      image_user: filename,
+    });
+
     const addeduser = await user.save();
     res.status(200).json(addeduser);
   } catch (error) {
@@ -69,12 +92,36 @@ const addUser = async (req, res, next) => {
   //     } else {
   //     res.status(401).json({ message: 'Unauthorized' });
   //   }
+
+  //ajout evaluation
+  try {
+    const evaluation = new evaluationModel({
+      evaluationID: "123",
+      xp: 20,
+      lvl: 1,
+    });
+    const addevaluation = await evaluation.save();
+    res.status(200).json(addevaluation);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+
+  //---
 };
 const updateUser = async (req, res, next) => {
   //   if (req.isAuthenticated()) {
   try {
     // const { filename } = req.file;
-    const { password, first_Name, last_Name, dateOfBirth, address, phoneNumber, gender, userType } = req.body;
+    const {
+      password,
+      first_Name,
+      last_Name,
+      dateOfBirth,
+      address,
+      phoneNumber,
+      gender,
+      userType,
+    } = req.body;
     console.log(req.body);
     const { id } = req.params;
     const checkIfusertExists = await userModel.findById(id);
@@ -85,7 +132,17 @@ const updateUser = async (req, res, next) => {
     updateedUser = await userModel.findByIdAndUpdate(
       id,
       {
-        $set: { password, first_Name, last_Name, dateOfBirth, address, phoneNumber, gender, userType, updated_at /*,image_user:filename*/, },
+        $set: {
+          password,
+          first_Name,
+          last_Name,
+          dateOfBirth,
+          address,
+          phoneNumber,
+          gender,
+          userType,
+          updated_at /*,image_user:filename*/,
+        },
       },
       { new: true }
     );
@@ -102,7 +159,7 @@ const deleteUser = async (req, res, next) => {
   //   if (req.isAuthenticated()) {
   try {
     const { id } = req.params;
-    const user = await userModel.findById(id).populate('projects');
+    const user = await userModel.findById(id).populate("projects");
 
     if (!user) {
       return res.status(404).json({ message: "user not found!" });
@@ -190,7 +247,8 @@ module.exports = {
   getUsers,
   getUser,
   deleteUser,
-  updateUser,getUserAuth,
+  updateUser,
+  getUserAuth,
   forgotpwd,
   resetpwd,
 };
