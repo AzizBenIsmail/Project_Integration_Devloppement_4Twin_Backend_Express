@@ -236,6 +236,7 @@ class AuthController {
       user.userType = "user";
       await user.save();
       try {
+        //evaluation
         const evaluation = new evaluationModel({
           usernameE: username,
           xp: 20,
@@ -248,6 +249,7 @@ class AuthController {
           usernameB: username,
           badgeName: "Account Creation",
           badgeDescription: "badge de creation",
+          badgeImg: "images/badges/new.png",
           evaluation: addedEvaluation._id, // reference to the evaluation
         });
         const addedBadge = await badge.save();
