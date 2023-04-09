@@ -247,8 +247,8 @@ class AuthController {
         //badges
         const badge = new BadgesModel({
           usernameB: username,
-          badgeName: "Account Creation",
-          badgeDescription: "badge de creation",
+          badgeName: "Welcome",
+          badgeDescription: "Account Creation",
           badgeImg: "images/badges/new.png",
           evaluation: addedEvaluation._id, // reference to the evaluation
         });
