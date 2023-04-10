@@ -7,31 +7,29 @@ var http = require("http");
 const User = require("./models/userSchema.js");
 const cors = require("cors");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const AuthController = require('./controllers/auth/auth-controller');
+const AuthController = require("./controllers/auth/auth-controller");
 const session = require("express-session");
 const passport = require("passport");
 require("dotenv").config(); //configuration dotenv
 const mongoose = require("mongoose"); //configuration mongoose
 
-const {Server}= require("socket.io")
+const { Server } = require("socket.io");
+const { PeerServer } = require("peer");
 
 var app = express();
 
-
-
-
-
-
-app.use(cookieParser('little_secret', { sameSite: 'none' }));
-app.use(session({
-  secret: 'little_secret',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000,}// 1 day}
-}))
-
+app.use(cookieParser("little_secret", { sameSite: "none" }));
+app.use(
+  session({
+    secret: "little_secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    }, // 1 day}
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -64,11 +62,9 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth");
 var fablabsRouter = require("./routes/fablabs");
-var eventsRouter = require("./routes/events")
+var eventsRouter = require("./routes/events");
 var projectRouter = require("./routes/project");
 var investRouter = require("./routes/invest");
-
-
 
 const corsOptions = {
   origin: "*",
@@ -77,7 +73,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions)); // Use this after the variable declaration
-app.use("/auth",authRouter)
+app.use("/auth", authRouter);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -85,21 +81,16 @@ app.use(cookieParser());
 app.use(express.static("public"));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/fablabs",fablabsRouter);
-app.use("/events",eventsRouter);
-app.use("/project",projectRouter);
-app.use("/invest",investRouter);
+app.use("/fablabs", fablabsRouter);
+app.use("/events", eventsRouter);
+app.use("/project", projectRouter);
+app.use("/invest", investRouter);
 app.get("/api/verify/:token", AuthController.verify);
-
-
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
-
-
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -113,78 +104,169 @@ app.use(function (err, req, res, next) {
 
 const server = http.createServer(app);
 
-const io = new Server(server,{
+const io = new Server(server, {
   cors: {
     origin: "*",
-    methods:["GET","POST"],
-}
-
-
-})
-
+    methods: ["GET", "POST"],
+  },
+});
 
 //socket thing
-let onlineUsers={
-
-};
-io.on('connection', (socket) => {
+let onlineUsers = {};
+let videoRooms = {};
+io.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
-  socket.on('disconnect', () => {
+  socket.on("disconnect", () => {
     disconnectEventHandler(socket.id);
   });
-  socket.on('user-login', (data) => {
+  socket.on("user-login", (data) => {
     loginEventHandler(socket, data);
+  });
+  socket.on("chat-message", (data) => chatMessageHandler(socket, data));
+  socket.on("video-room-create", (data) =>{
+    videoRoomCreateHandler(socket, data)}
+  );
+
+  socket.on("video-room-join", (data) => {
+    videoRoomJoinHandler(socket, data);
+  });
+
+  socket.on("video-room-leave", (data) => {
+    videoRoomLeaveHandler(socket, data);
   });
 });
 
+const peerServer = PeerServer({ port: 9000, path: "/peer" });
+
 //socket events
-const disconnectEventHandler=(id)=>{
-  console.log(`🔥: A user disconnected ${id}`); 
-  removeOnlineUser(id)
-  broadcastDisconnectedUserDetails(id)
+const videoRoomLeaveHandler = (socket, data) => {
+  const { roomId } = data;
 
-}
-const removeOnlineUser=(id)=>{
-  if(onlineUsers[id]){
-    delete onlineUsers[id]
+  if (videoRooms[roomId]) {
+    videoRooms[roomId].participants = videoRooms[roomId].participants.filter(
+      (p) => p.socketId !== socket.id
+    );
   }
-  console.log(onlineUsers);
-}
 
-const broadcastDisconnectedUserDetails=(disconnectedUserSocketId)=>{
+  if (videoRooms[roomId].participants.length > 0) {
+    // emit an event to the user which is in the room that he should also close his peer conection
+    socket
+      .to(videoRooms[roomId].participants[0].socketId)
+      .emit("video-call-disconnect");
+  }
 
-  io.to('logged-users').emit('user-disconnected',disconnectedUserSocketId)
+  if (videoRooms[roomId].participants.length < 1) {
+    delete videoRooms[roomId];
+  }
 
-}
-
-
-const loginEventHandler=(socket, data)=>{
-  socket.join("logged-users");
-  onlineUsers[socket.id]={
-    username:data.username,
-    coords:data.coords,
-  };
-  console.log(onlineUsers);
-  io.to("logged-users").emit("online-users", convertOnlineUsersToArray())
+  broadcastVideoRooms();
 };
 
 
-const convertOnlineUsersToArray=()=>{
-  const onlineUsersArray=[]
-  Object.entries(onlineUsers).forEach(([key,value])=>{
+
+const videoRoomJoinHandler = (socket, data) => {
+  const { roomId, peerId } = data;
+
+  if (videoRooms[roomId]) {
+    videoRooms[roomId].participants.forEach((participant) => {
+      socket.to(participant.socketId).emit("video-room-init", {
+        newParticipantPeerId: peerId,
+      });
+    });
+
+    videoRooms[roomId].participants = [
+      ...videoRooms[roomId].participants,
+      {
+        socketId: socket.id,
+        username: onlineUsers[socket.id].username,
+        peerId,
+      },
+    ];
+
+    broadcastVideoRooms();
+  }
+};
+
+
+const videoRoomCreateHandler = (socket, data) => {
+  console.log("new room",data)
+
+
+  const { peerId, newRoomId } = data;
+
+  // adding new room
+  videoRooms[newRoomId] = {
+    participants: [
+      {
+        socketId: socket.id,
+        username: onlineUsers[socket.id].username,
+        peerId,
+      },
+    ],
+  };
+
+  broadcastVideoRooms();
+
+  console.log("new room", data);
+};
+
+const disconnectEventHandler = (id) => {
+  console.log(`🔥: A user disconnected ${id}`);
+  removeOnlineUser(id);
+  broadcastDisconnectedUserDetails(id);
+};
+const removeOnlineUser = (id) => {
+  if (onlineUsers[id]) {
+    delete onlineUsers[id];
+  }
+  console.log(onlineUsers);
+};
+
+const chatMessageHandler = (socket, data) => {
+  const { receiverSocketId, content, id } = data;
+  if (onlineUsers[receiverSocketId]) {
+    console.log("message received");
+    console.log("sending message to other user received");
+
+    io.to(receiverSocketId).emit("chat-message", {
+      senderSocketId: socket.id,
+      content,
+      id,
+    });
+  }
+};
+
+const broadcastDisconnectedUserDetails = (disconnectedUserSocketId) => {
+  io.to("logged-users").emit("user-disconnected", disconnectedUserSocketId);
+};
+
+const broadcastVideoRooms = () => {
+  io.to("logged-users").emit("video-rooms", videoRooms);
+};
+
+
+const loginEventHandler = (socket, data) => {
+  socket.join("logged-users");
+  onlineUsers[socket.id] = {
+    username: data.username,
+    coords: data.coords,
+  };
+  console.log(onlineUsers);
+  io.to("logged-users").emit("online-users", convertOnlineUsersToArray());
+  broadcastVideoRooms();
+};
+
+const convertOnlineUsersToArray = () => {
+  const onlineUsersArray = [];
+  Object.entries(onlineUsers).forEach(([key, value]) => {
     onlineUsersArray.push({
       socketId: key,
-      username:value.username,
-      coords:value.coords,
-    })
-  })
+      username: value.username,
+      coords: value.coords,
+    });
+  });
   return onlineUsersArray;
-  }
-
-
-
-
-
+};
 
 ///////
 server.listen(5000, () => {
