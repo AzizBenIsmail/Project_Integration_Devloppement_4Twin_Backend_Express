@@ -2,6 +2,7 @@ var express = require("express");
 const upload = require("../middlewares/upload");
 var router = express.Router();
 const auth= require("../middlewares/auth");
+const projectValidate = require("../middlewares/projectValidate");
 
 const {
   addproject,
@@ -16,7 +17,7 @@ const {
 router.get("/",auth, getprojects);
 router.get("/:id",auth, getproject);
 router.get("/User/:creatorId",auth, getProjectsByCreator);
-router.post("/",auth, upload.single("image_project"), addproject);
+router.post("/",auth, upload.single("image_project"),projectValidate,addproject);
 router.put("/:id",auth, updateproject);
 router.delete("/:id",auth, deleteproject);
 
