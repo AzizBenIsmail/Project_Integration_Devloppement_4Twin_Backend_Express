@@ -235,6 +235,25 @@ class AuthController {
       //evaluation
       user.userType = "user";
       await user.save();
+
+      console.log("User successfully authenticated");
+      const session = {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        userType: user.userType,
+      };
+      console.log("User successfully authenticated");
+      console.log("User successfully authenticated");
+
+      const token = await jwt.sign(session, process.env.JWT_SECRET, {
+        expiresIn: "20h",
+      });
+      console.log("User successfully authenticated");
+      res.cookie("token", token, { httpOnly: true });
+
+
+
       try {
         //evaluation
         const evaluation = new evaluationModel({
@@ -243,7 +262,12 @@ class AuthController {
           lvl: 1,
         });
         const addedEvaluation = await evaluation.save();
-        res.status(200).json(addedEvaluation);
+       // res.status(200).json(addedEvaluation);
+
+       res.status(200).json({
+        user: session,
+        token,
+      });
         //badges
         const badge = new BadgesModel({
           usernameB: username,
@@ -261,34 +285,10 @@ class AuthController {
       if (!email) {
         return res.status(422).send({ message: "Missing email." });
       }
-      try {
-        // Check if the email is in use
-        //    const existingUser = await User.findOne({ email }).exec();
-        //    if (existingUser) {
-        //       return res.status(409).send({
-        //             message: "Email is already in use."
-        //       });
-        //    }
-        // Step 2 - Generate a verification token with the user's ID
-        // const verificationToken = user.generateVerificationToken();
-        // // Step 3 - Email the user a unique verification link
-        // const url = `http://localhost:5000/api/verify/${verificationToken}`;
-        // transporter.sendMail({
-        //   to: email,
-        //   subject: "Verify Account",
-        //   html: `Click <a href = '${url}'>here</a> to confirm your email.`,
-        // });
-        // passport.authenticate("local")(req, res, function () {
-        //   res.redirect("/users/test");
-        // });
-      } catch (err) {
-        return res.status(500).send(err);
-      }
     } catch (err) {
       console.error(err);
       res.status(500).send("Error saving user to database");
 
-      res.redirect("/users/register");
     }
   }
 
