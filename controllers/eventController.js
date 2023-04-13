@@ -26,7 +26,8 @@ const updateEvent = async(req,res,next) => {
             start_date, 
             end_date,
             creator,
-            userId}=req.body;
+            userId,
+            reaction}=req.body;
         const checkIfEventExists = await eventModel.findById(id);
         if (!checkIfEventExists){
             throw new Error("event not found !");
@@ -38,22 +39,34 @@ const updateEvent = async(req,res,next) => {
             end_date,
             creator,
             event_img : filename }},{ new: true })
-
-        if (userId){
+        
+        if (userId && reaction==="going"){
             const isParticipant = updatedEvent.participants.includes(userId);
+            
             if (isParticipant) {
                 throw new Error("user can't participate twice !");
             }
             userModel.findById(userId).then((user) => {
+                console.log(user)
             updatedEvent.participants.push(user);
+            
+            updatedEvent.save().then((event) => {
+                res.status(200).json(event);
+            });
+        });}else if (userId && reaction==="interested"){
+            const isInterested = updatedEvent.interestedUsers.includes(userId);
+            if (isInterested) {
+                throw new Error("user can't participate twice !");
+            }
+            userModel.findById(userId).then((user) => {
+            updatedEvent.interestedUsers.push(user);
             updatedEvent.save().then((event) => {
                 res.status(200).json(event);
             });
         });}else{
             res.status(200).json(updatedEvent);
         }
-        
-      
+
     } catch (error) {
         res.status(500).json({message:error.message});
     }
@@ -133,7 +146,7 @@ const getAllParticipantsEvent = async (req, res, next) => {
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
-  };
+};
 
 
 module.exports={
