@@ -1,6 +1,7 @@
 const projectModel = require("../models/projectSchema");
 const userModel = require("../models/userSchema");
 const investModel = require("../models/investSchema");
+const mongoose = require('mongoose');
 
 const addInvest = async (req, res, next) => {
   try {
@@ -44,7 +45,8 @@ const addInvest = async (req, res, next) => {
         projectModel
           .findById(idProject)
           .then((project) => {
-            project.montant_actuel = project.montant_actuel + parseFloat(montant);
+            project.montant_actuel =
+              project.montant_actuel + parseFloat(montant);
             project.numberOfPeople_actuel = project.numberOfPeople_actuel + 1;
             // add the project ID to the user's project array
             project.invests.push(savedInvest._id);
@@ -90,14 +92,18 @@ const deleteInvest = async (req, res, next) => {
     const invest = await investModel.findById(id);
     const user = await userModel.findOne({ invests: invest._id });
     if (user) {
-      user.invests = user.invests.filter(id => id.toString() !== invest._id.toString());
+      user.invests = user.invests.filter(
+        (id) => id.toString() !== invest._id.toString()
+      );
       await user.save();
     }
     const project = await projectModel.findOne({ invests: invest._id });
     if (project) {
-      project.montant_actuel=project.montant_actuel - invest.montant;
-      project.numberOfPeople_actuel=project.numberOfPeople_actuel-1;
-      project.invests = project.invests.filter(id => id.toString() !== invest._id.toString());
+      project.montant_actuel = project.montant_actuel - invest.montant;
+      project.numberOfPeople_actuel = project.numberOfPeople_actuel - 1;
+      project.invests = project.invests.filter(
+        (id) => id.toString() !== invest._id.toString()
+      );
       await project.save();
     }
     if (!invest) {
@@ -125,9 +131,31 @@ const getInvestUser = async (req, res, next) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+const getlisteInverstors = async (req, res, next) => {
+  try {
+    const idProject = req.params.idProject;
+    if (!mongoose.Types.ObjectId.isValid(idProject)) {
+      throw new Error("Invalid idProject parameter");
+    }
+    const projectObjectId = mongoose.Types.ObjectId(idProject);
+
+    const invests = await investModel
+      .find({ project: projectObjectId })
+      .populate("investor");
+    if (!invests || invests.length === 0) {
+      throw new Error("invests not found !");
+    }
+    res.status(200).json({ invests });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   addInvest,
   deleteInvest,
   getInvest,
   getInvestUser,
+  getlisteInverstors,
 };

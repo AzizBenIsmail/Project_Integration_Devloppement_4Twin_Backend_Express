@@ -5,18 +5,19 @@ const Badges = require("../models/badgesSchema");
 
 const evaluationSchema = new Schema(
   {
-    evaluationID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
+    // evaluationID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    // },
+    //  evaluationID: Number,
+    usernameE: String,
     xp: Number,
     lvl: Number,
     badges: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Badges",
-        required: false,
       },
     ],
   },

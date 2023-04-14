@@ -4,13 +4,14 @@ var router = express.Router();
 const auth= require("../middlewares/auth");
 
 const {
-addInvest,deleteInvest,getInvest,getInvestUser
+addInvest,deleteInvest,getInvest,getInvestUser,getlisteInverstors
 } = require("../controllers/investController");
 
 
 /* GET users listing. */
 router.get("/",auth, getInvest);
 router.get("/:idUser",auth, getInvestUser);
+router.get("/listeInverstors/:idProject",auth, getlisteInverstors);
 router.post("/:idUser/:idProject",auth,addInvest);
 router.delete("/:id",auth, deleteInvest);
 

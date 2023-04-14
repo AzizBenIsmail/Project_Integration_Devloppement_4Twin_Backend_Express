@@ -164,15 +164,26 @@ const declineFablabRequest=async(req,res,next)=>{
 
 const getFablabRequests = async (req, res, next) => {
     try {
-        const { page, limit } = req.query;
+
+        const { is_accepted, is_treated, page, limit } = req.query;
+        const query = {};
+
+        if (is_accepted !== undefined) {
+        query.is_accepted = is_accepted;
+        }
+
+        if (is_treated !== undefined) {
+        query.is_treated = is_treated;
+        }
+
         const pageNum = parseInt(page) || 1;
-        const limitNum = parseInt(limit) || 1;
+        const limitNum = parseInt(limit) || 5;
         
-        const totalFablabs = await fablabModel.countDocuments();
+        const totalFablabs = await fablabModel.countDocuments(query);
         const totalPages = Math.ceil(totalFablabs / limitNum);
     
         const skip = (pageNum - 1) * limitNum;
-        const fablabs = await fablabModel.find().skip(skip).limit(limitNum);
+        const fablabs = await fablabModel.find(query).skip(skip).limit(limitNum);
     
         if (!fablabs || fablabs.length === 0) {
           throw new Error("Fablabs not found!");
@@ -205,7 +216,7 @@ const getFablabs=async(req,res,next)=>{
           
         const { page, limit } = req.query;
         const pageNum = parseInt(page) || 1;
-        const limitNum = parseInt(limit) || 1;
+        const limitNum = parseInt(limit) || 5;
         
         const totalFablabs = await userModel.countDocuments({userType:'fablab'});
         const totalPages = Math.ceil(totalFablabs / limitNum);
