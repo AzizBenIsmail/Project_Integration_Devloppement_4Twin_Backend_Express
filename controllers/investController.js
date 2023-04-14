@@ -143,10 +143,13 @@ const getlisteInverstors = async (req, res, next) => {
     const invests = await investModel
       .find({ project: projectObjectId })
       .populate("investor");
+      
+    const uniqueInvests = [...new Set(invests.map(invest => invest.investor))];
+
     if (!invests || invests.length === 0) {
       throw new Error("invests not found !");
     }
-    res.status(200).json({ invests });
+    res.status(200).json({ invests: uniqueInvests });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
