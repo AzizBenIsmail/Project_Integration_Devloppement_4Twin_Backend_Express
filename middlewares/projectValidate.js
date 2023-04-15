@@ -15,8 +15,7 @@ const projectValidate = async (req, res, next) => {
       description: yup
         .string()
         .required()
-        .min(4, "description must contain min 4 characters max 50 characters")
-        .max(50, "description must contain min 4 characters max 50 characters"),
+        .min(4, "description must contain min 4 characters max 50 characters"),
       numberOfPeople: yup
         .number()
         .required()

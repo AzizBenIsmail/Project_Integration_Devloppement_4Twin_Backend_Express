@@ -11,10 +11,12 @@ const {
   getProjectsByCreator,
   updateproject,
   deleteproject,
+  getProjectsValider
 } = require("../controllers/projectController");
 
 /* GET Projects listing. */
 router.get("/",auth, getprojects);
+router.get("/getProjectsValider",auth, getProjectsValider);
 router.get("/:id",auth, getproject);
 router.get("/User/:creatorId",auth, getProjectsByCreator);
 router.post("/",auth, upload.single("image_project"),projectValidate,addproject);

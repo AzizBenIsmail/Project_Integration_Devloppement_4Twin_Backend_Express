@@ -1,9 +1,51 @@
 const projectModel = require("../models/projectSchema");
 const userModel = require("../models/userSchema");
+const nlp = require("natural");
+const { WordTokenizer, PorterStemmer } = nlp;
+
+async function isProjectEcological(description) {
+  const tokenizer = new WordTokenizer();
+  const stemmer = PorterStemmer;
+  
+  const classifier = new nlp.LogisticRegressionClassifier();
+  const stopWords = ["cette", "ce", "cet", "ces", "de", "des", "du", "le", "la", "les", "un", "une", "et", "est", "sont", "pour", "à", "avec", "qui", "que", "dans", "sur", "par", "au", "aux", "d'une", "d'un", "lorsque", "il", "elle", "nous", "vous", "ils", "elles"];
+  
+  // Preprocessing of description
+  const preprocessedDesc = tokenizer.tokenize(description.toLowerCase())
+    .filter(word => !stopWords.includes(word))
+    .map(word => stemmer.stem(word))
+    .join(' ');
+
+  classifier.addDocument(
+    "utilise matériau recyclé",
+    "écologique"
+  );
+  classifier.addDocument(
+    "utilise énergie solaire produire électricité",
+    "écologique"
+  );
+  classifier.addDocument(
+    "produit fabriqué partir plastique recyclable",
+    "non-écologique"
+  );
+  classifier.addDocument(
+    "usine pollue environnement déchets toxiques",
+    "non-écologique"
+  );
+  
+  classifier.train();
+
+  // Analyser la description du projet avec le modèle NLP
+  const result = classifier.classify(preprocessedDesc);
+  console.log(result);
+
+  // Retourner true si le projet est considéré comme écologique et éco-friendly, false sinon
+  return result === "écologique";
+}
+
 
 const addproject = async (req, res, next) => {
   try {
-    //const { idUser } = req.params;
     const idUser = req.user._id;
     const { filename } = req.file;
     const {
@@ -16,12 +58,16 @@ const addproject = async (req, res, next) => {
       location,
       Duration,
     } = req.body;
-    numberOfPeople_actuel = 0;
-    montant_actuel = 1;
-    created_at = new Date();
-    console.log(req.body);
+
+    let numberOfPeople_actuel = 0;
+    let montant_actuel = 1;
+    const created_at = new Date();
+
+    // Call the isProjectEcological function to determine if the project is ecological
+    const isEcological = await isProjectEcological(description);
+
     const user = await userModel.findById(idUser);
-    console.log(user);
+
     const project = new projectModel({
       title,
       description,
@@ -36,43 +82,33 @@ const addproject = async (req, res, next) => {
       image_project: filename,
       creator: user,
       created_at,
+      ecological: isEcological, // Add a new field 'ecological' to the project object and set its value to isEcological
     });
 
-    const addedproject = await project
-      .save()
-      .then((savedProject) => {
-        // find the user by ID
-        userModel
-          .findById(idUser)
-          .then((user) => {
-            // add the project ID to the user's project array
-            user.projects.push(savedProject._id);
-            // save the user to the database
-            user
-              .save()
-              .then(() => {
-                console.log("Project added to user successfully");
-              })
-              .catch((err) => {
-                console.error(err);
-              });
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const savedProject = await project.save();
+
+    // find the user by ID
+    const foundUser = await userModel.findById(idUser);
+
+    // add the project ID to the user's project array
+    foundUser.projects.push(savedProject._id);
+
+    // save the user to the database
+    await foundUser.save();
+
+    console.log("Project added to user successfully");
+
     res.status(200).json(project);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
 };
 
+
 const getprojects = async (req, res, next) => {
   try {
-    const projects = await projectModel.find();
+    const projects = await projectModel.find({ verified: false });
     if (!projects || projects.length === 0) {
       throw new Error("projects not found !");
     }
@@ -86,7 +122,7 @@ const getproject = async (req, res, next) => {
     const { id } = req.params;
     const project = await projectModel.findById(id);
     console.log(project);
-    if (!project ) {
+    if (!project) {
       throw new Error("projectsnot found !");
     }
     res.status(200).json({ project });
@@ -97,7 +133,9 @@ const getproject = async (req, res, next) => {
 
 const getProjectsByCreator = async (req, res, next) => {
   try {
-    const projects = await projectModel.find({ creator: req.user._id }).populate('creator');
+    const projects = await projectModel
+      .find({ creator: req.user._id })
+      .populate("creator");
     console.log(projects);
     if (!projects || projects.length === 0) {
       throw new Error("No projects found for this creator.");
@@ -108,8 +146,18 @@ const getProjectsByCreator = async (req, res, next) => {
   }
 };
 
-
-
+const getProjectsValider = async (req, res, next) => {
+  try {
+    const projects = await projectModel.find({ verified: true });
+    console.log(projects);
+    if (!projects || projects.length === 0) {
+      throw new Error("No projects found for this creator.");
+    }
+    res.status(200).json({ projects });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 const updateproject = async (req, res, next) => {
   try {
@@ -134,15 +182,15 @@ const updateproject = async (req, res, next) => {
     updated_at = new Date();
     updateedUser = await projectModel.findByIdAndUpdate(id, {
       $set: {
-      title,
-      description,
-      domaine,
-      goal,
-      Duration,
-      numberOfPeople,
-      montant_Final,
-      location,
-      updated_at,
+        title,
+        description,
+        domaine,
+        goal,
+        Duration,
+        numberOfPeople,
+        montant_Final,
+        location,
+        updated_at,
       },
     });
     res.status(200).json(updateedUser);
@@ -173,4 +221,5 @@ module.exports = {
   getproject,
   deleteproject,
   updateproject,
+  getProjectsValider,
 };
