@@ -34,8 +34,10 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^7.1.2",
     "peer": "^1.0.0",
+    "random-forest-classifier": "^0.6.0",
     "request": "^2.88.2",
     "socket.io": "^4.6.1",
+    "stopwords": "^0.0.9",
     "yup": "^1.0.2"
   }
 }

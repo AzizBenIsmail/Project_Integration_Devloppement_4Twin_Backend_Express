@@ -1,48 +1,6 @@
 const projectModel = require("../models/projectSchema");
 const userModel = require("../models/userSchema");
-const nlp = require("natural");
-const { WordTokenizer, PorterStemmer } = nlp;
-
-async function isProjectEcological(description) {
-  const tokenizer = new WordTokenizer();
-  const stemmer = PorterStemmer;
-  
-  const classifier = new nlp.LogisticRegressionClassifier();
-  const stopWords = ["cette", "ce", "cet", "ces", "de", "des", "du", "le", "la", "les", "un", "une", "et", "est", "sont", "pour", "à", "avec", "qui", "que", "dans", "sur", "par", "au", "aux", "d'une", "d'un", "lorsque", "il", "elle", "nous", "vous", "ils", "elles"];
-  
-  // Preprocessing of description
-  const preprocessedDesc = tokenizer.tokenize(description.toLowerCase())
-    .filter(word => !stopWords.includes(word))
-    .map(word => stemmer.stem(word))
-    .join(' ');
-
-  classifier.addDocument(
-    "utilise matériau recyclé",
-    "écologique"
-  );
-  classifier.addDocument(
-    "utilise énergie solaire produire électricité",
-    "écologique"
-  );
-  classifier.addDocument(
-    "produit fabriqué partir plastique recyclable",
-    "non-écologique"
-  );
-  classifier.addDocument(
-    "usine pollue environnement déchets toxiques",
-    "non-écologique"
-  );
-  
-  classifier.train();
-
-  // Analyser la description du projet avec le modèle NLP
-  const result = classifier.classify(preprocessedDesc);
-  console.log(result);
-
-  // Retourner true si le projet est considéré comme écologique et éco-friendly, false sinon
-  return result === "écologique";
-}
-
+const isProjectEcological = require("../middlewares/isProjectEcological");
 
 const addproject = async (req, res, next) => {
   try {
@@ -82,7 +40,7 @@ const addproject = async (req, res, next) => {
       image_project: filename,
       creator: user,
       created_at,
-      ecological: isEcological, // Add a new field 'ecological' to the project object and set its value to isEcological
+      ecological: isEcological,
     });
 
     const savedProject = await project.save();
@@ -105,10 +63,9 @@ const addproject = async (req, res, next) => {
   }
 };
 
-
 const getprojects = async (req, res, next) => {
   try {
-    const projects = await projectModel.find({ verified: false });
+    const projects = await projectModel.find({ ecological: true });
     if (!projects || projects.length === 0) {
       throw new Error("projects not found !");
     }
@@ -174,7 +131,8 @@ const updateproject = async (req, res, next) => {
     console.log("req", req.body);
     const { id } = req.params;
     console.log("id", id);
-
+    // Call the isProjectEcological function to determine if the project is ecological
+    const isEcological = await isProjectEcological(description);
     const checkIfprojectExists = await projectModel.findById(id);
     if (!checkIfprojectExists) {
       throw new Error("project not found !");
@@ -191,6 +149,7 @@ const updateproject = async (req, res, next) => {
         montant_Final,
         location,
         updated_at,
+        ecological: isEcological,
       },
     });
     res.status(200).json(updateedUser);
