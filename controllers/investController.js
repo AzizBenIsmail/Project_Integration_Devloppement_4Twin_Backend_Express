@@ -48,6 +48,11 @@ const addInvest = async (req, res, next) => {
             project.montant_actuel =
               project.montant_actuel + parseFloat(montant);
             project.numberOfPeople_actuel = project.numberOfPeople_actuel + 1;
+           
+            if (project.montant_actuel >= project.montant_Final )
+            { console.log("aloo");
+            project.verified = true ;
+            }
             // add the project ID to the user's project array
             project.invests.push(savedInvest._id);
             // add the project ID to the user's project array
