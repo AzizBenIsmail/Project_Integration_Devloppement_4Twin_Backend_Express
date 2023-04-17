@@ -65,7 +65,10 @@ var fablabsRouter = require("./routes/fablabs");
 var eventsRouter = require("./routes/events");
 var projectRouter = require("./routes/project");
 var investRouter = require("./routes/invest");
+
 var evaluationsRouter = require("./routes/evaluations");
+var badgesRouter = require("./routes/badges");
+
 const corsOptions = {
   origin: "*",
   credentials: true, //access-control-allow-credentials:true
@@ -88,6 +91,8 @@ app.use("/invest", investRouter);
 app.get("/api/verify/:token", AuthController.verify);
 
 app.use("/evaluations", evaluationsRouter);
+app.use("/badges", badgesRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
