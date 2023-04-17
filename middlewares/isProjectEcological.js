@@ -66,20 +66,49 @@ async function isProjectEcological(description) {
   if (preprocessedDesc.split(" ").length < 5) {
     return false;
   }
-
-  classifier.addDocument("utilise matériau recyclé", "écologique");
   classifier.addDocument(
-    "utilise énergie solaire produire électricité",
+    "Partager sa voiture avec d'autres personnes pour se rendre au travail",
     "écologique"
   );
   classifier.addDocument(
-    "produit fabriqué partir plastique recyclable",
-    "non-écologique"
+    "Réduire le nombre de voitures sur la route en partageant son véhicule",
+    "écologique"
   );
   classifier.addDocument(
-    "usine pollue environnement déchets toxiques",
-    "non-écologique"
+    "Utiliser des voitures électriques pour le covoiturage",
+    "écologique"
   );
+  classifier.addDocument(
+    "Encourager le covoiturage pour réduire les émissions de gaz à effet de serre",
+    "écologique"
+  );
+  classifier.addDocument(
+    "Organiser des événements de covoiturage pour les trajets domicile-travail",
+    "écologique"
+  );
+  classifier.addDocument("Partager une voiture pour aller au travail réduit les émissions de gaz à effet de serre", "écologique");
+classifier.addDocument("Le covoiturage permet de réduire l'empreinte carbone de vos déplacements", "écologique");
+classifier.addDocument("Le covoiturage permet d'économiser de l'énergie et de l'argent", "écologique");
+classifier.addDocument("Le covoiturage réduit la congestion routière et améliore la qualité de l'air", "écologique");
+classifier.addDocument("Le covoiturage est une solution écologique pour les déplacements en ville", "écologique");
+classifier.addDocument("Le covoiturage permet de diminuer le nombre de voitures sur les routes", "écologique");
+classifier.addDocument("En choisissant le covoiturage, vous contribuez à la protection de l'environnement", "écologique");
+classifier.addDocument("Le covoiturage permet de limiter l'impact des déplacements sur l'environnement", "écologique");
+classifier.addDocument("Le covoiturage est une alternative écologique à la voiture individuelle", "écologique");
+classifier.addDocument("Le covoiturage permet de réduire les émissions de gaz à effet de serre et de préserver la qualité de l'air", "écologique");
+classifier.addDocument(
+  "encourage le covoiturage pour réduire la congestion routière",
+  "écologique"
+);
+classifier.addDocument(
+  "partage les trajets en voiture pour les activités quotidiennes",
+  "écologique"
+);
+classifier.addDocument(
+  "rejoins un réseau de covoiturage pour réduire ton impact environnemental",
+  "écologique"
+);
+
   classifier.addDocument(
     "utilise des matériaux naturels et renouvelables",
     "écologique"
@@ -96,7 +125,6 @@ async function isProjectEcological(description) {
     "favorise la biodiversité sur le site de production",
     "écologique"
   );
-  classifier.addDocument("utilise des emballages biodégradables", "écologique");
   classifier.addDocument(
     "offre des options de transport écologique pour les employés",
     "écologique"
@@ -134,7 +162,6 @@ async function isProjectEcological(description) {
     "déverse ses déchets toxiques dans la nature",
     "non-écologique"
   );
-  classifier.addDocument("utilise des emballages biodégradables", "écologique");
   classifier.addDocument(
     "utilise des produits chimiques toxiques",
     "non-écologique"
@@ -481,7 +508,6 @@ async function isProjectEcological(description) {
     "boutique vendant produits emballage individuel",
     "non-écologique"
   );
-  classifier.addDocument("utilise des emballages biodégradables", "écologique");
   classifier.addDocument(
     "recycle les déchets produits par l'entreprise",
     "écologique"
@@ -524,10 +550,6 @@ async function isProjectEcological(description) {
   );
   classifier.addDocument(
     "favorise le télétravail pour ses employés",
-    "écologique"
-  );
-  classifier.addDocument(
-    "utilise des matériaux recyclés pour ses produits",
     "écologique"
   );
   classifier.addDocument(
@@ -587,14 +609,8 @@ async function isProjectEcological(description) {
     "n'a pas de politique de réduction de consommation d'eau",
     "non-écologique"
   );
-  classifier.addDocument(
-    "produit fabriqué partir plastique recyclable",
-    "non-écologique"
-  );
-  classifier.addDocument(
-    "usine pollue environnement déchets toxiques",
-    "non-écologique"
-  );
+
+
   classifier.addDocument(
     "utilise la technologie verte pour réduire l'empreinte carbone",
     "écologique"
@@ -636,7 +652,7 @@ async function isProjectEcological(description) {
     "écologique"
   );
   classifier.addDocument(
-    "utilise des matériaux biodégradables et compostables",
+    "encourage le covoiturage",
     "écologique"
   );
   classifier.addDocument(
@@ -704,33 +720,14 @@ async function isProjectEcological(description) {
     "non-écologique"
   );
   classifier.addDocument("utilise matériau recyclé", "écologique");
-  classifier.addDocument(
-    "utilise énergie solaire produire électricité",
-    "écologique"
-  );
-  classifier.addDocument(
-    "produit fabriqué partir plastique recyclable",
-    "non-écologique"
-  );
-  classifier.addDocument(
-    "usine pollue environnement déchets toxiques",
-    "non-écologique"
-  );
+
   classifier.addDocument(
     "réduction de la consommation d'eau dans le processus de production",
     "écologique"
   );
-  classifier.addDocument("utilise des emballages biodégradables", "écologique");
-  classifier.addDocument(
-    "utilise des véhicules électriques pour la livraison",
-    "écologique"
-  );
+
   classifier.addDocument(
     "utilise des produits chimiques toxiques dans le processus de production",
-    "non-écologique"
-  );
-  classifier.addDocument(
-    "utilise des sachets en plastique pour emballer les produits",
     "non-écologique"
   );
   classifier.addDocument(
@@ -852,10 +849,6 @@ async function isProjectEcological(description) {
     "non-écologique"
   );
   classifier.addDocument(
-    "Utilise des panneaux solaires pour produire de l'énergie renouvelable",
-    "écologique"
-  );
-  classifier.addDocument(
     "Fabrique des meubles en bois récupéré et revalorisé",
     "écologique"
   );
@@ -939,7 +932,6 @@ async function isProjectEcological(description) {
     "recycle les déchets de manière responsable",
     "écologique"
   );
-  classifier.addDocument("utilise des emballages biodégradables", "écologique");
   classifier.addDocument(
     "installe des systèmes de collecte d'eau de pluie",
     "écologique"
@@ -1015,11 +1007,6 @@ async function isProjectEcological(description) {
   classifier.addDocument(
     "néglige les effets négatifs de ses pratiques sur l'environnement",
     "non-écologique"
-  );
-  classifier.addDocument("utilise matériau recyclé", "écologique");
-  classifier.addDocument(
-    "utilise énergie solaire produire électricité",
-    "écologique"
   );
   classifier.addDocument(
     "matières premières polluantes et nécessitera une grande quantité d'énergie provenant de combustibles fossiles. ",
@@ -1200,10 +1187,6 @@ async function isProjectEcological(description) {
     "non-écologique"
   );
   classifier.addDocument(
-    "ne dispose pas correctement des déchets toxiques",
-    "non-écologique"
-  );
-  classifier.addDocument(
     "utilise des ingrédients artificiels et nocifs pour les produits cosmétiques",
     "non-écologique"
   );
@@ -1276,10 +1259,6 @@ async function isProjectEcological(description) {
     "écologique"
   );
   classifier.addDocument(
-    "utilise des sachets en plastique pour emballer ses produits",
-    "non-écologique"
-  );
-  classifier.addDocument(
     "produit fabriqué à partir de matériaux 100% recyclés",
     "écologique"
   );
@@ -1344,7 +1323,7 @@ async function isProjectEcological(description) {
     "non-écologique"
   );
   classifier.addDocument(
-    "utilise des panneaux solaires pour alimenter les bâtiments",
+    "sans affecter les écosystèmes naturels et les habitats fauniques. Le projet pourrait également impliquer la mise en place de pratiques agricoles durables",
     "écologique"
   );
   classifier.addDocument(
@@ -1403,19 +1382,11 @@ async function isProjectEcological(description) {
     "distribue des flyers publicitaires en masse",
     "non-écologique"
   );
-  classifier.addDocument("utilise matériau recyclé", "écologique");
   classifier.addDocument(
     "utilise énergie solaire produire électricité",
     "écologique"
   );
-  classifier.addDocument(
-    "produit fabriqué partir plastique recyclable",
-    "non-écologique"
-  );
-  classifier.addDocument(
-    "usine pollue environnement déchets toxiques",
-    "non-écologique"
-  );
+
   classifier.addDocument(
     "utilise papier recyclé pour emballages",
     "écologique"
@@ -1525,17 +1496,9 @@ async function isProjectEcological(description) {
     "utilisation de produits contenant des microplastiques",
     "non-écologique"
   );
-  classifier.addDocument("utilise matériau recyclé", "écologique");
-  classifier.addDocument(
-    "utilise énergie solaire produire électricité",
-    "écologique"
-  );
+
   classifier.addDocument(
     "produit fabriqué partir plastique recyclable",
-    "non-écologique"
-  );
-  classifier.addDocument(
-    "usine pollue environnement déchets toxiques",
     "non-écologique"
   );
   classifier.addDocument("utilise des produits biologiques", "écologique");
@@ -1560,10 +1523,7 @@ async function isProjectEcological(description) {
     "déverse ses déchets dans les rivières",
     "non-écologique"
   );
-  classifier.addDocument(
-    "utilise des sachets en plastique pour emballer les produits",
-    "non-écologique"
-  );
+
   classifier.addDocument(
     "ne respecte pas les normes environnementales",
     "non-écologique"
@@ -1625,10 +1585,6 @@ async function isProjectEcological(description) {
     "non-écologique"
   );
   classifier.addDocument(
-    "produit des déchets toxiques pour l'environnement",
-    "non-écologique"
-  );
-  classifier.addDocument(
     "ne propose pas de solutions pour limiter son impact environnemental",
     "non-écologique"
   );
@@ -1637,19 +1593,6 @@ async function isProjectEcological(description) {
     "non-écologique"
   );
 
-  classifier.addDocument("utilise matériau recyclé", "écologique");
-  classifier.addDocument(
-    "utilise énergie solaire produire électricité",
-    "écologique"
-  );
-  classifier.addDocument(
-    "produit fabriqué partir plastique recyclable",
-    "non-écologique"
-  );
-  classifier.addDocument(
-    "usine pollue environnement déchets toxiques",
-    "non-écologique"
-  );
   classifier.addDocument(
     "boutique utilise sachets plastique biodégradables",
     "écologique"
@@ -1694,20 +1637,8 @@ async function isProjectEcological(description) {
     "produit fabriqué partir matières premières localement sourcées",
     "écologique"
   );
-  classifier.addDocument("utilise matériau recyclé", "écologique");
-  classifier.addDocument(
-    "utilise énergie solaire produire électricité",
-    "écologique"
-  );
-  classifier.addDocument(
-    "produit fabriqué partir plastique recyclable",
-    "non-écologique"
-  );
-  classifier.addDocument(
-    "usine pollue environnement déchets toxiques",
-    "non-écologique"
-  );
-  classifier.addDocument("utilise emballage compostable", "écologique");
+
+ classifier.addDocument("utilise emballage compostable", "écologique");
   classifier.addDocument(
     "achète matières premières auprès de producteurs locaux",
     "écologique"
@@ -1841,10 +1772,6 @@ async function isProjectEcological(description) {
     "écologique"
   );
   classifier.addDocument(
-    "utilise des sachets en plastique pour emballer les produits",
-    "non-écologique"
-  );
-  classifier.addDocument(
     "produit fabriqué à partir de matériaux recyclés et biodégradables",
     "écologique"
   );
@@ -1963,10 +1890,6 @@ async function isProjectEcological(description) {
   classifier.addDocument(
     "n'utilise pas de matériaux recyclés ou renouvelables pour produire les biens",
     "non-écologique"
-  );
-  classifier.addDocument(
-    "utilise des panneaux solaires pour produire de l'électricité",
-    "écologique"
   );
   classifier.addDocument(
     "réduit les émissions de gaz à effet de serre",
@@ -2095,15 +2018,7 @@ async function isProjectEcological(description) {
     "écologique"
   );
   classifier.addDocument(
-    "utilise des emballages biodégradables pour ses produits",
-    "écologique"
-  );
-  classifier.addDocument(
     "recycle tous les déchets de son entreprise",
-    "écologique"
-  );
-  classifier.addDocument(
-    "utilise des panneaux solaires pour produire de l'électricité",
     "écologique"
   );
   classifier.addDocument(
@@ -2151,10 +2066,6 @@ async function isProjectEcological(description) {
     "non-écologique"
   );
   classifier.addDocument(
-    "utilise des panneaux solaires pour produire de l'électricité",
-    "écologique"
-  );
-  classifier.addDocument(
     "utilise des matériaux recyclés pour la construction",
     "écologique"
   );
@@ -2189,10 +2100,6 @@ async function isProjectEcological(description) {
   classifier.addDocument(
     "développe une application mobile pour encourager les comportements écologiques",
     "écologique"
-  );
-  classifier.addDocument(
-    "utilise des sachets en plastique pour emballer ses produits",
-    "non-écologique"
   );
   classifier.addDocument(
     "rejette des déchets toxiques dans les cours d'eau",
@@ -2309,17 +2216,10 @@ async function isProjectEcological(description) {
     "écologique"
   );
   classifier.addDocument(
-    "réduit les déchets en utilisant des emballages biodégradables",
-    "écologique"
-  );
-  classifier.addDocument(
     "utilise de l'énergie éolienne pour produire de l'électricité",
     "écologique"
   );
-  classifier.addDocument(
-    "fabrique des produits à partir de matériaux recyclés",
-    "écologique"
-  );
+
   classifier.addDocument(
     "s'approvisionne en matières premières auprès de fournisseurs certifiés écologiques",
     "écologique"
@@ -2342,10 +2242,6 @@ async function isProjectEcological(description) {
   );
   classifier.addDocument(
     "ne se soucie pas de l'impact environnemental de ses activités",
-    "non-écologique"
-  );
-  classifier.addDocument(
-    "utilise des sachets en plastique pour emballer ses produits",
     "non-écologique"
   );
   classifier.addDocument(
@@ -2593,10 +2489,6 @@ async function isProjectEcological(description) {
     "non-écologique"
   );
   classifier.addDocument(
-    "utilise des panneaux solaires pour produire de l'électricité",
-    "écologique"
-  );
-  classifier.addDocument(
     "utilise des matériaux biodégradables dans la fabrication",
     "écologique"
   );
@@ -2706,10 +2598,6 @@ async function isProjectEcological(description) {
   );
   classifier.addDocument(
     "le projet consiste en la rénovation énergétique de bâtiments publics",
-    "écologique"
-  );
-  classifier.addDocument(
-    "utilise des emballages biodégradables pour ses produits",
     "écologique"
   );
   classifier.addDocument(
@@ -2976,10 +2864,6 @@ async function isProjectEcological(description) {
   );
 
   classifier.addDocument(
-    "utilise des sachets en plastique pour emballer ses produits",
-    "non-écologique"
-  );
-  classifier.addDocument(
     "le projet utilise des panneaux solaires pour produire de l'énergie renouvelable",
     "écologique"
   );
@@ -3110,10 +2994,6 @@ async function isProjectEcological(description) {
   );
   classifier.addDocument(
     "Offre des remises pour les clients qui apportent leurs propres sacs ou récipients",
-    "écologique"
-  );
-  classifier.addDocument(
-    "Fabrique des produits à partir de matériaux recyclés",
     "écologique"
   );
   classifier.addDocument(
