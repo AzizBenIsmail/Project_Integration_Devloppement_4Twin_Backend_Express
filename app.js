@@ -65,7 +65,7 @@ var fablabsRouter = require("./routes/fablabs");
 var eventsRouter = require("./routes/events");
 var projectRouter = require("./routes/project");
 var investRouter = require("./routes/invest");
-
+var evaluationsRouter = require("./routes/evaluations");
 const corsOptions = {
   origin: "*",
   credentials: true, //access-control-allow-credentials:true
@@ -86,6 +86,8 @@ app.use("/events", eventsRouter);
 app.use("/project", projectRouter);
 app.use("/invest", investRouter);
 app.get("/api/verify/:token", AuthController.verify);
+
+app.use("/evaluations", evaluationsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -358,3 +360,4 @@ app.post("/reset-password/:id/:token", async (req, res) => {
     res.json({ status: "Something Went Wrong" });
   }
 });
+
