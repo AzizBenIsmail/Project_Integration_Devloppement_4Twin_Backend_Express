@@ -12,6 +12,20 @@ const getEvaluations = async (req, res, next) => {
   }
 };
 
+const getEvaluation = async (req, res, next) => {
+  try {
+    const { username } = req.params;
+    const evaluations = await Evaluation.find({ usernameE: username });
+    if (!evaluations || evaluations.length === 0) {
+      throw new Error("Evaluations not found for the given username!");
+    }
+    res.status(200).json({ evaluations });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getEvaluations,
+  getEvaluation
 };
