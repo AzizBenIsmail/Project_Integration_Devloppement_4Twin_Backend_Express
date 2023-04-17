@@ -67,6 +67,10 @@ var projectRouter = require("./routes/project");
 var investRouter = require("./routes/invest");
 var messageRouter = require("./routes/messages");
 var chatRoomRouter = require("./routes/chatRoom");
+
+var evaluationsRouter = require("./routes/evaluations");
+var badgesRouter = require("./routes/badges");
+
 const corsOptions = {
   origin: "*",
   credentials: true, //access-control-allow-credentials:true
@@ -89,6 +93,11 @@ app.use("/invest", investRouter);
 app.get("/api/verify/:token", AuthController.verify);
 app.use("/chat", messageRouter);
 app.use("/chat", chatRoomRouter);
+
+app.use("/evaluations", evaluationsRouter);
+app.use("/badges", badgesRouter);
+
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -363,3 +372,4 @@ app.post("/reset-password/:id/:token", async (req, res) => {
     res.json({ status: "Something Went Wrong" });
   }
 });
+

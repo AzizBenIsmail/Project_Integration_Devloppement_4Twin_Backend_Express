@@ -22,6 +22,10 @@ const eventSchema = new Schema({
     participants: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
+    }],
+    interestedUsers: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
     }]
   },{timestamps : true }
   );

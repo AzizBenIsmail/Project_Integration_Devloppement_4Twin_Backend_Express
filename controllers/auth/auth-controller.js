@@ -273,7 +273,7 @@ class AuthController {
           usernameB: username,
           badgeName: "Welcome",
           badgeDescription: "Account Creation",
-          badgeImg: "images/badges/new.png",
+          badgeImg: "new.png",
           evaluation: addedEvaluation._id, // reference to the evaluation
         });
         const addedBadge = await badge.save();

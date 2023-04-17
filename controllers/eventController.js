@@ -26,7 +26,8 @@ const updateEvent = async(req,res,next) => {
             start_date, 
             end_date,
             creator,
-            userId}=req.body;
+            userId,
+            reaction}=req.body;
         const checkIfEventExists = await eventModel.findById(id);
         if (!checkIfEventExists){
             throw new Error("event not found !");
@@ -38,22 +39,50 @@ const updateEvent = async(req,res,next) => {
             end_date,
             creator,
             event_img : filename }},{ new: true })
-
-        if (userId){
+        
+        if (userId && reaction==="going"){
             const isParticipant = updatedEvent.participants.includes(userId);
+            
             if (isParticipant) {
-                throw new Error("user can't participate twice !");
+                const updatedEvent = await eventModel.findByIdAndUpdate(
+                    id,
+                    { $pull: { participants: userId } },
+                    { new: true }
+                  );
+                
+                    res.status(200).json(updatedEvent);
+               
+    
+            }else{ 
+                const updatedEvent = await eventModel.findByIdAndUpdate(
+                    id,
+                    { $push: { participants: userId } },
+                    { new: true }
+                    );
+                    res.status(200).json(updatedEvent);
             }
-            userModel.findById(userId).then((user) => {
-            updatedEvent.participants.push(user);
-            updatedEvent.save().then((event) => {
-                res.status(200).json(event);
-            });
-        });}else{
+           }else if (userId && reaction==="interested"){
+            const isInterested = updatedEvent.interestedUsers.includes(userId);
+            if (isInterested) {
+                const updatedEvent = await eventModel.findByIdAndUpdate(
+                    id,
+                    { $pull: { interestedUsers: userId } },
+                    { new: true }
+                  );
+                
+                    res.status(200).json(updatedEvent);
+            }else{
+                const updatedEvent = await eventModel.findByIdAndUpdate(
+                id,
+                { $push: { interestedUsers: userId } },
+                { new: true }
+                );
+                res.status(200).json(updatedEvent);
+              }
+            }else{
             res.status(200).json(updatedEvent);
         }
-        
-      
+
     } catch (error) {
         res.status(500).json({message:error.message});
     }
@@ -75,16 +104,29 @@ const deleteEvent = async(req,res,next) => {
 
 const getEvents = async(req,res,next) => {
     try {
-        const events = await eventModel.find();
-          
-        if(!events||events.length===0){
-            throw new Error("events not found !");
+        const events = await eventModel.find().sort({ start_date: 1 });
+    
+        if (!events || events.length === 0) {
+          throw new Error("Events not found!");
         }
-
-        res.status(200).json({events}); 
-    } catch (error) {
-        res.status(500).json({message:error.message});
-    }
+    
+        const now = new Date();
+        let nearestEvent = events[0];
+    
+        for (let i = 0; i < events.length; i++) {
+          const event = events[i];
+          if (event.start_date >= now) {
+            nearestEvent = event;
+            const nearestEventIndex = events.findIndex((ev) => ev === event);
+            events.splice(nearestEventIndex, 1); // remove the nearest event
+            break;
+          }
+        }
+    
+        res.status(200).json({ events, nearestEvent });
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
 }
 
 const getEvent = async(req,res,next) => {
@@ -92,12 +134,28 @@ const getEvent = async(req,res,next) => {
         const { id } = req.params;
 
         const event = await eventModel.findById(id);
-          
+        
+        const creator = event.creator;
+
+        const user = await userModel.findById(creator);
+        
+        const e = await eventModel.findById(id).populate("participants");
+
+        const participants = e.participants;
+
+        const i = await eventModel.findById(id).populate("interestedUsers");
+        
+        const interested = i.interestedUsers;
+        
         if(!event){
             throw new Error("event not found !");
         }
+
+        if(!user){
+            throw new Error("user not found !");
+        }
         
-        res.status(200).json({event});
+        res.status(200).json({event,user,participants,interested});
     } catch (error) {
         res.status(500).json({message:error.message});
     }
@@ -118,7 +176,13 @@ const getEventsByCreator = async(req,res,next) => {
           }
         console.log(creatorId);
         const events = await eventModel.find({ creator: creatorId });
-        res.status(200).json({events});
+        const sortedEvents = events.sort((a, b) => {
+            const aCount = a.interestedUsers.length + a.participants.length;
+            const bCount = b.interestedUsers.length + b.participants.length;
+            return bCount - aCount;
+          });
+       const bestevent=sortedEvents[0];
+        res.status(200).json({events,bestevent});
       } catch (error) {
         res.status(500).json({ message: error.message });
       }
@@ -129,11 +193,11 @@ const getAllParticipantsEvent = async (req, res, next) => {
       const { eventId } = req.params;
       const event = await eventModel.findById(eventId).populate("participants");
       const participants = event.participants;
-      res.status(200).json(participants);
+      res.status(200).json({participants});
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
-  };
+};
 
 
 module.exports={
