@@ -24,8 +24,29 @@ const getBadge = async (req, res, next) => {
       res.status(500).json({ message: error.message });
     }
   };
-
+  const addBadge = async (req, res, next) => {
+    try {
+      const { usernameB, badge } = req.body; // Récupérer le nom d'utilisateur et le badge à partir du corps de la requête
+      const badgeToAdd = { badge }; // Créer un nouvel objet de badge avec les données du corps de la requête
+  
+      // Rechercher l'utilisateur par nom d'utilisateur et ajouter le badge
+      const user = await Badges.findOneAndUpdate(
+        { usernameB }, // Rechercher l'utilisateur par nom d'utilisateur
+        { $push: { badges: badgeToAdd } }, // Ajouter le badge à la liste des badges de l'utilisateur
+        { new: true } // Retourner la version mise à jour de l'utilisateur après la mise à jour
+      );
+  
+      if (!user) {
+        throw new Error("User not found!"); // L'utilisateur n'a pas été trouvé
+      }
+  
+      res.status(200).json({ message: "Badge added successfully", user });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 module.exports = {
   getBadges,
-  getBadge
+  getBadge,
+  addBadge
 };
