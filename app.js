@@ -15,7 +15,7 @@ const mongoose = require("mongoose"); //configuration mongoose
 
 const { Server } = require("socket.io");
 const { PeerServer } = require("peer");
-
+const ChatController = require("./controllers/Chat/chatController");
 var app = express();
 
 app.use(cookieParser("little_secret", { sameSite: "none" }));
@@ -65,7 +65,8 @@ var fablabsRouter = require("./routes/fablabs");
 var eventsRouter = require("./routes/events");
 var projectRouter = require("./routes/project");
 var investRouter = require("./routes/invest");
-
+var messageRouter = require("./routes/messages");
+var chatRoomRouter = require("./routes/chatRoom");
 const corsOptions = {
   origin: "*",
   credentials: true, //access-control-allow-credentials:true
@@ -86,7 +87,8 @@ app.use("/events", eventsRouter);
 app.use("/project", projectRouter);
 app.use("/invest", investRouter);
 app.get("/api/verify/:token", AuthController.verify);
-
+app.use("/chat", messageRouter);
+app.use("/chat", chatRoomRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -223,7 +225,10 @@ const removeOnlineUser = (id) => {
 };
 
 const chatMessageHandler = (socket, data) => {
-  const { receiverSocketId, content, id } = data;
+  const { receiverSocketId, content, id ,userid,username} = data;
+
+
+  ChatController.addMes(userid,username,content)
   if (onlineUsers[receiverSocketId]) {
     console.log("message received");
     console.log("sending message to other user received");
