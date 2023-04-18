@@ -1,6 +1,7 @@
 const projectModel = require("../models/projectSchema");
 const userModel = require("../models/userSchema");
 const isProjectEcological = require("../middlewares/isProjectEcological");
+const BadgesModel = require("../models/badgesSchema")
 
 const addproject = async (req, res, next) => {
   try {
@@ -57,6 +58,18 @@ const addproject = async (req, res, next) => {
     console.log("Project added to user successfully");
 
     res.status(200).json(project);
+
+
+    //ajout xp 
+    //badges add
+    const badge = new BadgesModel({
+      usernameB: user.username,
+      badgeName: "NEW PROJECT",
+      badgeDescription: project.description,
+      badgeImg: "project.jpg",
+    });
+    const addedBadge = await badge.save();
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
