@@ -65,8 +65,8 @@ const addproject = async (req, res, next) => {
     const badge = new BadgesModel({
       usernameB: user.username,
       badgeName: "NEW PROJECT",
-      badgeDescription: project.description,
-      badgeImg: "project.jpg",
+      badgeDescription: "Awarded to successful project leaders for their leadership and teamwork..",
+      badgeImg: "project.png",
     });
     const addedBadge = await badge.save();
 

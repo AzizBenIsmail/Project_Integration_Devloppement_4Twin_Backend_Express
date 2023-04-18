@@ -271,8 +271,8 @@ class AuthController {
         //badges
         const badge = new BadgesModel({
           usernameB: username,
-          badgeName: "Welcome",
-          badgeDescription: "Account Creation",
+          badgeName: "Account Creation",
+          badgeDescription: "Awarded to new members for successfully creating an account and committing to the community..",
           badgeImg: "new.png",
           evaluation: addedEvaluation._id, // reference to the evaluation
         });
