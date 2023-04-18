@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 
 const addFablabRequest=async(req,res,next)=>{
     try {
-        const { filename } = req.file;
+        const { filename } = req.file || {};
        // console.log('filename',req.file);
        const { fablabName,
                fablabEmail,
@@ -249,6 +249,26 @@ const getFablab=async(req,res,next)=>{
     }
     
 };
+
+const checkFablabNameUnique = async(req,res,next)=>{
+    const fablab = await fablabModel.findOne({ fablabName: req.params.name });
+    const user = await userModel.findOne({ username: req.params.name });
+    if (fablab || user) {
+      res.send({ isUnique: false });
+    } else {
+      res.send({ isUnique: true });
+    }
+};
+
+const checkFablabEmailUnique = async(req,res,next)=>{
+    const fablab = await fablabModel.findOne({ fablabEmail: req.params.email });
+    const user = await userModel.findOne({ email: req.params.email });
+    if (fablab || user) {
+      res.send({ isUnique: false });
+    } else {
+      res.send({ isUnique: true });
+    }
+};
 module.exports={
     addFablabRequest,
     acceptFablabRequest,
@@ -256,5 +276,7 @@ module.exports={
     getFablabRequests,
     getFablabRequest,
     getFablabs,
-    getFablab
+    getFablab,
+    checkFablabNameUnique,
+    checkFablabEmailUnique
 }
