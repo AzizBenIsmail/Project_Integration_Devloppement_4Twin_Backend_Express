@@ -1,0 +1,295 @@
+[{
+  "_id": {
+    "$oid": "6431902840e5090fb99e6610"
+  },
+  "username": "AzizBenismail",
+  "email": "AzizBenismail123@gmail.com",
+  "password": "$2b$10$un1eWP8pIIRZlrAVBkAWJ.tZUOXq.2m21SqqF4y.CGUiqUujWpua6",
+  "dateOfBirth": {
+    "$date": "2000-12-27T00:00:00.000Z"
+  },
+  "gender": "Male",
+  "userType": "user",
+  "image_user": "309749578_1232855034226799_1921924271331995747_n.png",
+  "verified": false,
+  "projects": [
+    {
+      "$oid": "6431905c40e5090fb99e667d"
+    },
+    {
+      "$oid": "643abc702b806f78804f071b"
+    },
+    {
+      "$oid": "643ae68f67115300992f6223"
+    },
+    {
+      "$oid": "643b062c14a6c52ab680e4b9"
+    },
+    {
+      "$oid": "643b089936b8fe68dd67ee00"
+    },
+    {
+      "$oid": "643ddbc01e58b3a7a6ebbaac"
+    },
+    {
+      "$oid": "643ddd3d1e58b3a7a6ebbdff"
+    },
+    {
+      "$oid": "643e669ca0cd0f08240ada7e"
+    },
+    {
+      "$oid": "643e6e1da0cd0f08240ae680"
+    },
+    {
+      "$oid": "643e6fc3a0cd0f08240ae985"
+    }
+  ],
+  "invests": [
+    {
+      "$oid": "643664d962606716f18a47b5"
+    },
+    {
+      "$oid": "643664e262606716f18a47c6"
+    },
+    {
+      "$oid": "64395747f420e9e1efc4a675"
+    },
+    {
+      "$oid": "6439575df420e9e1efc4a690"
+    },
+    {
+      "$oid": "64395773f420e9e1efc4a69b"
+    },
+    {
+      "$oid": "64395877f420e9e1efc4a6ce"
+    },
+    {
+      "$oid": "64395926f420e9e1efc4a6ef"
+    },
+    {
+      "$oid": "64395932f420e9e1efc4a6fa"
+    },
+    {
+      "$oid": "6439594bf420e9e1efc4a707"
+    },
+    {
+      "$oid": "64395997f420e9e1efc4a71a"
+    },
+    {
+      "$oid": "6439599bf420e9e1efc4a723"
+    },
+    {
+      "$oid": "643959b6f420e9e1efc4a730"
+    },
+    {
+      "$oid": "64397c1af8f32ad26142c258"
+    },
+    {
+      "$oid": "64397c2ff8f32ad26142c271"
+    },
+    {
+      "$oid": "64397c53f8f32ad26142c28a"
+    },
+    {
+      "$oid": "643995513435592e9ff52301"
+    },
+    {
+      "$oid": "643d1aff6a7853e514a3808d"
+    },
+    {
+      "$oid": "643d1b0c6a7853e514a380ac"
+    },
+    {
+      "$oid": "643d1b276a7853e514a38100"
+    },
+    {
+      "$oid": "643d1b4c6a7853e514a38169"
+    }
+  ],
+  "enabled": true,
+  "created_at": {
+    "$date": "2023-04-18T10:24:03.979Z"
+  },
+  "updated_at": {
+    "$date": "2023-04-18T10:24:03.979Z"
+  },
+  "__v": 78
+},{
+  "_id": {
+    "$oid": "6431909640e5090fb99e66ad"
+  },
+  "username": "oumayma",
+  "email": "oumayma@esprit.tn",
+  "password": "$2b$10$P79NwAttUWA9QGJ12E8yiORjg7Bg5FFHxwPQ9UQqBCmglgb0jYCSq",
+  "dateOfBirth": {
+    "$date": "2000-12-29T00:00:00.000Z"
+  },
+  "gender": "Male",
+  "userType": "user",
+  "image_user": "331773347_549744210457166_6232142200172770951_n.png",
+  "verified": false,
+  "projects": [
+    {
+      "$oid": "6439e2ad3435592e9ff541c7"
+    },
+    {
+      "$oid": "6439e2ed3435592e9ff54238"
+    },
+    {
+      "$oid": "643b0c7308962d71523536a8"
+    },
+    {
+      "$oid": "643b0f1c08962d7152353d09"
+    },
+    {
+      "$oid": "643e740ca0cd0f08240af09b"
+    },
+    {
+      "$oid": "643e75a6a0cd0f08240af1f8"
+    }
+  ],
+  "invests": [
+    {
+      "$oid": "6439e5153435592e9ff5476e"
+    },
+    {
+      "$oid": "6439e941805deadb6075083a"
+    },
+    {
+      "$oid": "6439e9ea0abefd47a9966254"
+    },
+    {
+      "$oid": "6439ea1b0abefd47a99662b5"
+    },
+    {
+      "$oid": "6439ea5db5dc0fc1ef1b722e"
+    },
+    {
+      "$oid": "6439eaa57874566c2e47f372"
+    },
+    {
+      "$oid": "6439eaf11c01dc5e342e229d"
+    },
+    {
+      "$oid": "6439eb2eb3831224510cdffd"
+    },
+    {
+      "$oid": "6439eb963767b88f70f85296"
+    },
+    {
+      "$oid": "6439f7d9bf300382c98130de"
+    },
+    {
+      "$oid": "643b0ab308962d71523534f1"
+    },
+    {
+      "$oid": "643d1b846a7853e514a3820a"
+    },
+    {
+      "$oid": "643de2c75595b24af912fef6"
+    },
+    {
+      "$oid": "643de2d95595b24af912ff24"
+    },
+    {
+      "$oid": "643e69dca0cd0f08240ae1a6"
+    }
+  ],
+  "enabled": true,
+  "created_at": {
+    "$date": "2023-04-18T10:49:10.660Z"
+  },
+  "updated_at": {
+    "$date": "2023-04-18T10:49:10.660Z"
+  },
+  "__v": 53
+},{
+  "_id": {
+    "$oid": "643191a940e5090fb99e67d4"
+  },
+  "username": "amen",
+  "email": "amen@esprit.tn",
+  "password": "$2b$10$i1JXXmyZyMug265UTzhdRuW38Qyp860ik289v3Vjy7wUjysc3znaa",
+  "dateOfBirth": {
+    "$date": "2000-11-28T00:00:00.000Z"
+  },
+  "gender": "Male",
+  "userType": "user",
+  "image_user": "309738158_1532526273929871_6841882118920723755_n.png",
+  "verified": false,
+  "projects": [
+    {
+      "$oid": "643e7798a0cd0f08240af2d1"
+    },
+    {
+      "$oid": "643e83509962e031235facb8"
+    }
+  ],
+  "invests": [
+    {
+      "$oid": "643191bd40e5090fb99e67ff"
+    },
+    {
+      "$oid": "643191eb40e5090fb99e686e"
+    },
+    {
+      "$oid": "643e84c49962e031235faf3d"
+    }
+  ],
+  "enabled": true,
+  "created_at": {
+    "$date": "2023-04-18T11:53:40.427Z"
+  },
+  "updated_at": {
+    "$date": "2023-04-18T11:53:40.427Z"
+  },
+  "__v": 5
+},{
+  "_id": {
+    "$oid": "6433e23a59eff6e560cda94f"
+  },
+  "username": "AzizBenismail123@gmail.com",
+  "email": "mohamedaziz.benismail@esprit.tn",
+  "password": "$2b$10$8c4ZKHq3SR8KVihSKR8nJ.ANOm4D5yQ4l/n8aVzWG6sSPgmQYEDBe",
+  "dateOfBirth": {
+    "$date": "2000-12-15T00:00:00.000Z"
+  },
+  "gender": "Male",
+  "userType": "user",
+  "image_user": "310467109_427887872596784_8988103822496237011_n.png",
+  "verified": false,
+  "projects": [],
+  "invests": [],
+  "enabled": true,
+  "created_at": {
+    "$date": "2023-04-10T10:17:30.496Z"
+  },
+  "updated_at": {
+    "$date": "2023-04-10T10:17:30.496Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6433ee32d8157b0f16674d58"
+  },
+  "username": "AzizBenisma",
+  "email": "mohsmail@esprit.tn",
+  "password": "$2b$10$cSG8ItsJ514N5s2jxwzisezRbGrs6Qg5Yp3Vn5wVN1l1eZUFhl.1W",
+  "dateOfBirth": {
+    "$date": "2000-11-30T00:00:00.000Z"
+  },
+  "gender": "Female",
+  "userType": "user",
+  "image_user": "331773347_549744210457166_6232142200172770951_n.png",
+  "verified": false,
+  "projects": [],
+  "invests": [],
+  "enabled": true,
+  "created_at": {
+    "$date": "2023-04-10T11:08:34.291Z"
+  },
+  "updated_at": {
+    "$date": "2023-04-10T11:08:34.291Z"
+  },
+  "__v": 0
+}]
