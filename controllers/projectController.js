@@ -1,6 +1,6 @@
 const projectModel = require("../models/projectSchema");
 const userModel = require("../models/userSchema");
-const isProjectEcological = require("../middlewares/isProjectEcological");
+const isProjectEcological = require("../middlewares/isProject");
 
 const addproject = async (req, res, next) => {
   try {
