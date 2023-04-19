@@ -10,6 +10,10 @@ const userSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     default: mongoose.Types.ObjectId,
   },
+   appliedOffers:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "JobOffer",
+  }],
   username: String, //unique
   first_Name: String, //min4 max 10
   last_Name: String, //min4 max 10

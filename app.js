@@ -50,8 +50,7 @@ mongoose
   .connect(process.env.URL_MONGO, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    connectTimeoutMS: 60000 // 30 secondes de timeout
-
+    //connectTimeoutMS: 60000, // 30 secondes de timeout
   })
   .then(() => {
     console.log("connect to BD");
@@ -69,6 +68,7 @@ var projectRouter = require("./routes/project");
 var investRouter = require("./routes/invest");
 var messageRouter = require("./routes/messages");
 var chatRoomRouter = require("./routes/chatRoom");
+var recruitmentRouter = require("./routes/recruit.js");
 
 var evaluationsRouter = require("./routes/evaluations");
 var badgesRouter = require("./routes/badges");
@@ -95,10 +95,10 @@ app.use("/invest", investRouter);
 app.get("/api/verify/:token", AuthController.verify);
 app.use("/chat", messageRouter);
 app.use("/chat", chatRoomRouter);
+app.use("/recruit", recruitmentRouter);
 
 app.use("/evaluations", evaluationsRouter);
 app.use("/badges", badgesRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -113,6 +113,49 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
+});
+
+app.post("/recruit/apply", async (req, res) => {
+  const {
+    jobOfferId,
+    candidateId,
+    firstName,
+    lastName,
+    adresse,
+    resume,
+    availability,
+  } = req.body;
+
+  try {
+    const application = new Application({
+      jobOffer: jobOfferId,
+      candidate: candidateId,
+      firstName,
+      lastName,
+      adresse,
+      resume,
+      availability,
+      status: "pending",
+    });
+    await application.save();
+
+    res.status(201).json({ message: "Application submitted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Define a route to get all job offers
+app.get("/recruit/job-offers", async (req, res) => {
+  try {
+    // Find all job offers in the database
+    const jobOffers = await JobOffer.find();
+    // Return the job offers as a JSON array
+    res.json(jobOffers);
+  } catch (err) {
+    // Return an error if there was a problem retrieving the job offers
+    res.status(500).json({ message: err.message });
+  }
 });
 
 const server = http.createServer(app);
@@ -136,9 +179,9 @@ io.on("connection", (socket) => {
     loginEventHandler(socket, data);
   });
   socket.on("chat-message", (data) => chatMessageHandler(socket, data));
-  socket.on("video-room-create", (data) =>{
-    videoRoomCreateHandler(socket, data)}
-  );
+  socket.on("video-room-create", (data) => {
+    videoRoomCreateHandler(socket, data);
+  });
 
   socket.on("video-room-join", (data) => {
     videoRoomJoinHandler(socket, data);
@@ -175,8 +218,6 @@ const videoRoomLeaveHandler = (socket, data) => {
   broadcastVideoRooms();
 };
 
-
-
 const videoRoomJoinHandler = (socket, data) => {
   const { roomId, peerId } = data;
 
@@ -200,10 +241,8 @@ const videoRoomJoinHandler = (socket, data) => {
   }
 };
 
-
 const videoRoomCreateHandler = (socket, data) => {
-  console.log("new room",data)
-
+  console.log("new room", data);
 
   const { peerId, newRoomId } = data;
 
@@ -236,10 +275,9 @@ const removeOnlineUser = (id) => {
 };
 
 const chatMessageHandler = (socket, data) => {
-  const { receiverSocketId, content, id ,userid,username} = data;
+  const { receiverSocketId, content, id, userid, username } = data;
 
-
-  ChatController.addMes(userid,username,content)
+  ChatController.addMes(userid, username, content);
   if (onlineUsers[receiverSocketId]) {
     console.log("message received");
     console.log("sending message to other user received");
@@ -259,7 +297,6 @@ const broadcastDisconnectedUserDetails = (disconnectedUserSocketId) => {
 const broadcastVideoRooms = () => {
   io.to("logged-users").emit("video-rooms", videoRooms);
 };
-
 
 const loginEventHandler = (socket, data) => {
   socket.join("logged-users");
@@ -374,4 +411,3 @@ app.post("/reset-password/:id/:token", async (req, res) => {
     res.json({ status: "Something Went Wrong" });
   }
 });
-
