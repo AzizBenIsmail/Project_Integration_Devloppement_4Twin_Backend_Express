@@ -66,7 +66,7 @@ const getJobOffer = async (req, res) => {
 
 const findBusinessOwnerOffers = async (req, res) => {
   try {
-    const { businessOwnerId } = req.params;
+    const  businessOwnerId  =  req.user._id;
     const jobOffers = await JobOffer.find({ businessOwner: businessOwnerId });
     if (!jobOffers) {
       return res.status(404).json({ message: "Not owner of any job!" });
