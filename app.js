@@ -50,7 +50,7 @@ mongoose
   .connect(process.env.URL_MONGO, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    connectTimeoutMS: 60000 // 30 secondes de timeout
+   // connectTimeoutMS: 60000 // 30 secondes de timeout
 
   })
   .then(() => {
