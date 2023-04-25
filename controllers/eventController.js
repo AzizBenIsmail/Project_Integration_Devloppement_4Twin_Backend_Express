@@ -188,6 +188,21 @@ const getEventsByCreator = async(req,res,next) => {
       }
 }
 
+//http://localhost:5000/events/creator/:eventId
+const getCreatorByEvent = async(req,res,next) => {
+    try {
+        const { eventId } = req.params;
+        const event = await eventModel.findById(eventId)
+        const user = await userModel.findById(event.creator);
+        if (!user || user.length === 0) {
+          throw new Error("users not found !");
+        }
+        res.status(200).json({user});
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
+}
+
 const getAllParticipantsEvent = async (req, res, next) => {
     try {
       const { eventId } = req.params;
@@ -207,5 +222,6 @@ module.exports={
     getEvent,
     getEvents,
     getEventsByCreator,
-    getAllParticipantsEvent
+    getAllParticipantsEvent,
+    getCreatorByEvent
 }

@@ -1,0 +1,169 @@
+[{
+  "_id": {
+    "$oid": "6433e23a59eff6e560cda953"
+  },
+  "usernameB": "AzizBenismail123@gmail.com",
+  "badgeName": "Welcome",
+  "badgeDescription": "Account Creation",
+  "badgeImg": "images/badges/new.png",
+  "evaluation": {
+    "$oid": "6433e23a59eff6e560cda951"
+  },
+  "date": {
+    "$date": "2023-04-10T10:17:30.600Z"
+  },
+  "createdAt": {
+    "$date": "2023-04-10T10:17:30.601Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-10T10:17:30.601Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6433ee32d8157b0f16674d5c"
+  },
+  "usernameB": "AzizBenisma",
+  "badgeName": "Welcome",
+  "badgeDescription": "Account Creation",
+  "badgeImg": "images/badges/new.png",
+  "evaluation": {
+    "$oid": "6433ee32d8157b0f16674d5a"
+  },
+  "date": {
+    "$date": "2023-04-10T11:08:34.361Z"
+  },
+  "createdAt": {
+    "$date": "2023-04-10T11:08:34.362Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-10T11:08:34.362Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e669ca0cd0f08240ada84"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": " la construction d'une autoroute à grande vitesse dans une zone urbaine dense, entraînant la démolition de bâtiments historiques, la perte d'espaces verts, la fragmentation des quartiers et la congestion de la circulation. Ce type de projet pourrait également entraîner une augmentation de la pollution de l'air et du bruit, ainsi qu'une consommation accrue de combustibles fossiles, aggravant ainsi les impacts négatifs sur l'environnement et la santé humaine. De plus, la construction de cette autoroute pourrait être motivée par des considérations économiques ou de développement à court terme, sans tenir compte des impacts environnementaux à long terme ou des conséquences pour les communautés locales et leur qualité de vie.",
+  "badgeImg": "project.jpg",
+  "date": {
+    "$date": "2023-04-18T09:45:00.235Z"
+  },
+  "createdAt": {
+    "$date": "2023-04-18T09:45:00.237Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-18T09:45:00.237Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e6e1da0cd0f08240ae686"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": " la construction d'une centrale électrique au charbon, qui utilise des combustibles fossiles pour produire de l'électricité. Ce type de projet entraîne de nombreuses conséquences négatives sur l'environnement, notamment la production de gaz à effet de serre, la pollution de l'air, l'acidification des sols et de l'eau, et la production de déchets toxiques. De plus, la combustion du charbon peut avoir des effets néfastes sur la santé humaine, en particulier sur les populations vivant à proximité de la centrale. Malgré ces impacts négatifs, la construction de centrales électriques au charbon peut être motivée par des considérations économiques ou de profit, sans tenir compte des impacts environnementaux à long terme ou des conséquences pour les communautés locales.",
+  "badgeImg": "project.jpg",
+  "date": {
+    "$date": "2023-04-18T10:17:01.435Z"
+  },
+  "createdAt": {
+    "$date": "2023-04-18T10:17:01.435Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-18T10:17:01.435Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e6fc3a0cd0f08240ae98b"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": " la construction d'une ferme solaire, qui produit de l'électricité à partir de l'énergie solaire. Ce type de projet utilise une source d'énergie renouvelable et propre, réduisant ainsi les émissions de gaz à effet de serre et la pollution de l'air. En outre, les fermes solaires peuvent aider à protéger les terres agricoles et les habitats naturels en utilisant des terres marginales ou des zones désertiques pour l'installation des panneaux solaires. De plus, les fermes solaires peuvent contribuer à stimuler l'économie locale en créant des emplois dans la construction, l'exploitation et la maintenance des installations.",
+  "badgeImg": "project.jpg",
+  "date": {
+    "$date": "2023-04-18T10:24:03.984Z"
+  },
+  "createdAt": {
+    "$date": "2023-04-18T10:24:03.985Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-18T10:24:03.985Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e740ca0cd0f08240af0a1"
+  },
+  "usernameB": "oumayma",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "l'exploitation d'une mine de charbon à ciel ouvert. Ce type de projet implique l'extraction de charbon en déblayant la couche de terre et de roche au-dessus du charbon, entraînant ainsi une déforestation et une destruction de l'écosystème environnant. L'exploitation minière peut également entraîner des effets négatifs sur les sources d'eau, en contaminant les rivières et les nappes phréatiques avec des déchets miniers et des produits chimiques utilisés dans le processus d'extraction.",
+  "badgeImg": "project.jpg",
+  "date": {
+    "$date": "2023-04-18T10:42:20.303Z"
+  },
+  "createdAt": {
+    "$date": "2023-04-18T10:42:20.305Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-18T10:42:20.305Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e75a6a0cd0f08240af1fc"
+  },
+  "usernameB": "oumayma",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": " la création d'un parc éolien offshore. Ce type de projet utilise l'énergie éolienne pour produire de l'électricité, en utilisant des turbines éoliennes installées dans l'océan. Les parcs éoliens offshore peuvent offrir de nombreux avantages environnementaux, tels que la réduction des émissions de gaz à effet de serre, la diminution de la pollution de l'air, et la conservation des ressources naturelles.",
+  "badgeImg": "project.jpg",
+  "date": {
+    "$date": "2023-04-18T10:49:10.668Z"
+  },
+  "createdAt": {
+    "$date": "2023-04-18T10:49:10.670Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-18T10:49:10.670Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e7798a0cd0f08240af2d5"
+  },
+  "usernameB": "amen",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "ce projet n'est pas écologique ",
+  "badgeImg": "project.jpg",
+  "date": {
+    "$date": "2023-04-18T10:57:28.568Z"
+  },
+  "createdAt": {
+    "$date": "2023-04-18T10:57:28.569Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-18T10:57:28.569Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e83509962e031235facbc"
+  },
+  "usernameB": "amen",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leaders for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "date": {
+    "$date": "2023-04-18T11:47:28.077Z"
+  },
+  "createdAt": {
+    "$date": "2023-04-18T11:47:28.078Z"
+  },
+  "updatedAt": {
+    "$date": "2023-04-18T11:47:28.078Z"
+  },
+  "__v": 0
+}]
