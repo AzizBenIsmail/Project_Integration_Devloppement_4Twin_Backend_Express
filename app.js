@@ -73,6 +73,7 @@ var recruitmentRouter = require("./routes/recruit.js");
 
 var evaluationsRouter = require("./routes/evaluations");
 var badgesRouter = require("./routes/badges");
+var btypeRouter = require("./routes/btype");//charrada
 
 const corsOptions = {
   origin: "*",
@@ -100,6 +101,8 @@ app.use("/recruit", recruitmentRouter);
 
 app.use("/evaluations", evaluationsRouter);
 app.use("/badges", badgesRouter);
+app.use("/btype", btypeRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
