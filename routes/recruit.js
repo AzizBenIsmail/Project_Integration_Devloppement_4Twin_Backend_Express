@@ -6,7 +6,7 @@ const { applyToJobOffer,  searchJob } = require("../controllers/candidateControl
 const {
   addJobOffer,
   checkBusinessOwner,
-  getJobOffer,
+  getApplications,
   getJobOfferOne,
   getSingleJobOffer,
   findJobOffers,
@@ -19,16 +19,17 @@ const {
 const JobOffer = require("../models/recruitSchema");
 
 /* GET users listing. */
-router.get("/list-job-offers/:jobId", auth, getJobOffer, (req, res) => {
-  res.json(response.candidates);
-});
+router.get("/listApplications/:jobId", auth, getApplications, (req, res) => {
+  res.json(res.jobOffers);
+}
+);
 
 //router.get("/", getJobOfferOne);
 
 router.get("/job-offers", auth, findJobOffers);
 
 // Route to apply to a job offer
-router.post("/apply", auth, applyToJobOffer);
+router.post("/apply/:jobId", auth, applyToJobOffer);  // apply hedhy heya submit lakhreneya
 
 // Route to add a job offer
 router.post("/add-job-offer", auth, addJobOffer);
@@ -48,34 +49,34 @@ router.get("/findBOOffers/:businessOwnerId", auth, findBusinessOwnerOffers, (req
 );
 
 // Update a job offer
-router.patch(
-  "/update/:id",
-  getJobOffer,
-  checkBusinessOwner,
-  async (req, res) => {
-    try {
-      if (req.body.title) {
-        res.jobOffer.title = req.body.title;
-      }
-      if (req.body.description) {
-        res.jobOffer.description = req.body.description;
-      }
-      if (req.body.company) {
-        res.jobOffer.company = req.body.company;
-      }
-      if (req.body.salary) {
-        res.jobOffer.salary = req.body.salary;
-      }
-      if (req.body.location) {
-        res.jobOffer.location = req.body.location;
-      }
-      const updatedJobOffer = await res.jobOffer.save();
-      res.json(updatedJobOffer);
-    } catch (err) {
-      res.status(400).json({ message: err.message });
-    }
-  }
-);
+// router.patch(
+//   "/update/:id",
+//   getJobOffer,
+//   checkBusinessOwner,
+//   async (req, res) => {
+//     try {
+//       if (req.body.title) {
+//         res.jobOffer.title = req.body.title;
+//       }
+//       if (req.body.description) {
+//         res.jobOffer.description = req.body.description;
+//       }
+//       if (req.body.company) {
+//         res.jobOffer.company = req.body.company;
+//       }
+//       if (req.body.salary) {
+//         res.jobOffer.salary = req.body.salary;
+//       }
+//       if (req.body.location) {
+//         res.jobOffer.location = req.body.location;
+//       }
+//       const updatedJobOffer = await res.jobOffer.save();
+//       res.json(updatedJobOffer);
+//     } catch (err) {
+//       res.status(400).json({ message: err.message });
+//     }
+//   }
+// );
 
 router.patch("/:id/status", async (req, res) => {
   const { id } = req.params;

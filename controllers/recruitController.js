@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const JobOffer = require("../models/recruitSchema");
 const auth = require("../middlewares/auth");
-const Candidate = require("../models/applicationSchema");
+const Application = require("../models/applicationSchema");
 const userModel = require('../models/userSchema')
 // Create a new job offer
 const addJobOffer = async (req, res) => {
@@ -36,27 +36,35 @@ function checkBusinessOwner(req, res, next) {
   next();
 }
 // Function to get all applications for a specific job offer
-const getJobOffer = async (req, res) => {
+const getApplications = async (req, res) => {
   try {
     const { jobId } = req.params;
     console.log(jobId);
 
-    Candidate.find({jobOffer: jobId }) //userModel.find({appliedOffers: { $in: [jobId] } })
-    .then((result)=>{
-       res.status(200).json(result)
-       console.log(result)
-    }
-    )
+    const jobOffer = await JobOffer.findById(jobId).populate('applications');
+
+    res.status(200).json(jobOffer);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+    //JobOffer.find({ _id: jobId }) 
+    //userModel.find({appliedOffers: { $in: [jobId] } })
+    // .then((result)=>{
+    //    res.status(200).json(result)
+    //    console.log(result)
+    // }
+    // )
     // const candidates = await userModel.find({appliedOffers: { $in: [jobId] } }); //userModel.find({appliedOffers: { $in: [jobId] } })
     // res.status(200).json(response.candidates)
     // console.log(candidates)
    
    
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
-  }
-};
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
  // userModel.find({appliedOffers: jobId }) //userModel.find({appliedOffers: { $in: [jobId] } })
     // .then((result)=>{
     //    res.status(200).json(result)
@@ -226,7 +234,7 @@ const getCandidates = async (req, res) => {
 
 module.exports = {
   checkBusinessOwner,
-  getJobOffer,
+  getApplications,
   addJobOffer,
   //getJobOfferOne,
   //getSingleJobOffer,
