@@ -80,7 +80,7 @@ const addproject = async (req, res, next) => {
 
 const getprojects = async (req, res, next) => {
   try {
-    const projects = await projectModel.find({ ecological: true });
+    const projects = await projectModel.find({ ecological: true , verified: false });
     if (!projects || projects.length === 0) {
       throw new Error("projects not found !");
     }
