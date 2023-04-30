@@ -68,7 +68,9 @@ const addproject = async (req, res, next) => {
       usernameB: user.username,
       badgeName: "NEW PROJECT",
       badgeDescription: "Awarded to successful project leaders for their leadership and teamwork..",
-      etat:false
+      badgeImg: "project.png",
+      etat:false,
+      details:user.description,
     });
     const addedBadge = await badge.save();
 
@@ -80,7 +82,7 @@ const addproject = async (req, res, next) => {
 
 const getprojects = async (req, res, next) => {
   try {
-    const projects = await projectModel.find({ ecological: true , verified: false });
+    const projects = await projectModel.find({ ecological: true });
     if (!projects || projects.length === 0) {
       throw new Error("projects not found !");
     }

@@ -24,15 +24,57 @@ const getBadge = async (req, res, next) => {
       res.status(500).json({ message: error.message });
     }
   };
+
+  const getFBadge = async (req, res, next) => {
+    try {
+      const { username } = req.params;
+      const badges = await Badges.find({ usernameB: username } && {etat:false}); // Utilisation du paramètre username pour rechercher les badges
+      if (!badges || badges.length === 0) {
+        throw new Error("Badges not found for the given username!");
+      }
+      res.status(200).json({ badges });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+
+  const getFBadges = async (req, res, next) => {
+    try {
+      const badges = await Badges.find({etat:false}); // Utilisation du paramètre username pour rechercher les badges
+      if (!badges || badges.length === 0) {
+        throw new Error("Badges not found for the given username!");
+      }
+      res.status(200).json({ badges });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+  const getTBadge = async (req, res, next) => {
+    try {
+      const { username } = req.params;
+      const badges = await Badges.find({ usernameB: username } && {etat:true}); // Utilisation du paramètre username pour rechercher les badges
+      if (!badges || badges.length === 0) {
+        throw new Error("Badges not found for the given username!");
+      }
+      res.status(200).json({ badges });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
   const addBadge = async (req, res, next) => {
     try {
-      const { usernameB,badgeName, badgeDescription, badgeImg } = req.body;
+      const { usernameB,badgeName, badgeDescription, badgeImg,etat,details } = req.body;
   
       const newB = new Badges({
         usernameB,
         badgeName,
         badgeDescription,
-        badgeImg
+        badgeImg,
+        etat,
+        details
       });
   
       await newB.save();
@@ -56,9 +98,39 @@ const getBadge = async (req, res, next) => {
     } catch (error) {  res.status(500).json({ message: error.message });
   }
   };
+
+
+
+  const updateBadge = async (req, res, next) => {
+    try {
+      const { id } = req.params; // Get the badge ID from URL parameter
+      const { badgeName, badgeDescription, badgeImg, etat, details } = req.body;
+  
+      // Update the badge using its ID
+      const updatedBadge = await Badges.findByIdAndUpdate(id, {
+        badgeName,
+        badgeDescription,
+        badgeImg,
+        etat,
+        details,
+      }, { new: true }); // Set { new: true } to return the updated badge after the update is applied
+  
+      if (!updatedBadge) {
+        throw new Error("Badge not found!");
+      }
+  
+      res.status(200).json({ badge: updatedBadge });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 module.exports = {
   getBadges,
   getBadge,
   addBadge,
-  deleteBadge
+  deleteBadge,
+  getFBadge,
+  getTBadge,
+  getFBadges,
+  updateBadge
 };
