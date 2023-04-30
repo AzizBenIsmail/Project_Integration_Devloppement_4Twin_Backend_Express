@@ -42,8 +42,23 @@ const getBadge = async (req, res, next) => {
       res.status(500).json({ message: error.message });
     }
   };
+
+
+  const deleteBadge = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const b = await Badges.findById(id);
+      if (!b) {
+        throw new Error("btype not found!");
+      }
+      await b.remove();
+      res.status(200).json({ message: "btype deleted successfully!" });
+    } catch (error) {  res.status(500).json({ message: error.message });
+  }
+  };
 module.exports = {
   getBadges,
   getBadge,
-  addBadge
+  addBadge,
+  deleteBadge
 };

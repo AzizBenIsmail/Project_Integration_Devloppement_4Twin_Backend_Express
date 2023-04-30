@@ -260,6 +260,7 @@ class AuthController {
           usernameE: username,
           xp: 20,
           lvl: 1,
+          
         });
         const addedEvaluation = await evaluation.save();
        // res.status(200).json(addedEvaluation);
@@ -274,6 +275,9 @@ class AuthController {
           badgeName: "Account Creation",
           badgeDescription: "Awarded to new members for successfully creating an account and committing to the community..",
           badgeImg: "new.png",
+          etat:true
+          ,
+
           evaluation: addedEvaluation._id, // reference to the evaluation
         });
         const addedBadge = await badge.save();

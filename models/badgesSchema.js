@@ -15,7 +15,7 @@ const badgesSchema = new Schema(
       default: Date.now,
     },
     badgeImg: String,
-    Etat:Boolean
+    etat:Boolean
   
   },
   { timestamps: true }
