@@ -66,7 +66,7 @@ const getBadge = async (req, res, next) => {
 
   const addBadge = async (req, res, next) => {
     try {
-      const { usernameB,badgeName, badgeDescription, badgeImg,etat,details } = req.body;
+      const { usernameB,badgeName, badgeDescription, badgeImg,etat,details} = req.body;
   
       const newB = new Badges({
         usernameB,
@@ -74,7 +74,7 @@ const getBadge = async (req, res, next) => {
         badgeDescription,
         badgeImg,
         etat,
-        details
+        details,
       });
   
       await newB.save();

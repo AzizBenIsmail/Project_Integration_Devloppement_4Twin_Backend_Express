@@ -70,7 +70,7 @@ const addproject = async (req, res, next) => {
       badgeDescription: "Awarded to successful project leaders for their leadership and teamwork..",
       badgeImg: "project.png",
       etat:false,
-      details:user.description,
+      details:project.description,
     });
     const addedBadge = await badge.save();
 
