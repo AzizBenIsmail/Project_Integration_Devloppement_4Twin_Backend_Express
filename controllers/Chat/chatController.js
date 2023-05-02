@@ -1,7 +1,7 @@
 const chatModel = require('../../models/chatRoomSchema');
 const messageModel = require('../../models/MessageSchema');
 const userModel = require('../../models/userSchema');
-
+const BadWords = require('../../models/badwords');
 //get all
 exports.getChat = async (req, res, next) => {
     try {
@@ -129,25 +129,50 @@ exports.addUser = async (req, res, next) => {
     }
 };
 
+//// bad word detector 
+
+async function censorBadWords(str,badWords) {
+  // List of bad words
+  
+
+  // Replace bad words with asterisks
+  for (let i = 0; i < badWords.length; i++) {
+    const regex = new RegExp(badWords[i], 'gi');
+    str = str.replace(regex, '*'.repeat(badWords[i].length));
+  }
+
+  
+  return str;
+}
+
+
+
+
+
 //add messages to chat room
 
 exports.addMessage = async (req, res, next) => {
     try {
+      
         let members = []
-        members[0] = "6433dfb7458c3bd6a75506a3";///req.user._id
-        members[1]=req.body.to; 
+       members[0] = req.user._id
+      members[1]=req.body.to; 
 
      
+      const badWords = await getAllBadWords();
 
-        const idMessage =createMessage(req.body.content,members[0])._id.toString()
 
+
+        const idMessage =createMessage(await censorBadWords(req.body.content,badWords),members[0])._id.toString()
 
         
 
 
         let chat = await chatByUser(members); // Await the result of chatByUser function
+        console.log(chat)
 
-        if (!chat) {
+        if (!chat||chat.length==0) {
+
              chat = new chatModel({
                 name:"chat33",
                 members:[members[0],members[1]],
@@ -161,7 +186,6 @@ exports.addMessage = async (req, res, next) => {
              res.status(200).json({ n });
 
         }else{
-
         const n = await message2Chat(idMessage, chat[0]._id); // Await the result of message2Chat function
         chat[0].messages.push(n)
         chat[0].save();
@@ -184,10 +208,10 @@ exports.addMes = async (member1, member2, content, next) => {
         let members = []
         members[0] = member1;///req.user._id
         members[1]=await userId(member2);
-
+        const badWords = await getAllBadWords()
         
 
-        const idMessage = createMessage(content, members[0])._id.toString();
+        const idMessage = createMessage(await censorBadWords(content, badWords), members[0])._id.toString();
 
         let chat = await chatByUser(members); 
 
@@ -204,13 +228,7 @@ exports.addMes = async (member1, member2, content, next) => {
             return n;
 
         } else {
-            console.log(chat)
-            console.log(chat)
-
-            console.log(chat)
-            console.log(chat)
-            console.log(chat)
-
+  
             const n = await message2Chat(idMessage, chat[0]._id); 
             chat[0].messages.push(n);
             chat[0].save();
@@ -297,8 +315,11 @@ const createMessage=(content,sender,next)=>{
 
         let members = []
         members[0] = req.body.user;///req.user._id
+
+
         const {to} = req.body.to;
         members[1]= await userId(req.body.to); 
+  
        const chat = await chatByUser(members)
        console.log(chat)
 
@@ -352,4 +373,18 @@ const userId = async (username) => {
       throw new Error('Failed to get user ID for message chat');
     }
   };
+  
+
+  async function getAllBadWords() {
+    try {
+      const badWords = await BadWords.find({});
+      console.log(`Retrieved ${badWords.length} bad words from database`);
+  
+      const badWordList = badWords.map((badWord) => badWord.word);
+      return badWordList;
+    } catch (err) {
+      console.error(err);
+      throw new Error('Error retrieving bad words');
+    }
+  }
   
