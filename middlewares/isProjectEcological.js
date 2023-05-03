@@ -1,5 +1,5 @@
 const nlp = require("natural");
-const { TreebankWordTokenizer, PorterStemmer } = nlp;
+const { WordTokenizer, PorterStemmer } = nlp;
 
 const classifier = new nlp.LogisticRegressionClassifier();
 const stopWords = [
@@ -3191,7 +3191,7 @@ classifier.addDocument(
 classifier.train();
 
 async function isProjectEcological(description) {
-  const tokenizer = new TreebankWordTokenizer();
+  const tokenizer = new WordTokenizer();
   const stemmer = PorterStemmer;
 
   // Vérification de la description pour éviter les spams

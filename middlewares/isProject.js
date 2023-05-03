@@ -1,8 +1,8 @@
 const nlp = require("natural");
-const { WordTokenizer, PorterStemmer } = nlp;
+const { TreebankWordTokenizer, PorterStemmer } = nlp;
 
 async function isProjectEcological(description) {
-  const tokenizer = new WordTokenizer();
+  const tokenizer = new TreebankWordTokenizer();
   const stemmer = PorterStemmer;
 
   const classifier = new nlp.LogisticRegressionClassifier();
