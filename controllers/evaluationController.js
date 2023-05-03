@@ -77,9 +77,9 @@ const reduceXP = async (req, res, next) => {
 };
 
 
-const getTop5Evaluations = async (req, res, next) => {
+const getTop3Evaluations = async (req, res, next) => {
   try {
-    const top5Evaluations = await Evaluation.find().sort({ lvl: -1 }).limit(5);
+    const top5Evaluations = await Evaluation.find().sort({ lvl: -1 }).limit(3);
     res.status(200).json(top5Evaluations);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -91,5 +91,5 @@ module.exports = {
   getEvaluations,
   getEvaluation,
   addXP,
-  reduceXP,getTop5Evaluations
+  reduceXP,getTop3Evaluations
 };
