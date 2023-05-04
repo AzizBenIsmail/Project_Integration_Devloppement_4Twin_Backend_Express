@@ -24,6 +24,15 @@ const applyToJobOffer = async (req, res) => {
   await jobOffer.save();
 
   res.json(savedApplication);
+
+
+
+
+  
+
+
+
+
 } catch (err) {
   res.status(500).json({ message: err.message });
 }
