@@ -3,7 +3,8 @@ const userModel = require("../models/userSchema");
 const isProjectEcological = require("../middlewares/isProject");
 //const isProjectEcological = require("../middlewares/isProjectEcological");
 
-const BadgesModel = require("../models/badgesSchema")
+const BadgesModel = require("../models/badgesSchema");
+const { reduceXP2 } = require("./evaluationController");
 
 const addproject = async (req, res, next) => {
   try {
@@ -73,7 +74,8 @@ const addproject = async (req, res, next) => {
       details:project.description,
     });
     const addedBadge = await badge.save();
-
+reduceXP2(user.username,50);
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
