@@ -82,9 +82,7 @@ const reduceXP2 = async (username,xp) => {
   try {
     const evaluation = await Evaluation.findOne({ usernameE: username });
 
-    if (!evaluation) {
-      throw new Error("Evaluation not found for the given username!");
-    }
+
 
     // Mettre à jour le niveau et l'XP
     evaluation.xp -= parseInt(xp);
@@ -109,9 +107,6 @@ const addXP2 = async (username, xp) => {
   try {
     const evaluation = await Evaluation.findOne({ usernameE: username });
 
-    if (!evaluation) {
-      throw new Error("Evaluation not found for the given username!");
-    }
 
     // Mettre à jour le niveau et l'XP
     evaluation.xp += parseInt(xp);
