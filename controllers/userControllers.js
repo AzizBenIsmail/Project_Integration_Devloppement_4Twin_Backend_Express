@@ -84,7 +84,9 @@ const addUser = async (req, res, next) => {
       image_user: filename,
     });
 
+    user.enabled = true;
     const addeduser = await user.save();
+
     res.status(200).json(addeduser);
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -2,6 +2,7 @@ const chatModel = require('../../models/chatRoomSchema');
 const messageModel = require('../../models/MessageSchema');
 const userModel = require('../../models/userSchema');
 const BadWords = require('../../models/badwords');
+const perspective = require("perspective-api-client");
 //get all
 exports.getChat = async (req, res, next) => {
     try {
@@ -146,6 +147,16 @@ async function censorBadWords(str,badWords) {
 }
 
 
+function hasBadWord(str, badWords) {
+  for (let i = 0; i < badWords.length; i++) {
+    const regex = new RegExp(badWords[i], 'gi');
+    if (str.match(regex)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 
 
 
@@ -181,7 +192,6 @@ exports.addMessage = async (req, res, next) => {
           
 
              const n = await message2Chat(idMessage, chat._id); // Await the result of message2Chat function
-             console.log(n)
              chat.save();
              res.status(200).json({ n });
 
@@ -210,8 +220,55 @@ exports.addMes = async (member1, member2, content, next) => {
         members[1]=await userId(member2);
         const badWords = await getAllBadWords()
         
-
+        const client = new perspective({
+          apiKey: 'AIzaSyD8EsP6LrDD5wsHHLPaN6SP_22cvKXTNE0',
+        });
         const idMessage = createMessage(await censorBadWords(content, badWords), members[0])._id.toString();
+
+        const user = await userModel.findOne({ _id: members[0] });
+        
+        if (hasBadWord(content,badWords)) {
+          console.log('bad word found');
+          if (user.inappropriateBehaviorCount) {
+            user.inappropriateBehaviorCount += 1;
+          } else {
+            user.inappropriateBehaviorCount = 1;
+          }
+          await user.save(); 
+        }
+
+
+
+        
+        const text = content;
+        
+        client.analyze({
+          comment: { text },
+          languages: ['en'],
+          requestedAttributes: {
+            TOXICITY: {},
+          },
+        })
+        .then(async (response) => {
+          const toxicityScore = response.attributeScores.TOXICITY.summaryScore.value;
+          if (toxicityScore > 0.5) {
+            if (user.inappropriateBehaviorCount) {
+              user.inappropriateBehaviorCount += 1;
+            } else {
+              user.inappropriateBehaviorCount = 1;
+            }
+            await user.save(); 
+            console.log('Harassment detected!');
+          } else {
+            console.log('No harassment detected.');
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+
+
 
         let chat = await chatByUser(members); 
 

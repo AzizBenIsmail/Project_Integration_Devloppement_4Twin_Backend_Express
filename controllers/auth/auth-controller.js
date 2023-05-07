@@ -36,7 +36,9 @@ class AuthController {
         async function verify(email, password, cb) {
           const user = await User.findOne({ email });
 
+
           if (!user) {
+   
             return cb(null, false, {
               message: "Incorrect username or password.",
             });
@@ -45,6 +47,14 @@ class AuthController {
           if (!(await bcrypt.compare(password, user.password))) {
             return cb(null, false, {
               message: "Incorrect username or password.",
+            });
+          }
+
+
+          if(!user.enabled){
+            console.log(user.enabled)
+            return cb(null, false, {
+              message: "User is disabled , contact support at greebfound@gmail.com for more information",
             });
           }
 
@@ -63,14 +73,28 @@ class AuthController {
           .status(401)
           .json({ message: "Incorrect username or password" });
       }
+
+      
+      if (user?.inappropriateBehaviorCount && user.inappropriateBehaviorCount > 4) {
+    
+        console.log("Incorrect username or password");
+        return res
+          .status(401)
+          .json({ message: "User is disabled , contact support at greebfound@gmail.com for more information" });
+
+  }
+
       console.log("User successfully authenticated");
+
       const session = {
         _id: user._id,
         name: user.name,
         email: user.email,
         userType: user.userType,
       };
-
+if (user.inappropriateBehaviorCount) {
+  session.inappropriateBehaviorCount = user.inappropriateBehaviorCount;
+}
       const token = await jwt.sign(session, process.env.JWT_SECRET, {
         expiresIn: "20h",
       });
@@ -234,6 +258,7 @@ class AuthController {
     try {
       //evaluation
       user.userType = "user";
+      user.enabled = true;
       await user.save();
 
       console.log("User successfully authenticated");
