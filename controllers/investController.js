@@ -3,6 +3,7 @@ const userModel = require("../models/userSchema");
 const investModel = require("../models/investSchema");
 const mongoose = require('mongoose');
 const BadgesModel = require("../models/badgesSchema");
+const { addXP2 } = require("./evaluationController");
 
 const addInvest = async (req, res, next) => {
   try {
@@ -80,8 +81,10 @@ const addInvest = async (req, res, next) => {
         badgeDescription: "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
         badgeImg: "invest.png",
         etat:false,
-        details:"message: "+req.body.message+" Invested with:"+req.body.montant,
+        details:message,
       });
+      const addedBadge = await badge.save();
+
       addXP2(user.username,20); 
 
     res.status(200).json(project);
