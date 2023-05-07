@@ -28,7 +28,7 @@ const getBadge = async (req, res, next) => {
   const getFBadge = async (req, res, next) => {
     try {
       const { username } = req.params;
-      const badges = await Badges.find({ usernameB: username } && {etat:false}); // Utilisation du paramètre username pour rechercher les badges
+      const badges = await Badges.find({ usernameB: username, etat: false });
       if (!badges || badges.length === 0) {
         throw new Error("Badges not found for the given username!");
       }
@@ -54,7 +54,7 @@ const getBadge = async (req, res, next) => {
   const getTBadge = async (req, res, next) => {
     try {
       const { username } = req.params;
-      const badges = await Badges.find({ usernameB: username } && {etat:true}); // Utilisation du paramètre username pour rechercher les badges
+      const badges = await Badges.find({ usernameB: username, etat: true });
       if (!badges || badges.length === 0) {
         throw new Error("Badges not found for the given username!");
       }
