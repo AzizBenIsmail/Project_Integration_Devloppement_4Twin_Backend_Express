@@ -3,6 +3,8 @@ const messageModel = require('../../models/MessageSchema');
 const userModel = require('../../models/userSchema');
 const BadWords = require('../../models/badwords');
 const perspective = require("perspective-api-client");
+const { reduceXP2 } = require('../evaluationController');
+const nodemailer = require("nodemailer");
 //get all
 exports.getChat = async (req, res, next) => {
     try {
@@ -180,7 +182,6 @@ exports.addMessage = async (req, res, next) => {
 
 
         let chat = await chatByUser(members); // Await the result of chatByUser function
-        console.log(chat)
 
         if (!chat||chat.length==0) {
 
@@ -210,6 +211,92 @@ exports.addMessage = async (req, res, next) => {
     }
 };
 
+function sendAccountDisabledEmail(user) {
+  const transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: '"GreenFound" <greencrowd2223@gmail.com>', // sender address
+    to: user.email, // list of receivers
+    subject: "Account Disabled", // Subject line
+    html: `
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Account Disabled</title>
+          <style>
+            /* Global Styles */
+            body {
+              font-family: Arial, sans-serif;
+              font-size: 16px;
+              line-height: 1.5;
+              margin: 0;
+              padding: 0;
+            }
+            /* Header Styles */
+            .header {
+              background-color: #007bff;
+              color: #fff;
+              padding: 20px;
+              text-align: center;
+            }
+            /* Content Styles */
+            .content {
+              background-color: #f2f2f2;
+              padding: 20px;
+              text-align: center;
+            }
+            .content h1 {
+              margin-top: 0;
+            }
+            .content p {
+              margin-bottom: 20px;
+            }
+            .content img {
+              display: block;
+              margin: 0 auto 20px;
+              max-width: 100%;
+            }
+            /* Footer Styles */
+            .footer {
+              background-color: #007bff;
+              color: #fff;
+              padding: 20px;
+              text-align: center;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>Account Disabled</h1>
+          </div>
+          <div class="content">
+            <img src="https://vertexmarketingagency.com/wp-content/uploads/2021/09/facebook-ad-account-disabled.jpg" alt="Account Disabled" width="400" height="250">
+            <h1>Your account has been disabled due to inappropriate behavior.</h1>
+            <p>Please contact our support team if you have any questions or concerns.</p>
+          </div>
+          <div class="footer">
+            <p>© 2023 GreenFound.com. All rights reserved.</p>
+          </div>
+        </body>
+      </html>
+    `,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log(error);
+    }
+    console.log(`Account disabled email sent to ${user.email}: ${info.messageId}`);
+  });
+}
 
 
 exports.addMes = async (member1, member2, content, next) => {
@@ -228,9 +315,15 @@ exports.addMes = async (member1, member2, content, next) => {
         const user = await userModel.findOne({ _id: members[0] });
         
         if (hasBadWord(content,badWords)) {
-          console.log('bad word found');
           if (user.inappropriateBehaviorCount) {
+            reduceXP2(user.username,10);
             user.inappropriateBehaviorCount += 1;
+
+            if(user.inappropriateBehaviorCount >4){
+  sendAccountDisabledEmail(user);
+
+                            }
+
           } else {
             user.inappropriateBehaviorCount = 1;
           }
@@ -251,9 +344,11 @@ exports.addMes = async (member1, member2, content, next) => {
         })
         .then(async (response) => {
           const toxicityScore = response.attributeScores.TOXICITY.summaryScore.value;
-          if (toxicityScore > 0.5) {
+          if (toxicityScore > 0.3) {
             if (user.inappropriateBehaviorCount) {
               user.inappropriateBehaviorCount += 1;
+              if(user.inappropriateBehaviorCount >4){sendAccountDisabledEmail(user);
+              }
             } else {
               user.inappropriateBehaviorCount = 1;
             }

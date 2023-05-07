@@ -52,9 +52,8 @@ class AuthController {
 
 
           if(!user.enabled){
-            console.log(user.enabled)
             return cb(null, false, {
-              message: "User is disabled , contact support at greebfound@gmail.com for more information",
+              message: "User is disabled , contact support at greenfound@gmail.com for more information",
             });
           }
 
