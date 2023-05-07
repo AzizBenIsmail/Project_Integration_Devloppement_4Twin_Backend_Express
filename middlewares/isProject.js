@@ -3236,7 +3236,22 @@ classifier.addDocument(
     "Favorise l'utilisation de véhicules à essence et ne propose pas d'alternatives écologiques",
     "non-écologique"
   );
-
+  classifier.addDocument(
+    "Recycler les déchets plastiques pour les transformer en nouveaux produits",
+    "écologique"
+  );
+  classifier.addDocument(
+    "Collecter les déchets alimentaires pour les composter",
+    "écologique"
+  );
+  classifier.addDocument(
+    "Mettre en place des programmes de recyclage pour les communautés locales",
+    "écologique"
+  );
+  // classifier.addDocument(
+  //   "un projet qui recycler les bouteilles des boissons gazeux",
+  //   "écologique"
+  // );
   classifier.train();
 
   // Analyser la description du projet avec le modèle NLP

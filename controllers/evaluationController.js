@@ -1,4 +1,5 @@
 const Evaluation = require("../models/evaluationSchema");
+const { deleteBadgeE } = require("./badgesController");
 
 const getEvaluations = async (req, res, next) => {
   try {
@@ -48,6 +49,8 @@ const addXP = async (req, res, next) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
 const reduceXP = async (req, res, next) => {
   try {
     const { username, xp } = req.params;
@@ -76,6 +79,71 @@ const reduceXP = async (req, res, next) => {
   }
 };
 
+const reduceXP2 = async (username,xp) => {
+  try {
+    const evaluation = await Evaluation.findOne({ usernameE: username });
+
+
+
+    // Mettre à jour le niveau et l'XP
+    evaluation.xp -= parseInt(xp);
+    if (evaluation.xp < 0) {
+      if (evaluation.lvl > 1) {
+        evaluation.lvl -= 1;
+        evaluation.xp += 100;
+      } else {
+        evaluation.xp = 0;
+      }
+    }
+
+    await evaluation.save();
+
+    //res.status(200).json({ message: "XP reduced successfully", evaluation });
+  } catch (error) {
+  //  res.status(500).json({ message: error.message });
+  }
+};
+
+const addXP2 = async (username, xp) => {
+  try {
+    const evaluation = await Evaluation.findOne({ usernameE: username });
+
+
+    // Mettre à jour le niveau et l'XP
+    evaluation.xp += parseInt(xp);
+    while (evaluation.xp >= 100) {
+      evaluation.lvl += 1;
+      evaluation.xp -= 100;
+    }
+
+    await evaluation.save();
+
+  //  res.status(200).json({ message: "XP added successfully", evaluation });
+  } catch (error) {
+   // res.status(500).json({ message: error.message });
+  }
+};
+
+const addXP3 = async (id, xp) => {
+  try {
+    const evaluation = await Evaluation.findById(id);
+
+
+    // Mettre à jour le niveau et l'XP
+    evaluation.xp += parseInt(xp);
+    while (evaluation.xp >= 100) {
+      evaluation.lvl += 1;
+      evaluation.xp -= 100;
+    }
+
+    await evaluation.save();
+
+  //  res.status(200).json({ message: "XP added successfully", evaluation });
+  } catch (error) {
+   // res.status(500).json({ message: error.message });
+  }
+};
+
 
 const getTop3Evaluations = async (req, res, next) => {
   try {
@@ -87,9 +155,24 @@ const getTop3Evaluations = async (req, res, next) => {
 };
 
 
+
+const deleteEvaluation = async (username) => {
+  try {
+   // const { username } = req.params;
+    deleteBadgeE(username);
+    const b = await Evaluation.findOne({ usernameE: username });
+
+    await b.remove();
+    //res.status(200).json({ message: "Evaluation deleted successfully!" });
+  } catch (error) {  
+    //res.status(500).json({ message: error.message });
+}
+};
+
+
 module.exports = {
   getEvaluations,
   getEvaluation,
   addXP,
-  reduceXP,getTop3Evaluations
+  reduceXP,getTop3Evaluations,reduceXP2,addXP2,deleteEvaluation,addXP3
 };

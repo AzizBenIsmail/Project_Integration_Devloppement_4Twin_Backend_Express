@@ -99,6 +99,16 @@ const getBadge = async (req, res, next) => {
   }
   };
 
+  const deleteBadgeE = async (username) => {
+    try {
+      const b = await Badges.find({ usernameB : username});
+    
+      await b.remove();
+     // res.status(200).json({ message: "btype deleted successfully!" });
+    } catch (error) { 
+      // res.status(500).json({ message: error.message });
+  }
+  };
 
 
   const updateBadge = async (req, res, next) => {
@@ -137,5 +147,5 @@ module.exports = {
   getFBadge,
   getTBadge,
   getFBadges,
-  updateBadge
+  updateBadge,deleteBadgeE
 };
