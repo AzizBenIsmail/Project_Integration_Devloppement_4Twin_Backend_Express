@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const sgMail = require("@sendgrid/mail");
 
 const evaluationModel = require("../models/evaluationSchema");
+const { deleteEvaluation } = require("./evaluationController");
 
 const getUsers = async (req, res, next) => {
   //  if (req.isAuthenticated()) {
@@ -156,6 +157,8 @@ const deleteUser = async (req, res, next) => {
         await project.remove();
       }
     }
+
+    deleteEvaluation(user.username);
 
     await userModel.findByIdAndDelete(user._id);
 

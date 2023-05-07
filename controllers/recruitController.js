@@ -3,7 +3,10 @@ const router = express.Router();
 const JobOffer = require("../models/recruitSchema");
 const auth = require("../middlewares/auth");
 const Application = require("../models/applicationSchema");
-const userModel = require('../models/userSchema')
+const userModel = require('../models/userSchema');
+const { addXP2 } = require("./evaluationController");
+const BadgesModel = require("../models/badgesSchema");
+
 // Create a new job offer
 const addJobOffer = async (req, res) => {
   try {
@@ -15,9 +18,26 @@ const addJobOffer = async (req, res) => {
       location: req.body.location,
       businessOwner: req.user._id, // Set the business owner to the current user
     });
+
+    const user = await userModel.findById(req.user._id);
+
+    const badge = new BadgesModel({
+      usernameB: user.username,
+      badgeName: "NEW JOB",
+      badgeDescription: "Awarded to individuals who successfully create a new field of work, demonstrating their innovation, creativity, and dedication..",
+      badgeImg: "job.png",
+      etat:false,
+      details:req.body.description,
+    });
+    const addedBadge = await badge.save();
+addXP2(user.username,20);
+
     const savedJobOffer = await jobOffer.save();
     console.log(req.body);
     res.json(savedJobOffer);
+
+
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

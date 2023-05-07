@@ -2,6 +2,7 @@ const projectModel = require("../models/projectSchema");
 const userModel = require("../models/userSchema");
 const investModel = require("../models/investSchema");
 const mongoose = require('mongoose');
+const BadgesModel = require("../models/badgesSchema");
 
 const addInvest = async (req, res, next) => {
   try {
@@ -73,6 +74,16 @@ const addInvest = async (req, res, next) => {
       .catch((err) => {
         console.error(err);
       });
+      const badge = new BadgesModel({
+        usernameB: user.username,
+        badgeName: "NEW INVEST",
+        badgeDescription: "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+        badgeImg: "invest.png",
+        etat:false,
+        details:"message: "+req.body.message+" Invested with:"+req.body.montant,
+      });
+      addXP2(user.username,20); 
+
     res.status(200).json(project);
   } catch (error) {
     res.status(500).json({ message: error.message });

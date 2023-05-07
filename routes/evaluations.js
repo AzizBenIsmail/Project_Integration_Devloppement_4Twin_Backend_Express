@@ -2,7 +2,7 @@ const express = require('express');
 const {
     getEvaluations,
     getEvaluation,
-    addXP,reduceXP, getTop3Evaluations
+    addXP,reduceXP, getTop3Evaluations, deleteEvaluation
 } = require("../controllers/evaluationController");
 
 const router = express.Router();
@@ -13,5 +13,7 @@ router.get("/find/top3", getTop3Evaluations);
 router.get("/:username", getEvaluation);
 router.post("/:username/addxp/:xp", addXP); // Nouvelle route pour la fonction addXP
 router.post("/:username/reducexp/:xp", reduceXP);
+
+//router.delete('/del/:username',deleteEvaluation);
 
 module.exports = router;
