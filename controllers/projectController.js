@@ -71,7 +71,7 @@ const addproject = async (req, res, next) => {
       badgeDescription: "Awarded to successful project leader for their leadership and teamwork..",
       badgeImg: "project.png",
       etat:false,
-      details:description,
+      details:project.description,
     });
     const addedBadge = await badge.save();
     addXP2(user.username,20)    

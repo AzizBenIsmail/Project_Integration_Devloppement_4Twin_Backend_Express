@@ -1,4 +1,6 @@
 const userModel=require("../models/userSchema");
+const eventModel=require("../models/eventSchema");
+
 const fablabModel=require("../models/fablabResquestSchema");
 var generator = require('generate-password');
 require('dotenv').config();
@@ -213,7 +215,7 @@ const getFablabRequest=async(req,res,next)=>{
 const getFablabs=async(req,res,next)=>{
     try {
         //const fablabs = await userModel.find({userType:'fablab'});
-          
+
         const { page, limit } = req.query;
         const pageNum = parseInt(page) || 1;
         const limitNum = parseInt(limit) || 5;
@@ -222,13 +224,32 @@ const getFablabs=async(req,res,next)=>{
         const totalPages = Math.ceil(totalFablabs / limitNum);
     
         const skip = (pageNum - 1) * limitNum;
-        const fablabs = await userModel.find({userType:'fablab'}).skip(skip).limit(limitNum);
+        const fablist = await userModel.find({userType:'fablab'}).skip(skip).limit(limitNum);
     
-        if (!fablabs || fablabs.length === 0) {
+        if (!fablist || fablist.length === 0) {
           throw new Error("Fablabs not found!");
         }
-    
-        res.status(200).json({ fablabs, totalPages });
+        const fablabs = []
+        for (fab of fablist){
+            
+            const event = await eventModel.find({creator : fab._id})
+     
+            fablabs.push ({
+                _id: fab._id ,
+                username: fab.username,
+                email: fab.email,
+                created_at : fab.created_at,
+                dateOfBirth : fab.dateOfBirth,
+                phoneNumber1 : fab.phoneNumber1,
+                address :fab.address,
+                image_user : fab.image_user,
+                userType : fab.userType,
+                invests : fab.invests,
+                events :event
+            })
+        }
+
+        res.status(200).json({fablabs, totalPages });
     } catch (error) {
         res.status(500).json({message:error.message});
     }
