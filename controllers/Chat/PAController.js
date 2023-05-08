@@ -1,7 +1,7 @@
 // Import necessary modules
 const express = require('express');
-const router = express.Router();
 const PA = require("../../models/PA");
+const userModel = require('../../models/userSchema');
 
 // Controller for handling PA model requests
 const PAController = {
@@ -9,12 +9,7 @@ const PAController = {
   getAll: async (req, res) => {
     try {
       const userId = req.params.userId;
-      console.log(userId)
-      console.log(userId)
-      console.log(userId)
-      console.log(userId)
-      
-      const PAs = await PA.find({ userId });
+     const PAs = await PA.find({ userId });
       res.json(PAs);
     } catch (err) {
       console.error(err);
@@ -22,20 +17,29 @@ const PAController = {
     }
   },
 
+
+
+  
+
   // GET a specific PA by ID
   getById: async (req, res) => {
     try {
-      const PAId = req.params.id;
-      const PA = await PA.findById(PAId);
-      if (!PA) {
-        return res.status(404).json({ msg: 'PA not found' });
+      const username = req.params.id;
+      const user = await userModel.findOne({ username });
+      if (!user) {
+        return res.status(404).json({ msg: 'User not found' });
       }
-      res.json(PA);
+      const PAs = await PA.find({ userId: user._id });
+      if (!PAs) {
+        return res.status(404).json({ msg: 'PAs not found' });
+      }
+      res.json(PAs);
     } catch (err) {
       console.error(err);
       res.status(500).send('Server error');
     }
   },
+
 
   // POST a new PA for a specific user
   create: async (req, res) => {

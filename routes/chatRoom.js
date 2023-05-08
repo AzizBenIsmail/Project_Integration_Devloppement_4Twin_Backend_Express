@@ -45,9 +45,11 @@ router.delete('/badwords/:word',badWordController.deleteBadWord);
 router.get('/badwords',badWordController.getAllBadWords)
 
 router.get('/PA/:userId', PAController.getAll);
-router.get('/PA/:id', PAController.getById);
+router.get('/p/PA/:id', PAController.getById);
 router.post('/PA/', PAController.create);
 router.put('/PA/:id', PAController.update);
 router.delete('/PA/:id', PAController.delete);
+
+router.post('/color/', ChatController.changeColor);
 
 module.exports = router;

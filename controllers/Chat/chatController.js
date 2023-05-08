@@ -509,6 +509,29 @@ exports.getUser = async (req, res, next) => {
     }
 };
 
+
+
+exports.changeColor = async (req, res, next) => {
+  try {
+    const  id  = req.body.userId;
+    // Find the user by ID
+    const user = await userModel.findById(id);
+
+    // Update the user's favColor value
+    if(req.body.newColor){
+    user.favColor = req.body.newColor;
+
+    // Save the updated user document to the database
+    await user.save();
+  }
+    // Return the updated user object
+    res.status(200).json({ user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const userId = async (username) => {
     try {
       const user = await userModel.findOne({ username }).lean(); // Find a user by username

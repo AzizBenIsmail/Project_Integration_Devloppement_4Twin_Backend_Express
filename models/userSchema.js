@@ -45,6 +45,7 @@ const userSchema = new Schema({
     { type: mongoose.Schema.Types.ObjectId, ref: "Invest", required: false },
   ], // one to many relationship a user can have multiple Invest
   inappropriateBehaviorCount: Number,
+  favColor:String,
 });
 
 userSchema.methods.generateVerificationToken = function () {
