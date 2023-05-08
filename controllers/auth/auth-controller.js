@@ -90,6 +90,7 @@ class AuthController {
         name: user.name,
         email: user.email,
         userType: user.userType,
+        im:user.image_user,
       };
 if (user.inappropriateBehaviorCount) {
   session.inappropriateBehaviorCount = user.inappropriateBehaviorCount;
