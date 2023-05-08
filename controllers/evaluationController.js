@@ -3,7 +3,7 @@ const { deleteBadgeE } = require("./badgesController");
 
 const getEvaluations = async (req, res, next) => {
   try {
-    const evaluations = await Evaluation.find().sort({lvl:-1});
+    const evaluations = await Evaluation.find().sort();
     if (!evaluations || evaluations.length === 0) {
       throw new Error("Evaluations not found!");
     }
