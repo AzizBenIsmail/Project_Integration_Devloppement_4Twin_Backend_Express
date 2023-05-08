@@ -3,7 +3,7 @@ const { deleteBadgeE } = require("./badgesController");
 
 const getEvaluations = async (req, res, next) => {
   try {
-    const evaluations = await Evaluation.find();
+    const evaluations = await Evaluation.find().sort({lvl:-1});
     if (!evaluations || evaluations.length === 0) {
       throw new Error("Evaluations not found!");
     }
@@ -154,6 +154,30 @@ const getTop3Evaluations = async (req, res, next) => {
   }
 };
 
+const isTop3Evaluation = async (req,res) => {
+  try {
+    const { username} = req.params;
+
+    // Get top 3 evaluations
+    const top3Evaluations = await Evaluation.find()
+      .sort({ lvl: -1 })
+      .limit(3);
+
+    // Check if the given username is in the top 3 evaluations
+    const isTop3 = top3Evaluations.some(
+      (evaluation) => evaluation.usernameE === username
+    );
+    return res.status(200).json(isTop3);
+
+    
+  } catch (error) {
+    console.error(error);
+    return res.status(200).json(false);
+  }
+};
+
+
+
 
 
 const deleteEvaluation = async (username) => {
@@ -174,5 +198,5 @@ module.exports = {
   getEvaluations,
   getEvaluation,
   addXP,
-  reduceXP,getTop3Evaluations,reduceXP2,addXP2,deleteEvaluation,addXP3
+  reduceXP,getTop3Evaluations,reduceXP2,addXP2,deleteEvaluation,addXP3,isTop3Evaluation
 };

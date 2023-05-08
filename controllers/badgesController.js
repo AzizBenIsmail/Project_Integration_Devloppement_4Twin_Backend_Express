@@ -54,7 +54,7 @@ const getBadge = async (req, res, next) => {
   const getTBadge = async (req, res, next) => {
     try {
       const { username } = req.params;
-      const badges = await Badges.find({ usernameB: username, etat: true });
+      const badges = await Badges.find({ usernameB: username, etat: true }).sort({date:-1});
       if (!badges || badges.length === 0) {
         throw new Error("Badges not found for the given username!");
       }
@@ -64,9 +64,21 @@ const getBadge = async (req, res, next) => {
     }
   };
 
+  
+  const getTVBadge = async (req, res, next) => {
+    try {
+      const { username } = req.params;
+      const count = await Badges.countDocuments({ usernameB: username, etat: true,vu:false });
+   
+      res.status(200).json({ count });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
   const addBadge = async (req, res, next) => {
     try {
-      const { usernameB,badgeName, badgeDescription, badgeImg,etat,details} = req.body;
+      const { usernameB,badgeName, badgeDescription, badgeImg,etat,details,vu} = req.body;
   
       const newB = new Badges({
         usernameB,
@@ -75,6 +87,7 @@ const getBadge = async (req, res, next) => {
         badgeImg,
         etat,
         details,
+        vu,
       });
   
       await newB.save();
@@ -114,7 +127,7 @@ const getBadge = async (req, res, next) => {
   const updateBadge = async (req, res, next) => {
     try {
       const { id } = req.params; // Get the badge ID from URL parameter
-      const { badgeName, badgeDescription, badgeImg, etat, details } = req.body;
+      const { badgeName, badgeDescription, badgeImg, etat, details,vu } = req.body;
   
       // Update the badge using its ID
       const updatedBadge = await Badges.findByIdAndUpdate(id, {
@@ -122,7 +135,7 @@ const getBadge = async (req, res, next) => {
         badgeDescription,
         badgeImg,
         etat,
-        details,
+        details,vu,
       }, { new: true }); // Set { new: true } to return the updated badge after the update is applied
   
       if (!updatedBadge) {
@@ -130,6 +143,33 @@ const getBadge = async (req, res, next) => {
       }
   
       res.status(200).json({ badge: updatedBadge });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+  const updateBadgeV = async (req, res, next) => {
+    try {
+
+      const { username } = req.params; // Get the badge ID from URL parameter
+      const { badgeName, badgeDescription, badgeImg, etat, details,vu } = req.body;
+  
+      // Update the badge using its ID
+      const updatedBadges = await Badges.updateMany(
+        { usernameB: username }, // Filter criteria
+        { 
+          badgeName,
+          badgeDescription,
+          badgeImg,
+          etat,
+          details,
+          vu,
+        }, // Fields to update
+        { new: true } // Options
+      );
+      
+
+      res.status(200).json({ badge: updatedBadges });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -147,5 +187,5 @@ module.exports = {
   getFBadge,
   getTBadge,
   getFBadges,
-  updateBadge,deleteBadgeE
+  updateBadge,deleteBadgeE,getTVBadge,updateBadgeV
 };

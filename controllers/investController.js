@@ -82,6 +82,7 @@ const addInvest = async (req, res, next) => {
         badgeImg: "invest.png",
         etat:false,
         details:message,
+        vu:false,
       });
       const addedBadge = await badge.save();
 

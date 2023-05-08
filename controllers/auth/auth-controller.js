@@ -297,10 +297,11 @@ if (user.inappropriateBehaviorCount) {
         //badges
         const badge = new BadgesModel({
           usernameB: username,
-          badgeName: "Account Creation",
+          badgeName: "ACCOUNT CREATION",
           badgeDescription: "Awarded to new members for successfully creating an account and committing to the community..",
           badgeImg: "new.png",
-          etat:true
+          etat:true,
+          vu:false
           ,
 
           evaluation: addedEvaluation._id, // reference to the evaluation
