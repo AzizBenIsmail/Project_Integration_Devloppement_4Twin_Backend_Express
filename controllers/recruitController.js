@@ -27,7 +27,9 @@ const addJobOffer = async (req, res) => {
       badgeDescription: "Awarded to individuals who successfully create a new field of work, demonstrating their innovation, creativity, and dedication..",
       badgeImg: "job.png",
       etat:false,
-      details:req.body.description,
+      details:req.body.description,   
+           vu:false,
+
     });
     const addedBadge = await badge.save();
 addXP2(user.username,20);

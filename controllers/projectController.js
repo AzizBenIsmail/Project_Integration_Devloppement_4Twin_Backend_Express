@@ -72,6 +72,8 @@ const addproject = async (req, res, next) => {
       badgeImg: "project.png",
       etat:false,
       details:project.description,
+      vu:false
+,
     });
     const addedBadge = await badge.save();
     addXP2(user.username,20)    
