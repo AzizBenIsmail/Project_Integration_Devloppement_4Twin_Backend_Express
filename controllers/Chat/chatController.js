@@ -532,6 +532,22 @@ exports.changeColor = async (req, res, next) => {
   }
 };
 
+
+exports.getColor = async (req, res, next) => {
+  try {
+    const id = req.params.userId;
+    // Find the user by ID
+    const user = await userModel.findById(id);
+
+    // Return the user's favorite color
+    res.status(200).json({ favoriteColor: user.favColor });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 const userId = async (username) => {
     try {
       const user = await userModel.findOne({ username }).lean(); // Find a user by username

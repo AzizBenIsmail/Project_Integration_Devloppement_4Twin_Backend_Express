@@ -51,5 +51,6 @@ router.put('/PA/:id', PAController.update);
 router.delete('/PA/:id', PAController.delete);
 
 router.post('/color/', ChatController.changeColor);
+router.get('/color/:userId', ChatController.getColor);
 
 module.exports = router;

@@ -79,7 +79,7 @@ class AuthController {
         console.log("Incorrect username or password");
         return res
           .status(401)
-          .json({ message: "User is disabled , contact support at greebfound@gmail.com for more information" });
+          .json({ message: "User is disabled , contact support at greencroud@gmail.com for more information" });
 
   }
 

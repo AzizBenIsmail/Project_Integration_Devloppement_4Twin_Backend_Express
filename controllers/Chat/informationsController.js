@@ -6,21 +6,20 @@ const JobOffer = require("../../models/recruitSchema");
 const projectInfo = async (req, res, next) => {
   try {
     const id = await userId(req.body.username);
-
     const projectQuery = await projectModel
       .find({ creator: id })
       .populate("creator");
+      
     const jobOfferQuery = await JobOffer.find({ businessOwner: id });
     const [projects, jobOffers] = await Promise.all([
       projectQuery,
       jobOfferQuery,
     ]);
 
+
     const filteredProjects = projects.filter((project) => project.ecological);
 
-    if (!filteredProjects || filteredProjects.length === 0) {
-      throw new Error("No projects found for this creator.");
-    }
+
 
     res.status(200).json({ projects: filteredProjects, jobOffers });
   } catch (error) {
@@ -31,7 +30,9 @@ const projectInfo = async (req, res, next) => {
 const jobOffer = async (req, res, next) => {
   try {
     const businessOwnerId = await userId(req.body.username);
+    console.log(businessOwnerId)
     const jobOffers = await JobOffer.find({ businessOwner: businessOwnerId });
+    console.log(jobOffers)
     if (!jobOffers) {
       return res.status(404).json({ message: "Not owner of any job!" });
     }
