@@ -91,6 +91,8 @@ class AuthController {
         email: user.email,
         userType: user.userType,
         im:user.image_user,
+        username: user.username,
+        favColor:user.favColor
       };
 if (user.inappropriateBehaviorCount) {
   session.inappropriateBehaviorCount = user.inappropriateBehaviorCount;
@@ -259,6 +261,7 @@ if (user.inappropriateBehaviorCount) {
       //evaluation
       user.userType = "user";
       user.enabled = true;
+      user.favColor="#0084FF"
       await user.save();
 
       console.log("User successfully authenticated");
@@ -267,6 +270,9 @@ if (user.inappropriateBehaviorCount) {
         name: user.name,
         email: user.email,
         userType: user.userType,
+        im:user.image_user,
+        username: user.username,
+        favColor:user.favColor
       };
       console.log("User successfully authenticated");
       console.log("User successfully authenticated");
