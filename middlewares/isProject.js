@@ -3248,10 +3248,15 @@ classifier.addDocument(
     "Mettre en place des programmes de recyclage pour les communautés locales",
     "écologique"
   );
-  // classifier.addDocument(
-  //   "un projet qui recycler les bouteilles des boissons gazeux",
-  //   "écologique"
-  // );
+  classifier.addDocument(
+    "produits chimiques dangereux",
+    "non-écologique"
+  );
+  classifier.addDocument(
+    "la construction de bâtiments à haute consommation d'énergie",
+    "non-écologique"
+  );
+
   classifier.train();
 
   // Analyser la description du projet avec le modèle NLP

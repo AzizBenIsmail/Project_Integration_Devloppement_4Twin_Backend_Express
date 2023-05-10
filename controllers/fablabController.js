@@ -64,7 +64,8 @@ const acceptFablabRequest=async(req,res,next)=>{
         address: fablab.address,
         phoneNumber1: fablab.phoneNumber,
         userType: "fablab",
-        image_user : fablab.fablbLogo
+        image_user : fablab.fablbLogo,
+        enabled: true,
       });
 
       // Send email
