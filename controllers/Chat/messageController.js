@@ -1,16 +1,62 @@
 const messageModel = require('../../models/MessageSchema');
-
+const request = require('request');
+const axios = require('axios');
+const userModel = require("../../models/userSchema");
 exports.getMessages = async (req, res, next) => {
-    try {
-        const messages = await messageModel.find().lean();
-        if (!messages || messages.length === 0) {
-            throw new Error("Messages not found!");
+  try {
+    const messages = await messageModel.find().lean();
+    const messagesBySender = {};
+    for (const message of messages) {
+      const senderId = message.sender;
+      const sender = await userModel.findById(senderId).select('username').lean();
+      if (!sender) {
+        throw new Error(`User ${senderId} not found!`);
+      }
+      const senderUsername = sender.username;
+
+      if (!messagesBySender[senderUsername]) {
+        messagesBySender[senderUsername] = {
+          messages: [],
+          score: 0
+        };
+      }
+      messagesBySender[senderUsername].messages.push(message);
+      const url = `http://www.sentiment140.com/api/bulkClassifyJson?appid=kwimm04@gmail.com`;
+      const requestData = {
+        data: [{
+          text: message.content
+        }]
+      };
+
+      try {
+        const response = await axios.post(url, requestData);
+        if (response.data && response.data.data && response.data.data.length > 0) {
+          const result = response.data.data[0];
+          const score = result.polarity;
+          messagesBySender[senderUsername].score += score;
+        } else {
+          console.error("Invalid response body:", response.data);
         }
-        res.status(200).json({ messages });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+      } catch (error) {
+        console.error(error);
+      }
     }
+
+    if (messages.length === 0) {
+      res.status(200).json({ messages: {} });
+    } else {
+      res.status(200).json({ messages: messagesBySender });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
 };
+
+
+
+
+
 
 
 
