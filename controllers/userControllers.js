@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const sgMail = require("@sendgrid/mail");
 
 const evaluationModel = require("../models/evaluationSchema");
+const { deleteEvaluation } = require("./evaluationController");
 
 const getUsers = async (req, res, next) => {
   //  if (req.isAuthenticated()) {
@@ -84,7 +85,9 @@ const addUser = async (req, res, next) => {
       image_user: filename,
     });
 
+    user.enabled = true;
     const addeduser = await user.save();
+
     res.status(200).json(addeduser);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -156,6 +159,8 @@ const deleteUser = async (req, res, next) => {
         await project.remove();
       }
     }
+
+    deleteEvaluation(user.username);
 
     await userModel.findByIdAndDelete(user._id);
 

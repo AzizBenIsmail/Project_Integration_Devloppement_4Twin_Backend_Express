@@ -21,6 +21,7 @@ const projectSchema = new Schema({
   montant_Final: Number,
   location: String,
   image_project: String,
+  isVerified: Boolean,
   verified: {
     type: Boolean,
     required: true,

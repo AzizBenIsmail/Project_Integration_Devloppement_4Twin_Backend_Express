@@ -4,10 +4,11 @@ const router = express.Router();
 const userModel = require("../models/userSchema");
 const Application = require("../models/applicationSchema");
 const JobOffer = require("../models/recruitSchema");
-const applyToJobOffer = async (req, res) => {
-  try {
-  const {jobId} = req.params;
-  const { firstName, lastName, email, phone, availability, adresse, resume } = req.body;
+const applyToJobOffer = async (req, res, next) => {
+  const { jobId } = req.params;
+  const { firstName, lastName, email, phone, availability, adresse } = req.body;
+  //const { resumeFile } = req.file.filename;
+  console.log(req.file.filename);
   const application = new Application({
     firstName,
     lastName,
@@ -15,40 +16,50 @@ const applyToJobOffer = async (req, res) => {
     phone,
     availability,
     adresse,
-    resume,
+    resume: req.file.filename,
   });
-  const savedApplication = await application.save();
-  const jobOffer = await JobOffer.findById(jobId);
+  try {
+    const savedApplication = await application.save();
+    const jobOffer = await JobOffer.findById(jobId);
 
-  jobOffer.applications.push(savedApplication._id);
-  await jobOffer.save();
+    jobOffer.applications.push(savedApplication._id);
+    await jobOffer.save();
 
   res.json(savedApplication);
+
+
+
+
+  
+
+
+
+
 } catch (err) {
   res.status(500).json({ message: err.message });
 }
 };
- 
+
 const searchJob = async (req, res) => {
   const { title } = req.query;
 
   try {
-    const jobOffers = await JobOffer.find({ title: { $regex: title, $options: "i" } });
+    const jobOffers = await JobOffer.find({
+      title: { $regex: title, $options: "i" },
+    });
     res.status(200).json(jobOffers);
   } catch (err) {
     console.log(err);
     res.status(500).send("Server error");
   }
-}
+};
 
 module.exports = {
   applyToJobOffer,
-  searchJob
+  searchJob,
 };
 
- //const { _id } = req.user;
-
-
+//const { _id } = req.user;
 
 //   try {
 //     // Check if jobOfferId is provided
@@ -66,8 +77,7 @@ module.exports = {
 //           error: "Business owner cannot submit to jobOffer",
 //         });
 //       }
-    
-      
+
 //       userModel
 //         .findByIdAndUpdate(req.user._id, { jobOffer: [jobOffer.id] })
 //         .then((result) => console.log(result));
@@ -81,7 +91,7 @@ module.exports = {
 //       jobOffer: jobOffer._id,
 //       candidate: req.user._id,
 //       resume,
-//       firstName, 
+//       firstName,
 //       lastName,
 //       email,
 //       phone,
@@ -106,10 +116,6 @@ module.exports = {
 //     res.status(500).json({ error: err.message });
 //   }
 // };
-
-
-
-
 
 // const express = require("express");
 // const router = express.Router();
@@ -157,5 +163,3 @@ module.exports = {
 // module.exports = {
 //     applyToJobOffer,
 // }
-
-

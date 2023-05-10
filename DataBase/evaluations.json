@@ -1,0 +1,91 @@
+[{
+  "_id": {
+    "$oid": "645ac103f17349debefc6992"
+  },
+  "usernameE": "Admin",
+  "xp": 20,
+  "lvl": 1,
+  "badges": [],
+  "createdAt": {
+    "$date": "2023-05-09T21:54:11.472Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T21:54:11.472Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ac3a9f17349debefc6a0e"
+  },
+  "usernameE": "AzizBenismail",
+  "xp": 40,
+  "lvl": 3,
+  "badges": [],
+  "createdAt": {
+    "$date": "2023-05-09T22:05:29.941Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:27:45.387Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ac3f0f17349debefc6a22"
+  },
+  "usernameE": "AzizCharada",
+  "xp": 0,
+  "lvl": 3,
+  "badges": [],
+  "createdAt": {
+    "$date": "2023-05-09T22:06:40.661Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:40:24.464Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ac42ff17349debefc6a36"
+  },
+  "usernameE": "Amen Allah",
+  "xp": 20,
+  "lvl": 3,
+  "badges": [],
+  "createdAt": {
+    "$date": "2023-05-09T22:07:43.181Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:04:05.748Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ac4fdf17349debefc6a4a"
+  },
+  "usernameE": "Oumaima Touil",
+  "xp": 20,
+  "lvl": 10,
+  "badges": [],
+  "createdAt": {
+    "$date": "2023-05-09T22:11:09.237Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:41:01.016Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ac54bf17349debefc6a5e"
+  },
+  "usernameE": "Aziz Ben Hmida",
+  "xp": 20,
+  "lvl": 3,
+  "badges": [],
+  "createdAt": {
+    "$date": "2023-05-09T22:12:27.130Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:33:02.656Z"
+  },
+  "__v": 0
+}]

@@ -6,10 +6,14 @@ const Application = require("./applicationSchema");
 const jobOfferSchema = new Schema({
   
     title: { type: String, required: true },
-    description: { type: String, required: true },
     company: { type: String, required: true },
-    salary: { type: Number, required: true },
     location: { type: String, required: true },
+    aboutCompany: { type: String, required: true },
+    aboutJob: { type: String, required: true },
+    responsibilities: { type: String, required: true },
+    requirements: { type: String, required: true },
+    experienceNeeded: { type: String, required: true },
+    salary: { type: String, required: true },
     businessOwner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

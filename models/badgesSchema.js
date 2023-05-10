@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { boolean } = require("yup");
 const Schema = mongoose.Schema;
 
 const badgesSchema = new Schema(
@@ -15,7 +16,9 @@ const badgesSchema = new Schema(
       default: Date.now,
     },
     badgeImg: String,
-    Etat:Boolean
+    details: String,
+    etat:Boolean,
+    vu:Boolean,
   
   },
   { timestamps: true }

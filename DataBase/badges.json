@@ -1,169 +1,1023 @@
 [{
   "_id": {
-    "$oid": "6433e23a59eff6e560cda953"
+    "$oid": "645ac103f17349debefc6994"
   },
-  "usernameB": "AzizBenismail123@gmail.com",
-  "badgeName": "Welcome",
-  "badgeDescription": "Account Creation",
-  "badgeImg": "images/badges/new.png",
-  "evaluation": {
-    "$oid": "6433e23a59eff6e560cda951"
-  },
+  "usernameB": "Admin",
+  "badgeName": "ACCOUNT CREATION",
+  "badgeDescription": "Awarded to new members for successfully creating an account and committing to the community..",
+  "badgeImg": "new.png",
+  "etat": true,
+  "vu": true,
   "date": {
-    "$date": "2023-04-10T10:17:30.600Z"
+    "$date": "2023-05-09T21:54:11.490Z"
   },
   "createdAt": {
-    "$date": "2023-04-10T10:17:30.601Z"
+    "$date": "2023-05-09T21:54:11.491Z"
   },
   "updatedAt": {
-    "$date": "2023-04-10T10:17:30.601Z"
+    "$date": "2023-05-09T21:55:32.199Z"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "6433ee32d8157b0f16674d5c"
-  },
-  "usernameB": "AzizBenisma",
-  "badgeName": "Welcome",
-  "badgeDescription": "Account Creation",
-  "badgeImg": "images/badges/new.png",
-  "evaluation": {
-    "$oid": "6433ee32d8157b0f16674d5a"
-  },
-  "date": {
-    "$date": "2023-04-10T11:08:34.361Z"
-  },
-  "createdAt": {
-    "$date": "2023-04-10T11:08:34.362Z"
-  },
-  "updatedAt": {
-    "$date": "2023-04-10T11:08:34.362Z"
-  },
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "643e669ca0cd0f08240ada84"
+    "$oid": "645ac3a9f17349debefc6a10"
   },
   "usernameB": "AzizBenismail",
-  "badgeName": "NEW PROJECT",
-  "badgeDescription": " la construction d'une autoroute à grande vitesse dans une zone urbaine dense, entraînant la démolition de bâtiments historiques, la perte d'espaces verts, la fragmentation des quartiers et la congestion de la circulation. Ce type de projet pourrait également entraîner une augmentation de la pollution de l'air et du bruit, ainsi qu'une consommation accrue de combustibles fossiles, aggravant ainsi les impacts négatifs sur l'environnement et la santé humaine. De plus, la construction de cette autoroute pourrait être motivée par des considérations économiques ou de développement à court terme, sans tenir compte des impacts environnementaux à long terme ou des conséquences pour les communautés locales et leur qualité de vie.",
-  "badgeImg": "project.jpg",
+  "badgeName": "ACCOUNT CREATION",
+  "badgeDescription": "Awarded to new members for successfully creating an account and committing to the community..",
+  "badgeImg": "new.png",
+  "etat": true,
+  "vu": false,
   "date": {
-    "$date": "2023-04-18T09:45:00.235Z"
+    "$date": "2023-05-09T22:05:29.944Z"
   },
   "createdAt": {
-    "$date": "2023-04-18T09:45:00.237Z"
+    "$date": "2023-05-09T22:05:29.944Z"
   },
   "updatedAt": {
-    "$date": "2023-04-18T09:45:00.237Z"
+    "$date": "2023-05-09T22:05:29.944Z"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "643e6e1da0cd0f08240ae686"
+    "$oid": "645ac3f0f17349debefc6a24"
   },
-  "usernameB": "AzizBenismail",
-  "badgeName": "NEW PROJECT",
-  "badgeDescription": " la construction d'une centrale électrique au charbon, qui utilise des combustibles fossiles pour produire de l'électricité. Ce type de projet entraîne de nombreuses conséquences négatives sur l'environnement, notamment la production de gaz à effet de serre, la pollution de l'air, l'acidification des sols et de l'eau, et la production de déchets toxiques. De plus, la combustion du charbon peut avoir des effets néfastes sur la santé humaine, en particulier sur les populations vivant à proximité de la centrale. Malgré ces impacts négatifs, la construction de centrales électriques au charbon peut être motivée par des considérations économiques ou de profit, sans tenir compte des impacts environnementaux à long terme ou des conséquences pour les communautés locales.",
-  "badgeImg": "project.jpg",
+  "usernameB": "AzizCharada",
+  "badgeName": "ACCOUNT CREATION",
+  "badgeDescription": "Awarded to new members for successfully creating an account and committing to the community..",
+  "badgeImg": "new.png",
+  "etat": true,
+  "vu": true,
   "date": {
-    "$date": "2023-04-18T10:17:01.435Z"
+    "$date": "2023-05-09T22:06:40.663Z"
   },
   "createdAt": {
-    "$date": "2023-04-18T10:17:01.435Z"
+    "$date": "2023-05-09T22:06:40.664Z"
   },
   "updatedAt": {
-    "$date": "2023-04-18T10:17:01.435Z"
+    "$date": "2023-05-09T22:13:56.942Z"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "643e6fc3a0cd0f08240ae98b"
+    "$oid": "645ac42ff17349debefc6a38"
   },
-  "usernameB": "AzizBenismail",
-  "badgeName": "NEW PROJECT",
-  "badgeDescription": " la construction d'une ferme solaire, qui produit de l'électricité à partir de l'énergie solaire. Ce type de projet utilise une source d'énergie renouvelable et propre, réduisant ainsi les émissions de gaz à effet de serre et la pollution de l'air. En outre, les fermes solaires peuvent aider à protéger les terres agricoles et les habitats naturels en utilisant des terres marginales ou des zones désertiques pour l'installation des panneaux solaires. De plus, les fermes solaires peuvent contribuer à stimuler l'économie locale en créant des emplois dans la construction, l'exploitation et la maintenance des installations.",
-  "badgeImg": "project.jpg",
+  "usernameB": "Amen Allah",
+  "badgeName": "ACCOUNT CREATION",
+  "badgeDescription": "Awarded to new members for successfully creating an account and committing to the community..",
+  "badgeImg": "new.png",
+  "etat": true,
+  "vu": false,
   "date": {
-    "$date": "2023-04-18T10:24:03.984Z"
+    "$date": "2023-05-09T22:07:43.183Z"
   },
   "createdAt": {
-    "$date": "2023-04-18T10:24:03.985Z"
+    "$date": "2023-05-09T22:07:43.184Z"
   },
   "updatedAt": {
-    "$date": "2023-04-18T10:24:03.985Z"
+    "$date": "2023-05-09T22:07:43.184Z"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "643e740ca0cd0f08240af0a1"
+    "$oid": "645ac4fdf17349debefc6a4c"
   },
-  "usernameB": "oumayma",
-  "badgeName": "NEW PROJECT",
-  "badgeDescription": "l'exploitation d'une mine de charbon à ciel ouvert. Ce type de projet implique l'extraction de charbon en déblayant la couche de terre et de roche au-dessus du charbon, entraînant ainsi une déforestation et une destruction de l'écosystème environnant. L'exploitation minière peut également entraîner des effets négatifs sur les sources d'eau, en contaminant les rivières et les nappes phréatiques avec des déchets miniers et des produits chimiques utilisés dans le processus d'extraction.",
-  "badgeImg": "project.jpg",
+  "usernameB": "Oumaima Touil",
+  "badgeName": "ACCOUNT CREATION",
+  "badgeDescription": "Awarded to new members for successfully creating an account and committing to the community..",
+  "badgeImg": "new.png",
+  "etat": true,
+  "vu": true,
   "date": {
-    "$date": "2023-04-18T10:42:20.303Z"
+    "$date": "2023-05-09T22:11:09.240Z"
   },
   "createdAt": {
-    "$date": "2023-04-18T10:42:20.305Z"
+    "$date": "2023-05-09T22:11:09.241Z"
   },
   "updatedAt": {
-    "$date": "2023-04-18T10:42:20.305Z"
+    "$date": "2023-05-09T23:13:26.176Z"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "643e75a6a0cd0f08240af1fc"
+    "$oid": "645ac54bf17349debefc6a60"
   },
-  "usernameB": "oumayma",
-  "badgeName": "NEW PROJECT",
-  "badgeDescription": " la création d'un parc éolien offshore. Ce type de projet utilise l'énergie éolienne pour produire de l'électricité, en utilisant des turbines éoliennes installées dans l'océan. Les parcs éoliens offshore peuvent offrir de nombreux avantages environnementaux, tels que la réduction des émissions de gaz à effet de serre, la diminution de la pollution de l'air, et la conservation des ressources naturelles.",
-  "badgeImg": "project.jpg",
+  "usernameB": "Aziz Ben Hmida",
+  "badgeName": "ACCOUNT CREATION",
+  "badgeDescription": "Awarded to new members for successfully creating an account and committing to the community..",
+  "badgeImg": "new.png",
+  "etat": true,
+  "vu": false,
   "date": {
-    "$date": "2023-04-18T10:49:10.668Z"
+    "$date": "2023-05-09T22:12:27.133Z"
   },
   "createdAt": {
-    "$date": "2023-04-18T10:49:10.670Z"
+    "$date": "2023-05-09T22:12:27.134Z"
   },
   "updatedAt": {
-    "$date": "2023-04-18T10:49:10.670Z"
+    "$date": "2023-05-09T22:12:27.134Z"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "643e7798a0cd0f08240af2d5"
+    "$oid": "645ac6b7f17349debefc6b0f"
   },
-  "usernameB": "amen",
+  "usernameB": "AzizCharada",
   "badgeName": "NEW PROJECT",
-  "badgeDescription": "ce projet n'est pas écologique ",
-  "badgeImg": "project.jpg",
-  "date": {
-    "$date": "2023-04-18T10:57:28.568Z"
-  },
-  "createdAt": {
-    "$date": "2023-04-18T10:57:28.569Z"
-  },
-  "updatedAt": {
-    "$date": "2023-04-18T10:57:28.569Z"
-  },
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "643e83509962e031235facbc"
-  },
-  "usernameB": "amen",
-  "badgeName": "NEW PROJECT",
-  "badgeDescription": "Awarded to successful project leaders for their leadership and teamwork..",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
   "badgeImg": "project.png",
+  "details": "développer des systèmes d'agriculture biologique pour promouvoir une production alimentaire plus durable et respectueuse de l'environnement, ou encore à construire des maisons à faible consommation d'énergie qui utilisent des sources d'énergie renouvelable comme le solaire ou l'éolien.",
+  "etat": false,
+  "vu": false,
   "date": {
-    "$date": "2023-04-18T11:47:28.077Z"
+    "$date": "2023-05-09T22:18:31.047Z"
   },
   "createdAt": {
-    "$date": "2023-04-18T11:47:28.078Z"
+    "$date": "2023-05-09T22:18:31.048Z"
   },
   "updatedAt": {
-    "$date": "2023-04-18T11:47:28.078Z"
+    "$date": "2023-05-09T22:18:31.048Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ac789f17349debefc6b6a"
+  },
+  "usernameB": "AzizCharada",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": "La construction d'une autoroute nécessite souvent la déforestation et la destruction d'habitats naturels, ce qui peut entraîner la perte de la biodiversité et la dégradation de l'environnement. Les travaux de construction peuvent également perturber les cours d'eau et les nappes phréatiques, affectant la qualité de l'eau et menaçant la vie aquatique. De plus, l'utilisation de véhicules lourds et d'équipements de construction génère des émissions de gaz à effet de serre et de la pollution de l'air, contribuant ainsi aux changements climatiques et à la détérioration de la qualité de l'air.",
+  "etat": true,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T22:22:01.212Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T22:22:01.213Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T22:36:03.529Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645acf251ae589b42be78d33"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": "la construction d'un parc éolien qui utilise l'énergie du vent pour produire de l'électricité. Le parc éolien serait construit sur des terres non cultivables ou déjà dégradées, sans affecter les écosystèmes naturels et les habitats fauniques. Le projet pourrait également impliquer la mise en place de pratiques agricoles durables, telles que l'agroforesterie ou la permaculture, pour produire des aliments tout en régénérant les sols et en préservant la biodiversité locale. Ce type de projet serait motivé par des considérations environnementales et sociales, visant à minimiser les impacts négatifs sur l'environnement et à maximiser les bénéfices pour les communautés locales et la biodiversité. Le projet pourrait également encourager l'utilisation de transports durables, tels que le vélo ou les transports en commun, pour réduire les émissions de gaz à effet de serre et améliorer la qualité de l'air.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T22:54:29.261Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T22:54:29.262Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T22:54:29.262Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ad15a1ae589b42be79086"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": " la construction d'une autoroute à travers une zone forestière ou un habitat naturel sensible. Ce projet pourrait impliquer la déforestation, la destruction d'habitats naturels et la fragmentation des écosystèmes, ce qui pourrait avoir des conséquences négatives sur la biodiversité locale et les espèces qui y habitent. La construction de l'autoroute pourrait également générer des émissions de gaz à effet de serre et de polluants atmosphériques, ainsi que des nuisances sonores pour les communautés locales. Ce type de projet pourrait être motivé par des considérations économiques ou de développement, sans tenir compte des impacts environnementaux à long terme ou des conséquences pour les communautés locales et la biodiversité.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T23:03:54.039Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:03:54.040Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:03:54.040Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ad2f61ae589b42be79183"
+  },
+  "usernameB": "Oumaima Touil",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": "la construction d'une centrale électrique qui utilise des combustibles fossiles tels que le charbon ou le pétrole pour produire de l'électricité. Ce type de projet pourrait générer des émissions importantes de gaz à effet de serre, contribuant ainsi au changement climatique et à l'augmentation de la température de la planète. La centrale électrique pourrait également entraîner la pollution de l'air et de l'eau, causant des problèmes de santé pour les communautés locales et la faune environnante. Ce type de projet pourrait être motivé par des considérations économiques ou de profit, sans tenir compte des impacts environnementaux à long terme ou des conséquences pour les communautés locales et la biodiversité.",
+  "etat": false,
+  "vu": true,
+  "date": {
+    "$date": "2023-05-09T23:10:46.336Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:10:46.337Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:13:26.176Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ad3691ae589b42be79229"
+  },
+  "usernameB": "Oumaima Touil",
+  "badgeName": "Account creation",
+  "badgeDescription": "Account creation",
+  "badgeImg": "new.png",
+  "etat": true,
+  "vu": true,
+  "date": {
+    "$date": "2023-05-09T23:12:41.008Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:12:41.008Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:13:26.176Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ad7231ae589b42be79372"
+  },
+  "usernameB": "Oumaima Touil",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": "la mise en place d'un programme de reforestation pour restaurer des écosystèmes dégradés ou déforestés. Ce type de projet pourrait impliquer la plantation d'arbres indigènes et la régénération naturelle de la forêt, ainsi que la restauration de corridors écologiques pour permettre aux espèces de se déplacer librement et de se reproduire. Le projet pourrait également impliquer la mise en place de pratiques agricoles durables pour réduire la pression sur les terres forestières, ainsi que la sensibilisation et l'implication des communautés locales dans la gestion des forêts et la protection de la biodiversité. Ce type de projet serait motivé par des considérations environnementales et sociales, visant à restaurer les écosystèmes, à préserver la biodiversité et à améliorer les conditions de vie des communautés locales. En outre, la reforestation peut contribuer à la séquestration du carbone, ce qui peut aider à lutter contre le changement climatique.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T23:28:35.031Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:28:35.033Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:28:35.033Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ada6d1ae589b42be7959d"
+  },
+  "usernameB": "Amen Allah",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": "la construction de turbines éoliennes, ainsi que la mise en place de l'infrastructure nécessaire pour connecter le parc éolien au réseau électrique. Les parcs éoliens sont une alternative respectueuse de l'environnement aux combustibles fossiles, car ils utilisent l'énergie du vent, une source d'énergie propre et renouvelable, pour produire de l'électricité.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T23:42:37.736Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:42:37.738Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:42:37.738Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645adafc1ae589b42be797c0"
+  },
+  "usernameB": "Amen Allah",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "100💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T23:45:00.080Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:45:00.081Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:45:00.081Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645adb161ae589b42be79822"
+  },
+  "usernameB": "Amen Allah",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "5000💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T23:45:26.736Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:45:26.737Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:45:26.737Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645adb2b1ae589b42be79854"
+  },
+  "usernameB": "Amen Allah",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "10000💸 best project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T23:45:47.023Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:45:47.024Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:45:47.024Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645adb421ae589b42be79888"
+  },
+  "usernameB": "Amen Allah",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "300000💸 great",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T23:46:10.334Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:46:10.335Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:46:10.335Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645adb591ae589b42be798d4"
+  },
+  "usernameB": "Amen Allah",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "3200💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T23:46:33.811Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:46:33.812Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:46:33.812Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645adb6b1ae589b42be798f3"
+  },
+  "usernameB": "Amen Allah",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "20000💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T23:46:51.516Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:46:51.517Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:46:51.517Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645adc001ae589b42be79942"
+  },
+  "usernameB": "Amen Allah",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": "la construction de barrages hydroélectriques, la production de produits chimiques dangereux ou la construction de bâtiments à haute consommation d'énergie sans recours à des sources d'énergie renouvelable.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T23:49:20.887Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:49:20.889Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:49:20.889Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645adc6a1ae589b42be799c9"
+  },
+  "usernameB": "Amen Allah",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": "la mise en place de programmes de recyclage et de compostage, la promotion des transports en commun ou des véhicules électriques pour réduire les émissions de gaz à effet de serre, ou encore la restauration des habitats naturels tels que les zones humides ou les forêts pour protéger la biodiversité et préserver les écosystèmes.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-09T23:51:06.411Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:51:06.412Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:51:06.412Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645adf7504aade75e142afe8"
+  },
+  "usernameB": "Amen Allah",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": "La production de plastiques nécessite l'extraction de grandes quantités de matières premières, telles que le pétrole ou le gaz naturel, qui peuvent causer la destruction d'habitats naturels, la perte de biodiversité et la dégradation de l'environnement. Les usines de production de plastiques peuvent également générer des déchets dangereux et polluants qui peuvent contaminer les sols et les eaux souterraines.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:04:05.738Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:04:05.739Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:04:05.739Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae04604aade75e142b056"
+  },
+  "usernameB": "Aziz Ben Hmida",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": "La production d'électricité à partir de charbon est considérée comme l'une des sources d'énergie les plus polluantes, car elle génère des émissions de dioxyde de carbone, d'oxydes de soufre, de monoxyde de carbone, de particules fines et d'autres polluants atmosphériques. Ces émissions peuvent contribuer à la détérioration de la qualité de l'air, à la pollution de l'eau et à la dégradation de l'environnement.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:07:34.763Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:07:34.764Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:07:34.764Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae0f104aade75e142b09f"
+  },
+  "usernameB": "Aziz Ben Hmida",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": "L'énergie solaire est une source d'énergie renouvelable et propre qui ne produit pas d'émissions de gaz à effet de serre ou d'autres polluants atmosphériques. L'installation de panneaux solaires sur un toit permettrait de produire de l'électricité à partir de cette source d'énergie renouvelable et de réduire ainsi la dépendance aux combustibles fossiles, tout en réduisant les émissions de gaz à effet de serre.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:10:25.492Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:10:25.493Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:10:25.493Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae17804aade75e142b15d"
+  },
+  "usernameB": "Aziz Ben Hmida",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": " usines chimiques peuvent avoir des effets néfastes sur l'environnement et les communautés locales. Les produits chimiques utilisés dans la production peuvent se répandre dans l'air et l'eau, causant des dommages à la faune, la flore et la qualité de l'air et de l'eau. Les déchets de l'usine peuvent également contaminer les sols et les eaux souterraines, entraînant une pollution à long terme.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:12:40.674Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:12:40.675Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:12:40.675Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae31204aade75e142b3ed"
+  },
+  "usernameB": "Aziz Ben Hmida",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": "système de traitement des eaux usées avec une approche de traitement biologique. Les systèmes de traitement biologique utilisent des micro-organismes pour décomposer les polluants organiques présents dans les eaux usées, ce qui permet de nettoyer l'eau avant de la retourner dans l'environnement.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:19:30.798Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:19:30.799Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:19:30.799Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae3d204aade75e142b4a6"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": " la construction d'un système de transport en commun efficace et respectueux de l'environnement, tel qu'un réseau de tramways électriques. Les tramways électriques sont des véhicules de transport en commun qui fonctionnent à l'électricité plutôt qu'à des combustibles fossiles, ce qui les rend plus propres et plus écologiques que les voitures individuelles ou les autobus diesel.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:22:42.554Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:22:42.555Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:22:42.555Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae41c04aade75e142b4f7"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "300💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:23:56.994Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:23:56.994Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:23:56.994Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae42904aade75e142b539"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "500💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:24:09.653Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:24:09.654Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:24:09.654Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae42a04aade75e142b546"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "500💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:24:10.235Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:24:10.236Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:24:10.236Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae43604aade75e142b588"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "230💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:24:22.984Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:24:22.985Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:24:22.985Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae44b04aade75e142b5de"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "1200💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:24:43.473Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:24:43.474Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:24:43.474Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae45804aade75e142b5fd"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "2530💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:24:56.483Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:24:56.484Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:24:56.484Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae46b04aade75e142b61c"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "2350💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:25:15.578Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:25:15.579Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:25:15.579Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae50104aade75e142b687"
+  },
+  "usernameB": "AzizBenismail",
+  "badgeName": "NEW PROJECT",
+  "badgeDescription": "Awarded to successful project leader for their leadership and teamwork..",
+  "badgeImg": "project.png",
+  "details": "la création d'un parc solaire pour la production d'énergie renouvelable. Un parc solaire est un système de panneaux solaires installés sur une surface plane et exposée au soleil, qui convertit l'énergie solaire en électricité. Ce type de projet est souvent mis en œuvre dans les régions où il y a une forte exposition au soleil et où la production d'énergie à partir de sources renouvelables est encouragée.",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:27:45.369Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:27:45.371Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:27:45.371Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae52304aade75e142b6b2"
+  },
+  "usernameB": "Aziz Ben Hmida",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "320💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:28:19.914Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:28:19.914Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:28:19.914Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae52f04aade75e142b6d7"
+  },
+  "usernameB": "Aziz Ben Hmida",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "23500💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:28:31.454Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:28:31.455Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:28:31.455Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae54104aade75e142b6f6"
+  },
+  "usernameB": "Aziz Ben Hmida",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "54320💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:28:49.023Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:28:49.023Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:28:49.023Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae5df04aade75e142b7d6"
+  },
+  "usernameB": "Aziz Ben Hmida",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "2350💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:31:27.060Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:31:27.060Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:31:27.060Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae5f204aade75e142b7f5"
+  },
+  "usernameB": "Aziz Ben Hmida",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "5620💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:31:46.325Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:31:46.325Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:31:46.325Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae63e04aade75e142b84a"
+  },
+  "usernameB": "Aziz Ben Hmida",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "4560💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:33:02.649Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:33:02.650Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:33:02.650Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae6d104aade75e142b8c9"
+  },
+  "usernameB": "AzizCharada",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "23500💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:35:29.900Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:35:29.900Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:35:29.900Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae6e404aade75e142b8ee"
+  },
+  "usernameB": "AzizCharada",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "2💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:35:48.339Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:35:48.340Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:35:48.340Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae75204aade75e142b96e"
+  },
+  "usernameB": "AzizCharada",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "250💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:37:38.477Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:37:38.479Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:37:38.479Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae76204aade75e142b98d"
+  },
+  "usernameB": "AzizCharada",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "2530💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:37:54.011Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:37:54.012Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:37:54.012Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae77304aade75e142b9ac"
+  },
+  "usernameB": "AzizCharada",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "20💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:38:11.867Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:38:11.868Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:38:11.868Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae7f804aade75e142ba2a"
+  },
+  "usernameB": "AzizCharada",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "7520💸 Best Project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:40:24.457Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:40:24.458Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:40:24.458Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645ae81d04aade75e142ba5c"
+  },
+  "usernameB": "Oumaima Touil",
+  "badgeName": "NEW INVEST",
+  "badgeDescription": "Given to those who invest significantly in a project, showing their commitment and support towards its success..",
+  "badgeImg": "invest.png",
+  "details": "320💸 good project",
+  "etat": false,
+  "vu": false,
+  "date": {
+    "$date": "2023-05-10T00:41:01.009Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-10T00:41:01.009Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T00:41:01.009Z"
   },
   "__v": 0
 }]

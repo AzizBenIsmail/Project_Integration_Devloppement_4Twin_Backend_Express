@@ -50,7 +50,7 @@ mongoose
   .connect(process.env.URL_MONGO, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-//    connectTimeoutMS: 60000 // 30 secondes de timeout
+   //connectTimeoutMS: 60000 // 30 secondes de timeout
 
   })
   .then(() => {
@@ -74,6 +74,7 @@ var recruitmentRouter = require("./routes/recruit.js");
 var evaluationsRouter = require("./routes/evaluations");
 var badgesRouter = require("./routes/badges");
 var btypeRouter = require("./routes/btype");//charrada
+const { censorBadWords } = require("./middlewares/badword.js");
 
 const corsOptions = {
   origin: "*",
@@ -102,6 +103,9 @@ app.use("/recruit", recruitmentRouter);
 app.use("/evaluations", evaluationsRouter);
 app.use("/badges", badgesRouter);
 app.use("/btype", btypeRouter);
+
+
+
 
 
 // catch 404 and forward to error handler
@@ -278,15 +282,19 @@ const removeOnlineUser = (id) => {
   console.log(onlineUsers);
 };
 
-const chatMessageHandler = (socket, data) => {
-  const { receiverSocketId, content, id, userid, username } = data;
+const chatMessageHandler = async (socket, data) => {
+  let { receiverSocketId, content, id, userid, username } = data;
 
   ChatController.addMes(userid, username, content);
   if (onlineUsers[receiverSocketId]) {
     console.log("message received");
     console.log("sending message to other user received");
+    
+  content = await censorBadWords(content);
 
-    io.to(receiverSocketId).emit("chat-message", {
+
+    
+    await io.to(receiverSocketId).emit("chat-message", {
       senderSocketId: socket.id,
       content,
       id,

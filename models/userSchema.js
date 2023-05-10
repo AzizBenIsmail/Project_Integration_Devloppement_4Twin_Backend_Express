@@ -10,10 +10,12 @@ const userSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     default: mongoose.Types.ObjectId,
   },
-   appliedOffers:[{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "JobOffer",
-  }],
+  appliedOffers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "JobOffer",
+    },
+  ],
   username: String, //unique
   first_Name: String, //min4 max 10
   last_Name: String, //min4 max 10
@@ -25,7 +27,7 @@ const userSchema = new Schema({
   enabled: Boolean, //
   dateOfBirth: Date, //You must be at least 18 years old
   phoneNumber: String, //length 8
-  phoneNumber1: String, 
+  phoneNumber1: String,
   gender: String, //oneof (['Male', 'Female', 'Other'])
   userType: String, //oneof (['admin', 'regular', 'fablab'])
   address: String, //min 5 max 15
@@ -36,8 +38,14 @@ const userSchema = new Schema({
     required: true,
     default: false,
   },
-  projects: [{type: mongoose.Schema.Types.ObjectId, ref: 'Project',required: false,}], // one to many relationship a user can have multiple projects
-  invests: [{type: mongoose.Schema.Types.ObjectId, ref: 'Invest',required: false,}], // one to many relationship a user can have multiple Invest
+  projects: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: false },
+  ], // one to many relationship a user can have multiple projects
+  invests: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Invest", required: false },
+  ], // one to many relationship a user can have multiple Invest
+  inappropriateBehaviorCount: Number,
+  favColor:String,
 });
 
 userSchema.methods.generateVerificationToken = function () {
@@ -54,21 +62,22 @@ userSchema.pre("save", function (next) {
   const user = this;
   userSchema.plugin(findOrCreate);
 
-  user.enabled = true;
   user.created_at = new Date();
   user.updated_at = new Date();
-  if (!user.isModified("password")) {
+
+  if (!user.isModified('password')) {
     return next();
   }
+
   bcrypt.hash(user.password, 10, function (err, hash) {
     if (err) {
       return next(err);
     }
+
     user.password = hash;
     next();
   });
 });
-
 
 const User = mongoose.model("User", userSchema);
 
