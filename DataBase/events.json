@@ -1,0 +1,53 @@
+[{
+  "_id": {
+    "$oid": "645accfc1ae589b42be78c46"
+  },
+  "title": "Hakaton",
+  "description": "Un hackathon, marathon de programmation ou programmathon est un événement durant lequel des groupes de développeurs volontaires se réunissent pendant une période de temps donnée afin de travailler sur des projets de programmation informatique de manière collaborative.",
+  "start_date": {
+    "$date": "2023-05-22T00:00:00.000Z"
+  },
+  "end_date": {
+    "$date": "2023-05-25T00:00:00.000Z"
+  },
+  "event_img": "Hakaton+cropped.jpg",
+  "state": true,
+  "creator": {
+    "$oid": "645acb931ae589b42be78b75"
+  },
+  "participants": [],
+  "interestedUsers": [],
+  "createdAt": {
+    "$date": "2023-05-09T22:45:16.083Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T22:45:16.083Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645acdb31ae589b42be78caa"
+  },
+  "title": "Train the trainers",
+  "description": "Nous sommes ravis d'annoncer que le workshop 'train the trainers' de construction des machines se tiendra la semaine prochaine, du 22 au 25 mars, au sein de notre local à l' Ecole Nationale d'Ingénieurs de Tunis المدرسة الوطنية للمهندسين بتونس.  Cet événement réunira non seulement nos makers, mais également des professeurs et des étudiants de la Helmut-Schmidt-Universität/Universität der Bundeswehr Hamburg, du technopark Pôle de Compétitivité Monastir-El Fejja  ( mfcpole )  de l' Ecole Nationale",
+  "start_date": {
+    "$date": "2023-05-26T00:00:00.000Z"
+  },
+  "end_date": {
+    "$date": "2023-05-31T00:00:00.000Z"
+  },
+  "event_img": "Train the trainers+cropped.jpg",
+  "state": true,
+  "creator": {
+    "$oid": "645acb931ae589b42be78b75"
+  },
+  "participants": [],
+  "interestedUsers": [],
+  "createdAt": {
+    "$date": "2023-05-09T22:48:19.868Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T22:48:19.868Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "645ad2071ae589b42be790ee"
+  },
+  "badgeName": "New Account",
+  "badgeDescription": "Account creation",
+  "badgeImg": "new.png",
+  "date": {
+    "$date": "2023-05-09T23:06:47.217Z"
+  },
+  "createdAt": {
+    "$date": "2023-05-09T23:06:47.217Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T23:06:47.217Z"
+  },
+  "__v": 0
+}]
