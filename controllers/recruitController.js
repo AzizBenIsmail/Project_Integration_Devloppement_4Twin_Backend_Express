@@ -216,7 +216,7 @@ const getApplications = async (req, res) => {
             {
               $set: {
                 score: totalScore,
-                sentimentScore: sentimentResult,
+                sentimentScore: isNaN(sentimentResult) ? 0 : sentimentResult,
               },
             },
             { new: true }
