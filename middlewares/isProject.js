@@ -1,8 +1,8 @@
 const nlp = require("natural");
-const { WordTokenizer, PorterStemmer } = nlp;
+const { TreebankWordTokenizer, PorterStemmer } = nlp;
 
 async function isProjectEcological(description) {
-  const tokenizer = new WordTokenizer();
+  const tokenizer = new TreebankWordTokenizer();
   const stemmer = PorterStemmer;
 
   const classifier = new nlp.LogisticRegressionClassifier();
@@ -3234,6 +3234,26 @@ classifier.addDocument(
 
   classifier.addDocument(
     "Favorise l'utilisation de véhicules à essence et ne propose pas d'alternatives écologiques",
+    "non-écologique"
+  );
+  classifier.addDocument(
+    "Recycler les déchets plastiques pour les transformer en nouveaux produits",
+    "écologique"
+  );
+  classifier.addDocument(
+    "Collecter les déchets alimentaires pour les composter",
+    "écologique"
+  );
+  classifier.addDocument(
+    "Mettre en place des programmes de recyclage pour les communautés locales",
+    "écologique"
+  );
+  classifier.addDocument(
+    "produits chimiques dangereux",
+    "non-écologique"
+  );
+  classifier.addDocument(
+    "la construction de bâtiments à haute consommation d'énergie",
     "non-écologique"
   );
 

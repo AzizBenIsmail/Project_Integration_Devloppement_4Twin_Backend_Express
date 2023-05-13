@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const User=require("./userSchema");
+const Application = require("./applicationSchema");
 
 const jobOfferSchema = new Schema({
   
@@ -14,9 +15,9 @@ const jobOfferSchema = new Schema({
       ref: 'User',
       required: true
     },
-    candidates: [{
+    applications: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'Application'
     }]
   },{timestamps : true }
   );

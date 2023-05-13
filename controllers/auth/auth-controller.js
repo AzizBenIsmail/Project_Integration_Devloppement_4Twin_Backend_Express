@@ -36,7 +36,9 @@ class AuthController {
         async function verify(email, password, cb) {
           const user = await User.findOne({ email });
 
+
           if (!user) {
+   
             return cb(null, false, {
               message: "Incorrect username or password.",
             });
@@ -45,6 +47,13 @@ class AuthController {
           if (!(await bcrypt.compare(password, user.password))) {
             return cb(null, false, {
               message: "Incorrect username or password.",
+            });
+          }
+
+
+          if(!user.enabled){
+            return cb(null, false, {
+              message: "User is disabled , contact support at greenfound@gmail.com for more information",
             });
           }
 
@@ -63,14 +72,31 @@ class AuthController {
           .status(401)
           .json({ message: "Incorrect username or password" });
       }
+
+      
+      if (user?.inappropriateBehaviorCount && user.inappropriateBehaviorCount > 4) {
+    
+        console.log("Incorrect username or password");
+        return res
+          .status(401)
+          .json({ message: "User is disabled , contact support at greencroud@gmail.com for more information" });
+
+  }
+
       console.log("User successfully authenticated");
+
       const session = {
         _id: user._id,
         name: user.name,
         email: user.email,
         userType: user.userType,
+        im:user.image_user,
+        username: user.username,
+        favColor:user.favColor
       };
-
+if (user.inappropriateBehaviorCount) {
+  session.inappropriateBehaviorCount = user.inappropriateBehaviorCount;
+}
       const token = await jwt.sign(session, process.env.JWT_SECRET, {
         expiresIn: "20h",
       });
@@ -234,6 +260,8 @@ class AuthController {
     try {
       //evaluation
       user.userType = "user";
+      user.enabled = true;
+      user.favColor="#0084FF"
       await user.save();
 
       console.log("User successfully authenticated");
@@ -242,6 +270,9 @@ class AuthController {
         name: user.name,
         email: user.email,
         userType: user.userType,
+        im:user.image_user,
+        username: user.username,
+        favColor:user.favColor
       };
       console.log("User successfully authenticated");
       console.log("User successfully authenticated");
@@ -260,6 +291,7 @@ class AuthController {
           usernameE: username,
           xp: 20,
           lvl: 1,
+          
         });
         const addedEvaluation = await evaluation.save();
        // res.status(200).json(addedEvaluation);
@@ -271,9 +303,13 @@ class AuthController {
         //badges
         const badge = new BadgesModel({
           usernameB: username,
-          badgeName: "Account Creation",
+          badgeName: "ACCOUNT CREATION",
           badgeDescription: "Awarded to new members for successfully creating an account and committing to the community..",
           badgeImg: "new.png",
+          etat:true,
+          vu:false
+          ,
+
           evaluation: addedEvaluation._id, // reference to the evaluation
         });
         const addedBadge = await badge.save();

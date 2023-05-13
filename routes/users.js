@@ -6,6 +6,7 @@ const auth= require("../middlewares/auth");
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
 var router = express.Router();
+
 const {
   getUsers,
   getUser,
@@ -32,7 +33,35 @@ router.delete("/:id", deleteUser);
 router.post("/login", AuthController.login);
 router.post("/register",upload.single("image_user"),Register,AuthController.register);
 router.get("/logout", AuthController.logout);
+router.get("/projects/:id",(req,res,next)=>{
+  const {id} =  req.params; // Replace with the actual user ID
+      User.findById(id)
+        .populate({
+          path: 'invests',
+          populate: [
+            {
+              path: 'project',
+              model: 'Project',
+            },
+            {
+              path: 'project.creator',
+              model: 'User',
+            },
+          ],
+        })
+        .exec((err, user) => {
+          if (err) {
+            res.status(500).json({message : err.message});
 
+          } else {
+            const projects = user.invests.map(invest => invest.project);
+            console.log('Projects invested by the user:', projects);
+            res.status(200).json({projects})
+          }
+        });
+      
+
+})
 //forgot password
 router.post("/forgotpwd", forgotpwd);
 

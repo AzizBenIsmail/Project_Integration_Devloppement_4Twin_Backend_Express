@@ -12,6 +12,8 @@ const addEvent = async(req,res,next) => {
         const event = new eventModel({title,description,start_date, end_date,creator,event_img:filename,state:"true"});
         const addedEvent = await event.save();
         res.status(200).json(addedEvent);
+
+        
     } catch (error) {
         res.status(500).json({message:error.message});
     }

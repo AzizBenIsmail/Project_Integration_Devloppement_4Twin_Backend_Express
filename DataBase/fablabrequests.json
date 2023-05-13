@@ -1,0 +1,23 @@
+[{
+  "_id": {
+    "$oid": "645abfb4f17349debefc698c"
+  },
+  "fablabName": "FabLab ENIT",
+  "fablabEmail": "touiloumayma2017@gmail.com",
+  "dateOfCreation": {
+    "$date": "2010-02-02T00:00:00.000Z"
+  },
+  "phoneNumber": "+216 55 447 400",
+  "address": "rue Béchir Salem Belkhiria, Tunis, Tunisia, 1002",
+  "fablbLogo": "FabLab ENIT+cropped.jpg",
+  "description": "It is an open space, available to any student wishing to manufacture products, regardless of its expertise and technical and scientific expertise. The purpose of creating such a space in ENIT is to democratize digital and personal fabrication, encourage individual creativity, provide students with simple means of manufacturing and products development, help small businesses, freshly graduated engineers and support their development. The FabLab is established thanks to the European Tempus",
+  "is_treated": true,
+  "createdAt": {
+    "$date": "2023-05-09T21:48:36.981Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-09T22:39:17.233Z"
+  },
+  "__v": 0,
+  "is_accepted": true
+}]
