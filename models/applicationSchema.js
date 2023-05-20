@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { number } = require("yup");
 const Schema = mongoose.Schema;
 
 const applicationSchema = new Schema(
@@ -21,7 +22,11 @@ const applicationSchema = new Schema(
 
     adresse: { type: String, required: true },
 
-    resume: { type: String },
+    resume: { type: String, required: true  },  
+
+    score: { type: Number},
+
+    sentimentScore: { type: Number},
   },
   { timestamps: true }
 );
