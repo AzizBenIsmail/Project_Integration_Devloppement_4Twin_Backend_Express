@@ -14,7 +14,6 @@ En résumé, notre projet de crowdfunding pour des projets 100% écologiques ave
 # express Exam
 # confihuration de l'aplication
 Supresion de la partie graphique (twig)
-
 # npm i --save mongoose
 configuration du mongoose
 
